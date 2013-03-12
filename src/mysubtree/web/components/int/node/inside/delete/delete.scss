@@ -1,0 +1,33 @@
+// Delete
+
+.delete, .restore {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    &:after { content: "\a0 "; }
+    &:hover, &:focus {
+        opacity: 1;
+    }
+    opacity: 0.5;
+/*     visibility: hidden; */
+}
+.node-top:hover > .node-info {
+    & > .delete, & > .restore {
+        visibility: visible;
+    }
+}
+
+.delete {
+    sprite(ext/famfamfam/20x20/desaturated/icons/bin_closed.png);
+    /*&:hover, &:focus {
+        sprite(ext/famfamfam/20x20/icons/bin_closed.png);
+    }*/
+}
+
+.restore {
+    sprite(ext/famfamfam/20x20/desaturated/icons/bin.png);
+    /*&:hover, &:focus {
+        sprite(ext/famfamfam/20x20/icons/bin.png);
+    }*/
+}

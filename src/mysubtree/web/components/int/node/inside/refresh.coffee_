@@ -1,0 +1,17 @@
+#= require common
+#= require permalink/permalink
+#= require branching/branching
+
+utils = window.utils
+
+Node.prototype.refreshInside = (callback) ->
+    href = this.permalinkHref()
+    utils.ajax(this.inside().$, href, (inside) ->
+        node = new Node(inside)
+        type = node.typeContainer().nodelist().getOpenedType()
+        if type
+            node.switchType(type) # because after refresh, all types are seemingly collapsed
+        if typeof(callback) == "function"
+            callback(inside)
+    )
+

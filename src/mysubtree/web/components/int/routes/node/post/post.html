@@ -1,0 +1,33 @@
+{% if not g.is_ajax %}
+    {%- extends "int/layout/layout.html" -%}
+    {%- block title -%}
+        {{ _("Add to") }} {{ node.short_name()|__ }}
+    {%- endblock -%}
+{% endif %}
+
+
+{%- block body -%}
+    {% from "int/macros/forms.html" import form_fields_horizontal with context %}
+    
+    {% if g.is_ajax %}
+        <span id='pin-button' title="{{ _('keep this form open') }}"></span>
+        <span id="close-button" title="{{ _('close') }}">×</span>
+    {% endif %}
+    
+    <div class="page-header">
+        <h1>{{ _("Add to") }} {{ node.short_name()|__ }}</h1>
+    </div>
+    
+    {% for type in types %}
+        <h3>{{ get_model(type).str_new_type() }}</h3>
+        <form class="well form-inline {{ 'add-submit' if g.is_ajax }}" action="{{ url_for('post', nparent=nparent, nid=nid, slug=slug, type=type) }}" method="POST" enctype="multipart/form-data">
+            {{ form_fields_horizontal(forms[type]) }}
+            <button type="submit" class="btn" name="attach">{{ get_model(type).str_attach_type() }}</button>
+        </form>
+    {% endfor %}
+    
+    {% if get_back_url() %}
+        <a href="{{ get_back_url() }}" class="{{ action }}-cancel cancel">{{ _("back") }}</a>
+    {% endif %}
+    
+{%- endblock -%}

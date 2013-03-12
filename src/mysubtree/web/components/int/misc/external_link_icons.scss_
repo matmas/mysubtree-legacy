@@ -1,0 +1,10 @@
+a[href^="http://"], a[href^="https://"] {
+    &:after {
+        margin-left: 2px;
+        content: "\a0 ";
+        sprite(ext/famfamfam/icons/link.png);
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+}

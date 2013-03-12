@@ -1,0 +1,14 @@
+{% if not g.is_ajax %}
+    {%- extends "int/layout/layout.html" -%}
+    {%- block title -%}
+        {{ _("Editing help") }}
+    {%- endblock -%}
+{% endif %}
+
+
+
+{%- block body -%}
+    <h1>{{ _("Editing help") }}</h1>
+    
+    {{ _("See the Wikipedia entry on") }} <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>
+{%- endblock -%}

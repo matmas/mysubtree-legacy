@@ -1,0 +1,44 @@
+#= require common
+#= require int/node/inside/handle_response
+#= require int/node/inside/branching/branching
+
+utils = window.utils
+
+$(document).on("click", "a.edit", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    node.$.trigger("editing-start")
+    link = this
+    inline_editor = $("<span></span>").addClass("edit-inline-editor").insertAfter(node.inside().body().$) # must be visible from start because of the wmd editor
+    utils.ajax(inline_editor, link.href, ->
+        node.inside().body().$.hide()
+    )
+)
+
+$(document).on("click", ".edit-cancel", (event) ->
+    node = new Node(this)
+    if node.exists()
+        event.preventDefault()
+        node.$.trigger("editing-stop")
+        link = this
+        
+        $(".edit-inline-editor", node.$).remove()
+        node.inside().body().$.show()
+)
+
+$(document).on("submit", "form[name=edit]", (event) ->
+    node = new Node(this)
+    if node.exists()
+        event.preventDefault()
+        node.$.trigger("editing-stop")
+        form = this
+        $.ajax({
+            type: "POST",
+            url: form.action,
+            data: $(form).serialize(),
+            success: (response) ->
+                handle_response(response)
+                node.switchType("edit-suggestions")
+        })
+)
+ 

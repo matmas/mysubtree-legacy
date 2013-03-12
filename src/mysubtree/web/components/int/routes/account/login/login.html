@@ -1,0 +1,27 @@
+{%- extends "int/layout/layout.html" -%}
+{% from "int/macros/forms.html" import form_fields_horizontal with context %}
+
+{%- block title -%}
+    {{ _("Log in") }}
+{%- endblock -%}
+
+
+{%- block body -%}
+    <h2>{{ _("Log in") }}</h2>
+    <form class="form-horizontal" action="{{ url_for('login', lang=lang) }}" method="post">
+        {{ form_fields_horizontal(form) }}
+        
+        <div class="controls">
+            <button type="submit" class="btn">{{ _('Log in') }}</button>
+        </div>
+    </form>
+
+    <p>
+        <a href="{{ url_for('forgot', lang=lang) }}">{{ _("Forgot password?") }} &raquo;</a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('create_account', lang=lang) }}"><b>{{ _("Create account") }}</b> &raquo;</a>
+    </p>
+
+{%- endblock -%}

@@ -1,0 +1,68 @@
+// Sort
+
+@import "int/consts";
+
+$border_width: 2px;
+
+ul.sort {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 80%;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul.sort li {
+    display: inline;
+    color: gray;
+    a {
+        display: inline-block;
+        padding: 0.5ex;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px rgba(255, 255, 255, .5);
+        
+        &:hover {
+            text-decoration: underline;
+            &.current-sort {
+                text-decoration: none;
+            }
+        }
+        
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        color: gray;
+        
+        border: $border_width solid #ddd;
+        margin: 0px 1px 0px 1px;
+        
+        background-color: #ddd;
+        
+        border-radius: 2ex;
+        
+        &.current-sort {
+            border: $border_width solid $border_color;
+//             border-bottom: $border_width solid white;
+            
+            
+            
+            
+//             font-weight: bold;
+            background-color: white;
+            
+            position: relative;
+//             z-index: 1;
+        }
+        
+        @media print {
+            display: none;
+            
+            &.current-sort {
+                display: inline;
+                text-decoration: none;
+            }
+        }
+        
+    }
+}
+

@@ -1,0 +1,102 @@
+// Branching
+
+.branch {
+/*     color: gray; */
+}
+
+.branching .branch {
+    display: inline-block;
+    padding-top: 0.5ex;
+    padding-bottom: 0.5ex;
+}
+
+.branch.expanded {
+    font-weight: bold;
+    
+    &.fill, &.fill2  {
+        border-radius: 1em;
+        padding-bottom: 1em;
+        
+        position: relative;
+        &:after {
+            content: "\25b2"; // Up-pointing triangle
+            font-size: 1.9em;
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        &.fill:after {
+            color: #eee;
+            @media only screen and (max-width: 480px) { // NOTE: the same as in nodes.scss
+                color: gray;
+            }
+        }
+        &.fill2:after {
+            color: white;
+            @media only screen and (max-width: 480px) { // NOTE: the same as in nodes.scss
+                color: gray;
+            }
+        }
+    }
+}
+
+//=== Auxiliary ================================================================
+.auxiliary {
+    float: right;
+    .branch {
+/*         visibility: hidden; */
+        opacity: 0.5;
+    }
+}
+
+.branching:hover {
+    .auxiliary .branch {
+        visibility: visible;
+    }
+}
+
+.auxiliary {
+    .branch:hover, .branch.expanded {
+        opacity: 1;
+    }
+    .branch.expanded {
+        visibility: visible;
+    }
+}
+//==============================================================================
+// .type-container > .nodes-container > .node-list {
+.type-container {
+    background-color: white;
+}
+// .type-container.fill > .nodes-container > .node-list {
+.type-container.fill {
+    background-color: #eee;
+}
+
+.type {
+    .icon {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        padding-right: 4px;
+        &:after { content: "\a0 "; } // Align to line height
+    }
+}
+
+.root              .icon { sprite(ext/famfamfam/desaturated/icons/drive.png); }
+.items             .icon { sprite(ext/famfamfam/desaturated/icons/folder.png); }
+.comments          .icon { sprite(ext/famfamfam/desaturated/icons/comment.png); }
+.votes             .icon { sprite(ext/famfamfam/desaturated/icons/thumb_up.png); }
+.users             .icon { sprite(ext/famfamfam/desaturated/icons/user.png); }
+.creations         .icon { sprite(ext/famfamfam/desaturated/icons/user_comment.png); }
+.responses         .icon { sprite(ext/famfamfam/desaturated/icons/group_edit.png); }
+.related           .icon { sprite(ext/famfamfam/desaturated/icons/group_link.png); }
+.versions          .icon { sprite(ext/famfamfam/desaturated/icons/pencil.png); }
+.edit-suggestions  .icon { sprite(ext/famfamfam/desaturated/icons/pencil_add.png); }
+.icons             .icon { sprite(ext/famfamfam/desaturated/icons/picture.png); }
+.permalink.icons   .icon { sprite(ext/famfamfam/desaturated/icons/folder.png); }
+.trash             .icon { sprite(ext/famfamfam/desaturated/icons/bin_closed.png); }
+.log-entries       .icon { sprite(ext/famfamfam/desaturated/icons/script.png); }
+.languages         .icon { sprite(ext/famfamfam/desaturated/icons/world.png); }

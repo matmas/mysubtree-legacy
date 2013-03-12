@@ -1,0 +1,25 @@
+{%- extends "int/layout/layout.html" -%}
+
+{%- block title -%}
+    {{ node.short_name()|__ }}
+{%- endblock -%}
+
+{%- block html_head -%}
+    {{ super() }}
+    <link rel="canonical" href="{{ canonical_url }}"/>
+{%- endblock -%}
+
+
+{%- block body -%}
+    {%- include "activity_highlighter/_activity_highlighter.html" -%}
+    
+{# <!--    <form action="{{ url_for('actions') }}" method="POST"> --> #}
+
+        <div class="all-nodes">
+            <table class="nodes">
+                {{ node_html }}
+            </table>
+        </div>
+
+{#<!--    </form> --> #}
+{%- endblock -%}

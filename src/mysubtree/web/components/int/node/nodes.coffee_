@@ -1,0 +1,15 @@
+#= require common
+
+utils = window.utils
+
+$(document).on("click", "a.ajax", (event) ->
+    event.preventDefault()
+    nodelist = new Nodelist(this)
+    utils.ajax(nodelist.$, $(this).attr("href"))
+    
+    node = new Node(this)
+    if history and history.replaceState
+        if not node.parentNode().exists()
+            url = this.href
+            history.replaceState(null, null, url)
+)

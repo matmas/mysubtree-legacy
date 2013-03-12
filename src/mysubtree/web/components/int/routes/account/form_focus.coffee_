@@ -1,0 +1,7 @@
+#= require int/misc/utils/utils
+
+utils = window.utils
+
+$(document).ready( ->
+    utils.focus_form()
+)

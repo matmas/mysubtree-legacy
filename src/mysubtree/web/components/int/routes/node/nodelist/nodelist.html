@@ -1,0 +1,14 @@
+{%- extends "int/layout/layout.html" -%}
+
+{%- block title -%}
+    {{ name.capitalize() }}
+{%- endblock -%}
+
+{%- block body -%}
+    <h1>{{ name.capitalize() }}</h1>
+    <div class="all-nodes">
+        <div class="nodelist">
+            {{ nodes_html }}
+        </div>
+    </div>
+{%- endblock -%}

@@ -1,0 +1,103 @@
+#= require common
+#= require int/node/inside/inside
+#= require int/node/inside/handle_response
+#= require int/node/inside/permalink/permalink
+
+utils = window.utils
+
+enableNodeDragging = ->
+    handleSelector = ".inside-inside"
+    $(handleSelector).draggable({
+        handle: "a.move",
+        helper: "clone",
+        revert: "invalid",
+        revertDuration: 0,
+        start: (event, ui) ->
+            moving_node = new Node(this)
+            window.moving_node = moving_node
+            activate_paste($(document))
+        stop: (event, ui) ->
+            deactivate_paste()
+    })
+    $("a.move").css({cursor: "move"})
+    $(".paste").droppable({
+        accept: handleSelector,
+        hoverClass: "drag-hover",
+        tolerance: "pointer",
+        drop: (event, ui) ->
+            node = new Node(this)
+            moving_node = deactivate_paste()
+            paste(node, moving_node)
+    })
+
+$(document).ready( ->
+    enableNodeDragging()
+)
+
+$(document).on("ajax", ->
+    enableNodeDragging()
+)
+
+$(document).on("click", "a.move", (event) ->
+    event.preventDefault()
+    moving_node = new Node(this)
+    
+    previous_moving_node = deactivate_paste()
+    
+    if previous_moving_node and previous_moving_node.$[0] == moving_node.$[0]
+        # user cancelled moving
+    else
+        window.moving_node = moving_node
+    
+    activate_paste($(document))
+)
+
+paste = (node, moving_node) ->
+    move_to_url = $(".paste", node.$).data("url") + "?moving_node_url=#{encodeURIComponent(moving_node.permalinkHref())}"
+    $.get(move_to_url, (response) ->
+        if not response.warning or confirm(response.warning)
+            $.ajax({
+                type: "POST",
+                url: move_to_url,
+                data: "csrf_token=#{csrf_token}",
+                success: (response) ->
+                    handle_response(response)
+            })
+    )
+
+
+$(document).on("click", ".paste", (event) ->
+    event.preventDefault();
+    node = new Node(this)
+    moving_node = deactivate_paste()
+    paste(node, moving_node)
+)
+
+activate_paste = (container) ->
+    if window.moving_node
+        window.moving_node.$.addClass("moving-node")
+        moving_node_type = window.moving_node.$.data("type")
+        $("body").addClass("moving-#{moving_node_type}")
+
+deactivate_paste = ->
+    if window.moving_node
+        previous_moving_node = window.moving_node
+        previous_moving_node_type = window.moving_node.$.data("type")
+        
+        window.moving_node.$.removeClass("moving-node")
+        $("body").removeClass("moving-#{previous_moving_node_type}")
+        
+        window.moving_node = null
+        return previous_moving_node
+
+$(document).on("click", ".delete", ->
+    if window.moving_node
+        deleting_node = new Node(this)
+        
+        if window.moving_node.$[0] == deleting_node.$[0]
+            deactivate_paste()
+)
+
+$(document).on("ajax", (event) ->
+    
+)

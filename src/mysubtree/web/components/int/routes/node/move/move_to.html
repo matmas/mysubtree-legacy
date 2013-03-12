@@ -1,0 +1,24 @@
+{% if not g.is_ajax %}
+    {%- extends "int/layout/layout.html" -%}
+    {%- block title -%}
+        {{ _("Move here") }} - {{ node.short_name()|__ }}
+    {%- endblock -%}
+{% endif %}
+
+{%- block body -%}
+    {% from "int/macros/forms.html" import form_fields with context %}
+    <form action="{{ url_for('move_to', nparent=node.nparent(), nid=node.nid()) }}" method="post" class="action">
+        {{ form_fields(form) }}
+        <button type="submit" class="btn btn-primary">{{ _('Move here') }}</button>
+    </form>
+    &nbsp;
+    <form action="{{ url_for('move_to', nparent=node.nparent(), nid=node.nid(), cancel=true) }}" method="post" class="action">
+        {{ form_fields(form) }}
+        <button type="submit" class="btn">{{ _('Cancel moving') }}</button>
+    </form>
+    &nbsp;
+    {% if get_back_url() %}
+        <a href="{{ get_back_url() }}" class="cancel">{{ _("back") }}</a>
+    {% endif %}
+    <br />
+{%- endblock -%} 

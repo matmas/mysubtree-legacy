@@ -1,0 +1,82 @@
+#= require common
+#= require int/node/inside/refresh
+#= require int/node/inside/branching/branching
+#= require int/node/node
+#= require int/node/inside/handle_response
+
+utils = window.utils
+
+initAddContainer = (addContainer) ->
+    utils.focus_form()
+    
+    # Close button:
+    $("#close-button").click( (event) ->
+        event.preventDefault()
+        addContainer.$.remove()
+    )
+    
+    # Pin button:
+    $("#pin-button").click( (event) ->
+        event.preventDefault()
+        addContainer.pinned = not addContainer.pinned
+        if $(this).hasClass("pinned")
+            $(this).removeClass("pinned")
+        else
+            $(this).addClass("pinned")
+        utils.focus_form()
+    )
+
+$(document).on("click", "a.add", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    $(".add-container").remove() # to ensure only one addContainer is open
+    addContainer = node.typeContainer().addContainer()
+    
+    node.switchType($(this).data("type"))
+    node.refreshNodes()
+    
+    utils.ajax(addContainer.$, this.href, ->
+        initAddContainer(addContainer)
+    )
+)
+
+$(document).on("click", "[type=submit]", (event) ->
+    $(this).parent("form").data("clicked-submit", this)
+)
+
+$(document).on("submit", "form.add-submit", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    addContainer = node.typeContainer().addContainer()
+    form = $(this)
+    submit = form.data("clicked-submit")
+    options = {
+        type: "POST",
+        url: form.attr("action"),
+        success: (response, textStatus, jqXHR) ->
+            if jqXHR.getResponseHeader('Content-Type') == null # error in iframe, assume html error response
+                utils.messageBox("", response)
+            else
+                if not response.error
+                    form[0].reset()
+                    if not $("#pin-button").hasClass("pinned")
+                        addContainer.$.remove() # close it only if not pinned
+                if response.html
+                    addContainer.$.html(response.html)
+                    initAddContainer(addContainer)
+                handle_response(response)
+    }
+    if $(":file", this).length
+        $.extend(options, {
+            data: [].concat(form.serializeArray(), [{name: submit.name, value: submit.value}]) #$(":input", this).filter(":not(:file)").serializeArray(),
+            processData: false,
+            iframe: true,
+            files: $(":file", this),
+#             dataType: "json",
+        })
+    else
+        $.extend(options, {
+            data: form.serialize() + "&#{submit.name}=#{escape(submit.value)}"
+        })
+    $.ajax(options)
+)

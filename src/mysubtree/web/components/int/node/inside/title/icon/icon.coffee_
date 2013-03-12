@@ -1,0 +1,47 @@
+#= require common
+#= require int/node/inside/handle_response
+
+utils = window.utils
+
+$(document).on("click", "a.seticon", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    link = this
+    editor = $("<div class='icon-editor'></div>")
+    utils.ajax(editor, link.href, ->
+        window.dialog = utils.messageBox(link.title, editor.html(), options={width: 390})
+    )
+)
+
+$(document).on("click", ".icon-cancel", (event) ->
+    if window.dialog
+        event.preventDefault()
+        window.dialog.dialog("close")
+)
+
+$(document).on("submit", "form[name=icon]", (event) ->
+    if window.dialog
+        event.preventDefault()
+        form = this
+        
+        $.ajax({
+            type: "POST",
+            url: form.action,
+#             data: $(form).serialize(),
+            success: (response, textStatus, jqXHR) ->
+                if jqXHR.getResponseHeader('Content-Type') == null # error in iframe, assume html error response
+                    utils.messageBox("", response)
+                else
+                    if not response.error
+                        window.dialog.dialog("close")
+                    if response.html
+                        window.dialog.html(response.html)
+                    handle_response(response)
+            
+            # iframe transport:
+            iframe: true,
+            files: $(":file", this),
+            data: $(form).serializeArray(),
+            processData: false,
+        })
+)

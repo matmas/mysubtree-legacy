@@ -1,0 +1,9 @@
+#!/bin/bash
+# . activate-enviroment
+export NODE_PATH="src"
+
+# With debugger:
+# node lib/reloader.js coffee --nodejs --debug live_server
+
+# Without debugger:
+node lib/reloader.js coffee live_server

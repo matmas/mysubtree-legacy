@@ -1,0 +1,80 @@
+//= require ext/google-code-prettify/prettify
+
+// body_text - user submittable data
+
+//==============================================================================
+
+// Expand -- Collapse
+
+.full-version {
+    display: none;
+}
+
+.more, .less {
+    color: gray;
+}
+.more {
+    padding-left: 1ex;
+}
+.less {
+    display: none; // will be uncovered with javascript
+    cursor: pointer;
+}
+//==============================================================================
+
+.text             > p:first-of-type, .text             > p.first-of-type,
+span#body-preview > p:first-of-type, span#body-preview > p.first-of-type {
+    margin-top: 0;
+}
+
+.text             > p:last-of-type, .text             > p.last-of-type,
+span#body-preview > p:last-of-type, span#body-preview > p.last-of-type {
+    display: inline; // allow edit button right after it
+}
+
+.clear-body {
+    clear: both;
+}
+
+//==============================================================================
+
+// Code
+
+$code-bg-color: #eeeeee;
+pre.prettyprint { // code in block
+    border: 0 solid transparent; // reset css introduced in google-code-prettify
+    background-color: $code-bg-color;
+    max-height: 600px;
+    overflow: auto;
+    margin-bottom: 1ex;
+}
+code { // inline code
+    background-color: $code-bg-color;
+    font-size: 90%;
+    font-family: Consolas,Menlo,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New",monospace,serif;
+}
+//------------------------------------------------------------------------------
+
+// Blockquote
+
+blockquote {
+    padding-left: 1ex;
+    border-left: 3px solid #ccc;
+}
+//------------------------------------------------------------------------------
+
+// Diff
+
+.diff {
+    white-space: pre-wrap;
+//     overflow: scroll;
+}
+ins {
+    text-decoration: none; // default is underline
+    background-color: #f6ff61; // Neon yellow
+//     background-color: #e6ffe6; // Light green
+}
+del {
+    background-color: #ffe6e6; // Light red
+}
+//==============================================================================

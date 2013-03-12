@@ -1,0 +1,19 @@
+#= require common
+#= require int/node/inside/handle_response
+
+utils = window.utils
+
+$(document).on("click", "a.accept", (event) ->
+    event.preventDefault()
+    node = new Node(this).parentNode()
+    link = this
+    
+    $.ajax({
+        type: "POST",
+        url: link.href,
+        data: "csrf_token=#{csrf_token}",
+        success: (response) ->
+            handle_response(response)
+    })
+)
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+{%- block html_head %}
+    {{ stylesheet_tag() }}
+    <link type="image/png" rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    {{ javascript_tag() }}
+    <meta name="viewport" content="width=device-width">
+    <title>{% block html_title %}{{ config.APP_NAME }}{% endblock %}</title>
+{%- endblock %}
+</head>
+<body>
+    {% block html_body %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+// Flag
+
+a.flag {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    text-indent: -9999px; // Hide text
+    &:after { content: "\a0 "; }
+    sprite(ext/famfamfam/20x20/desaturated/icons/flag_red.png);
+    opacity: 0.5;
+    
+    &.pressed {
+        sprite(ext/famfamfam/20x20/icons/flag_red.png);
+        opacity: 1;
+    }
+}
+
+a.flag.problematic {
+    sprite(ext/famfamfam/20x20/icons/flag_red.png);
+}

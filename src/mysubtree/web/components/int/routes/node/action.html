@@ -1,0 +1,31 @@
+{% if not g.is_ajax %}
+    {%- extends "int/layout/layout.html" -%}
+    {%- block title -%}
+        {% if title %}
+            {{ title }}
+        {% else %}
+            {{ action_name.capitalize() }} {{ node.short_name() }}
+        {% endif %}
+    {%- endblock -%}
+{% endif %}
+
+{%- block body -%}
+    {% if not g.is_ajax %}
+        {% if title %}
+            <h1>{{ title }}</h1>
+        {% else %}
+            <h1>{{ action_name.capitalize() }} {{ node.short_name() }}</h1>
+        {% endif %}
+    {% endif %}
+
+    {% from "int/macros/forms.html" import form_fields with context %}
+    <form class="form-inline action" action="{{ url_for(action, nparent=node.nparent(), nid=node.nid()) }}" method="post" name="{{ action }}" enctype="multipart/form-data">
+        {{ form_fields(form) }}
+        <button type="submit" class="btn {{ btn_class }}">{{ action_name.capitalize() }}</button>
+    </form>
+    &nbsp;
+    {% if get_back_url() %}
+        <a href="{{ get_back_url() }}" class="{{ action }}-cancel cancel">{{ _("back") }}</a>
+    {% endif %}
+    <br />
+{%- endblock -%} 

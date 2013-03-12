@@ -1,0 +1,42 @@
+// inside
+@import "int/consts";
+
+.node-top {
+    height: 1%; overflow: hidden; // Clear floats
+}
+
+$highlighted_border_width: 2px;
+
+table.nodes {
+    width: 100%;
+}
+
+.inside > td {
+    padding-top: $padding;
+    padding-bottom: 0;
+}
+
+.td-n {
+    padding-left: 0.5ex;
+    width: 100%;
+}
+
+.inside-inside {
+    width: $node_width;
+    @media only screen and (max-width: 660px) { // 660px == $node_width
+        width: auto;
+        max-width: $node_width;
+    }
+    
+    @media print {
+        border: 1pt solid black;
+    }
+    
+    position: relative;
+}
+
+// Top right
+
+.node-info {
+    float: right;
+}

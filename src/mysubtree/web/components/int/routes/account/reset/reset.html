@@ -1,0 +1,15 @@
+{%- extends "int/layout/layout.html" -%}
+{% from "int/macros/forms.html" import form_fields_table with context %}
+
+{%- block title -%}
+    {{ _("Reset password") }}
+{%- endblock -%}
+
+
+{%- block body -%}
+    <h2>{{ _("Reset password") }}</h2>
+    <form action="{{ url_for('reset', lang=lang, code=code) }}" method="post" class="ajax_validate">
+        {{ form_fields_table(form) }}
+        <input type="submit" value="{{ _('Set password') }}" />
+    </form>
+{%- endblock -%}

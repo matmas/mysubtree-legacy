@@ -1,0 +1,18 @@
+// Voting
+
+@import "int/consts";
+
+.voting {
+    text-align: right;
+    vertical-align: top;
+}
+
+.vote-indicator {
+    font-weight: bold;
+    color: gray;
+}
+
+.like {
+    text-decoration: none;
+    margin-left: 0.5ex;
+}

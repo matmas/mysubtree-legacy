@@ -1,0 +1,256 @@
+#!/bin/bash
+function confirm {
+	local message="$1"
+	if [[ -z "$all" ]]; then
+		read -p "$message? [Y/n/a] " answer
+		if [[ -z "$answer" || "$answer" =~ ^[yYaA] ]]; then
+			if [[ "$answer" =~ ^[aA] ]]; then
+				all=1
+			fi
+		else
+			exit 1
+		fi
+	else
+		echo "Executing $message..."
+	fi
+}
+
+function require_python_packages {
+        local necessary_packages="$@"
+	pipfreeze=$(pip freeze)
+        to_install=""
+        for package in $necessary_packages; do
+                if [ -z "`echo \"$pipfreeze\" | grep ^$package=`" ]; then
+                        to_install="$to_install $package"
+                fi
+        done
+        if [ "$to_install" ]; then
+		for package in $to_install; do
+			install_command="pip install $package"
+			confirm "$install_command"
+			$install_command || exit 1
+		done
+        fi
+}
+
+function require {
+	local command="$1"
+	local arch="$2"
+	local ubuntu="$3"
+	
+	if [ "$distro" == "arch" ]; then
+		local toinstall="$arch"
+	elif [ "$distro" == "ubuntu" ]; then
+		local toinstall="$ubuntu"
+	fi
+	type -P $command &>/dev/null || ls $command &>/dev/null || [ "$toinstall" == "" ] || {
+		echo "$command missing" >&2
+		confirm "$toinstall"
+		$toinstall || exit 1
+	}
+}
+
+#function install_mongodb_ubuntu {
+#	echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list >/dev/null
+#	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+#	sudo aptitude update
+#	sudo aptitude install mongodb-10gen
+#}
+
+#function install_nodejs_ubuntu {
+#	sudo apt-get install python-software-properties
+#	sudo add-apt-repository ppa:chris-lea/node.js
+#	sudo aptitude update
+#	sudo aptitude install nodejs npm
+#}
+
+#function install_nginx_ubuntu {
+#	sudo add-apt-repository ppa:nginx/stable
+#	sudo aptitude update
+#	sudo aptitude install nginx
+#}
+
+function create_postgresql_user_and_db {
+	local me=`whoami`
+	psql -c '\qecho test' >/dev/null 2>&1 || ( confirm "create db" && sudo -i -u postgres createuser -s $me && sudo -i -u postgres createdb $me )
+
+	psql -c '\qecho test' $me-test >/dev/null 2>&1 || ( confirm "create test db" && sudo -i -u postgres createdb $me-test )
+}
+
+#function create_mysql_user_and_db {
+#	db="$1"
+#	user="$db"
+#	password="$db"
+#	local me=`whoami`
+#	mysql="mysql -u root"
+#
+#	echo "SELECT 1;" | $mysql $db >/dev/null 2>&1 \
+#	|| ( \
+ #		   echo "CREATE USER '$user'@'localhost' IDENTIFIED BY '$password';" | $mysql \
+#		&& echo "GRANT USAGE ON	*.* TO '$user'@'localhost' IDENTIFIED BY '$password';" | $mysql \
+#		&& echo "CREATE DATABASE IF NOT EXISTS \`$db\`;" | $mysql \
+#		&& echo "GRANT ALL PRIVILEGES ON \`$db\`.* TO '$user'@'localhost';" | $mysql \
+#		&& echo "FLUSH PRIVILEGES;" | $mysql \
+#	)
+#}
+
+function configure_nginx_uwsgi {
+	socket="/var/run/mysubtree-uwsgi.sock"
+	sudo tee /etc/nginx/conf.d/mysubtree.conf >/dev/null << EOF
+server {
+	listen 80;
+	root `pwd`/src/mysubtree/web/static;
+	server_name localhost;
+	location / {
+		include uwsgi_params;
+		uwsgi_pass 127.0.0.1:3031;
+		# uwsgi_pass unix:/$socket;
+	}
+	location /static/ {
+		alias `pwd`/src/mysubtree/web/static/; 
+	}
+	error_page 404 /static/404.html;
+	error_page 500 502 503 504 /static/50x.html;
+}
+EOF
+	sudo rm -f /etc/nginx/sites-enabled/default
+	sudo service nginx reload
+
+	uwsgi_conf_dir=`pwd`/tmp/uwsgi-emperor.conf.d
+	mkdir -p $uwsgi_conf_dir
+	cat > $uwsgi_conf_dir/uwsgi.ini << EOF
+[uwsgi]
+master = true
+socket = 127.0.0.1:3031
+file = `pwd`/src/main.py
+processes = 8
+uid = matmas
+gid = matmas
+t = 30
+logto = /tmp/mysubtree.log
+logfile-chown = true
+EOF
+
+	service=mysubtree-uwsgi
+	sudo tee /etc/init/$service.conf >/dev/null << EOF
+description "uWSGI server for Mysubtree"
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
+exec $HOME/.venv/bin/uwsgi --emperor $uwsgi_conf_dir --uid matmas --gid matmas
+EOF
+
+	sudo service $service stop 2>/dev/null
+	sudo service $service start
+}
+
+if [ -f /etc/arch-release ]; then
+        distro="arch"
+elif [ -f /etc/lsb-release ]; then
+        distro="ubuntu"
+else
+        echo "Unexpected distro"; exit 1
+fi
+####################################################################
+####################################################################
+####################################################################
+
+if [ "$distro" == "arch" ]; then
+	ruby_version="1.9.1"
+elif [ "$distro" == "ubuntu" ]; then
+	ruby_version="1.8"
+fi
+PATH="$PATH:$HOME/.gem/ruby/$ruby_version/bin/"
+
+# Arch Linux
+# Ubuntu Server  10.04 Lucid
+require pg_config     "sudo pacman -S postgresql"        "sudo aptitude install postgresql"
+require pg_buildext   ""                                 "sudo aptitude install postgresql-server-dev-all"
+
+require memcached     "sudo pacman -S memcached"          "sudo aptitude install memcached" 
+. run-servers
+
+create_postgresql_user_and_db
+require python-config "sudo pacman -S python"             "sudo aptitude install python-dev"
+require tidy          "sudo pacman -S tidyhtml"           "sudo aptitude install tidy"
+require virtualenv    "sudo pacman -S python-virtualenv"  "sudo aptitude install python-virtualenv"
+require npm           "sudo pacman -S nodejs"             "sudo aptitude install nodejs npm"
+require gem           "sudo pacman -S ruby"               "sudo aptitude install rubygems" 
+require /usr/include/libmemcached/memcached.h "sudo pacman -S libmemcached" "sudo aptitude install libmemcached-dev" 
+
+require xml2-config   ""                                  "sudo aptitude install libxml2-dev" # pyquery dependency
+require xslt-config   ""                                  "sudo aptitude install libxslt1-dev" # pyquery dependency
+
+require nginx         ""                                  "sudo aptitude install nginx"
+require compass       "gem install compass"               ""
+require coffee        "sudo npm install -g coffee-script" "sudo npm install -g coffee-script" # live server
+require uglifyjs      "sudo npm install -g uglify-js"     ""
+
+
+if [ ! -d "$HOME/.venv" ]; then
+    virtualenv --python=python2.7 $HOME/.venv || virtualenv --python=python2.6 $HOME/.venv || exit 1
+fi
+. $HOME/.venv/bin/activate
+
+require_python_packages \
+    Flask              `: web framework`\
+    Flask-WTF          `: wtforms`\
+    Flask-Babel        `: for translated interface`\
+    Flask-SQLAlchemy   `: ORM`\
+    PIL                `: to determine image size`\
+    python-magic       `: to determine mimetype of images `\
+    pytidylib          `: to close HTML tags in teaser`\
+    diff-match-patch   `: for making diffs`\
+    watchdog           `: for assetwatch`\
+    coverage           `: for tests`\
+    pyquery            `: for tests`\
+    simplejson         `: to speedup JSON generation`\
+    ujson              `: to speedup JSON generation`\
+    cracklib           `: cracklib bindings`\
+    Flask-DebugToolbar `: debug toolbar`\
+    Flask-DebugToolbar-LineProfilerPanel `: debug toolbar addon`\
+    psycopg2           `: database driver`\
+    Flask-Cache        `: for caching`\
+    pylibmc            `: memcached client`\
+    pyflakes           `: for testing`\
+    gunicorn           `: for production`\
+    ansible            `: for deployment`\
+    tornado            `: for production`\
+    uWSGI              `: for production`
+
+if [ "$distro" == "ubuntu" ]; then
+    configure_nginx_uwsgi
+fi
+
+cd src/mysubtree/backend/live/live_server
+npm install
+cd $OLDPWD
+
+cd src/mysubtree/web/components/ext/famfamfam
+./install.sh
+cd $OLDPWD
+####################################################################
+# Currently not in use:
+
+
+
+
+
+#    salt               `: for deployment`\
+#  gem install compass-rmagick-engine
+#  `: pyinotify    : watchdog dependency`\
+#pip install translitcodec
+#pip install pyprof2calltree
+#pip install profilestats
+#gem install rb-inotify
+#gem install oily_png
+
+
+
+
+exit 0
+sudo vim /etc/postgresql/9.1/main/pg_hba.conf
+host    all             all             127.0.0.1/32            md5
+->
+host    all             all             127.0.0.1/32            trust
+sudo service postgresql reload

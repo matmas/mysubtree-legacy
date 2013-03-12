@@ -1,0 +1,36 @@
+// Paging
+
+@import "int/consts";
+
+div.paging {
+    font-size: 90%;
+    margin-top: 2ex;
+    margin-bottom: 2ex;
+    
+    a, span.current-page {
+        color: gray;
+        padding: 1ex;
+    }
+    
+    span.current-page {
+        @media screen, projection {
+            border: 1px solid $border-color;
+        }
+    }
+    
+    span.current-page {
+        font-weight: bold;
+        background-color: white;
+        @media print { font-weight: bold; }
+    }
+    
+    a:hover {
+        background-color: $hover_color;
+    }
+        
+    a.previous-page, a.next-page {
+        border: 0px solid transparent;
+    }
+}
+
+

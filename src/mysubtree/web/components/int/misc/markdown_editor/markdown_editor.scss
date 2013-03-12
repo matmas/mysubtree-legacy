@@ -1,0 +1,16 @@
+// Markdown Editor
+
+.mde-buttons {
+    padding: 0; margin: 0;
+    li {
+        display: inline-block;
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+        &.strong   { sprite(ext/famfamfam/icons/text_bold.png); }
+        &.emphasis { sprite(ext/famfamfam/icons/text_italic.png); }
+        &:hover {
+            background-color: #99c0fa;
+        }
+    }
+}

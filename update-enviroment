@@ -1,0 +1,23 @@
+#!/bin/bash
+#!/bin/bash
+if [ -f /etc/arch-release ]; then
+    distro="arch"
+elif [ -f /etc/lsb-release ]; then
+    distro="ubuntu"
+else
+    echo "Unexpected distro"; exit 1
+fi
+
+# Update Python packages:
+. $HOME/.venv/bin/activate
+pip freeze --local | cut -d = -f 1  | xargs pip install -U
+
+# Update Ruby gems:
+if [ "$distro" == "ubuntu" ]; then
+	sudo gem update
+else
+	gem update
+fi
+
+# Update Node packages:
+sudo npm update

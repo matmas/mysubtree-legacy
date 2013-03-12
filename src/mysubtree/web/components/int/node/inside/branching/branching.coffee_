@@ -1,0 +1,152 @@
+#= require common
+#= require int/node/node
+#= require int/node/inside/permalink/permalink
+#= require int/node/inside/inside
+
+utils = window.utils
+
+$(document).on("click", "a.branch", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    addContainer = node.typeContainer().addContainer()
+    
+    addContainer.$.remove()
+    type = $(this).data("type")
+    node.switchType(type, closeIfOpened=true)
+    
+
+    if not node.parentNode().exists() # if top level
+        if history and history.replaceState
+            if node.typeContainer().nodelist().getOpenedType()
+                url = this.href
+            else
+                url = node.permalinkHref()
+            history.replaceState({}, "", url)
+    else
+        nid = node.getNid()
+        if node.typeContainer().nodelist().getOpenedType() # opened
+            setBranchOpened(nid, type)
+            
+    node.refreshNodes()
+)
+
+Nodelist.prototype.getOpenedType = ->
+    return this.$.data("type")
+
+Node.prototype.switchType = (type, closeIfOpened=false) ->
+    typeContainer = this.typeContainer()
+    nodelist = typeContainer.nodelist()
+    nodelist_$ = nodelist.$
+    branch = $(".branch.#{type}", this.inside().$)
+    branches = $(".branch", this.inside().$)
+    
+    branches.removeClass("expanded fill fill2") # indicate all types closed
+    
+    nodelist_$
+        .trigger("closing")
+    
+    nodelist.closing()
+    
+    if closeIfOpened and nodelist_$.data("type") == type
+        nodelist_$
+            .empty()
+            .data("type", null)
+        typeContainer.addContainer().$.remove()
+    else
+        branch.addClass("expanded") # indicate type opened
+        nodelist_$
+            .data("type", type)
+        
+        if not typeContainer.getParent().$.hasClass("fill")
+            typeContainer.$.removeClass("fill2").addClass("fill")
+            branch.removeClass("fill2").addClass("fill")
+        else
+            typeContainer.$.removeClass("fill").addClass("fill2")
+            branch.removeClass("fill").addClass("fill2")
+    
+Node.prototype.refreshNodes = (callback) ->
+    nodesHref = $(".branch.expanded", this.inside().$).attr("href")
+    nodelist = this.typeContainer().nodelist()
+    if nodesHref != undefined
+        utils.ajax(nodelist.$, nodesHref, (container) ->
+            if typeof(callback) == "function"
+                callback(container)
+        )
+    else
+        nodelist.$.empty()
+
+TypeContainer.prototype.getParent = ->
+    return new TypeContainer(this.$.parent())
+
+$(document).ready( ->
+    nodes = $(".node", document)
+    if nodes.length > 0
+        node = new Node(nodes[0])
+        openedType = node.typeContainer().nodelist().getOpenedType()
+        if openedType
+            node.switchType(openedType) # just for fill/fill2
+)
+
+#--- URL fragment handling -----------------------------------------------------
+
+branches_separator = "+"
+
+setOpenedBranches = (openedBranches) ->
+    fragment = openedBranches.join(branches_separator)
+    window.location.replace("#" + fragment) # does not affect browser history except maybe in IE6
+    if not fragment
+        if history and history.replaceState
+            history.replaceState({}, "", window.location.href.slice(0, -1)) # slice off the '#'
+
+getOpenedBranches = ->
+    arr = window.location.hash.substr(1).split(branches_separator) # skip the "#" and split
+    if arr.length == 1 and arr[0] == ''
+        arr = []
+    return arr
+
+setBranchOpened = (nid, type) ->
+    branch = "#{nid}/#{type}"
+    branches = getOpenedBranches()
+    if branch not in branches
+        branches.push(branch)
+        setOpenedBranches(branches)
+
+setBranchClosed = (nid, type) ->
+    branch = "#{nid}/#{type}"
+    branches = getOpenedBranches()
+    branches.remove(branch)
+    setOpenedBranches(branches)
+
+$(document).ready( ->
+    nid_type_list = getOpenedBranches()
+    
+    openNext = (i) ->
+        nid_type = nid_type_list[i]
+        if not nid_type
+            return
+        [nid, type] = nid_type.split("/")
+        node = new Node($("#" + nid)[0])
+        if node.exists()
+            node.switchType(type)
+            node.refreshNodes( ->
+                openNext(i + 1)
+            )
+        else
+            setBranchClosed(nid, type)
+    openNext(0)
+)
+
+Nodelist.prototype.closing = ->
+    openedType = this.getOpenedType()
+    node = new Node(this.$)
+    nid = node.getNid()
+    setBranchClosed(nid, openedType)
+    
+    $(".nodelist", this).each( (index, element) ->
+        nodelist = new Nodelist(element)
+        openedType = nodelist.getOpenedType() # opened
+        if openedType
+            node = new Node(element)
+            nid = node.getNid()
+            setBranchClosed(nid, openedType)
+    )

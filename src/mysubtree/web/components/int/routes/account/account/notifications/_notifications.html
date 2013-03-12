@@ -1,0 +1,31 @@
+{%- if user.get_user() %}
+    <ul class="nav pull-right">
+        {% set href = url_for('problematic', lang=lang) %}
+        {% set num_problematic = user.get_user().num_problematic %}
+        
+        {%- if num_problematic > 0 -%}
+            <li class="{{ 'active' if request.path == href or num_problematic > 0 }} {{ 'glow' if num_problematic > 0 }}">
+            
+            <a href="{{ href }}" title="{{ _('problematic') }}">
+                {%- if num_problematic > 0 -%}
+                    <span id="num-problematic">{{ num_problematic }}</span>
+                {%- endif %}
+                <i class="icon-flag"></i>
+            </a>
+        {%- endif -%}
+    
+        {#---------------------------------------------------------------------#}
+    
+        {% set href = url_for('responses', lang=lang) %}
+        {% set num_unread_responses = user.get_user().num_unread_responses %}
+        
+        <li class="{{ 'active' if request.path == href or num_unread_responses > 0 }} {{ 'glow' if num_unread_responses > 0 }}">
+            <a href="{{ href }}" title="{{ _('responses') }}">
+                {%- if num_unread_responses > 0 -%}
+                    <span id="num-unread-responses">{{ num_unread_responses }}</span>
+                {%- endif %}
+                <i class="icon-envelope"></i>
+            </a>
+        </li>
+    </ul>
+{%- endif -%}

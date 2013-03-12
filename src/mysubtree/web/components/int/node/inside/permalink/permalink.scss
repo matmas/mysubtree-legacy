@@ -1,0 +1,34 @@
+a.permalink {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    &:after { content: "\a0 "; }
+    sprite(ext/famfamfam/20x20/icons/link.png);
+    &:hover, &:focus {
+        opacity: 1;
+    }
+    opacity: 0.5;
+}
+
+
+
+// .permalink {
+//     text-decoration: none;
+//     width: 20px;
+//     height: 20px;
+//     display: inline-block;
+//     &:after { content: "\a0 "; }
+//     opacity: 0.5;
+//     &:hover, &:focus {
+//         opacity: 1;
+//     }
+//     visibility: hidden;
+//     sprite(ext/famfamfam/20x20/icons/link.png);
+// }
+// 
+// .title:hover {
+//     & > a.permalink {
+//         visibility: visible;
+//     }
+// }

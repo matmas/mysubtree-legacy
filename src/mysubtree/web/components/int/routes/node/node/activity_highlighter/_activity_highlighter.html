@@ -1,0 +1,16 @@
+<div class="activity-highlighter-area">
+    <span class="activity-highlighter">
+        {{ _("Highlight recent activity") }}:
+        <select class="time">
+            <option value="off">{{ _("off") }}</option>
+            <option value="minutes">{{ _("minutes ago") }}</option>
+            <option value="hours">{{ _("hours ago") }}</option>
+            <option value="days">{{ _("days ago") }}</option>
+            <option value="weeks">{{ _("weeks ago") }}</option>
+            <option value="months">{{ _("months ago") }}</option>
+            <option value="years">{{ _("years ago") }}</option>
+        </select>
+        <span class="time-slider"></span>
+    </span>
+    <span class="activity-highlighter-open" title="{{ _('Activity highlighter') }}">&nbsp;</span>
+</div>

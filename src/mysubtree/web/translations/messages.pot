@@ -1,0 +1,1082 @@
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-01-31 22:37+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/lib/flood_protection.py:16
+#, python-format
+msgid "%(num)s request"
+msgid_plural "%(num)s requests"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/lib/flood_protection.py:17
+#, python-format
+msgid "%(num)s second"
+msgid_plural "%(num)s seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/lib/flood_protection.py:18
+#, python-format
+msgid "At most %(n_requests)s in %(n_seconds)s is allowed."
+msgstr ""
+
+#: src/lib/markdown_editor/markdown_editor.py:32
+msgid "Strong"
+msgstr ""
+
+#: src/lib/markdown_editor/markdown_editor.py:33
+msgid "Emphasis"
+msgstr ""
+
+#: src/lib/wtforms/keepempty.py:6 src/lib/wtforms/keepempty.py:13
+msgid "Keep empty"
+msgstr ""
+
+#: src/lib/wtforms/keepempty.py:17
+msgid "This field must be empty."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:16 src/lib/wtforms/validators.py:18
+#: src/mysubtree/backend/models/node/types/comments.py:37
+#: src/mysubtree/backend/models/node/types/items.py:39
+#: src/mysubtree/web/components/int/macros/forms.html:25
+#: src/mysubtree/web/components/int/macros/forms.html:58
+#: src/mysubtree/web/components/int/routes/account/password_validators.py:10
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:46
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:51
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:60
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:63
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:23
+#: src/mysubtree/web/components/int/routes/account/login/login.py:23
+#: src/mysubtree/web/components/int/routes/account/login/login.py:26
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:22
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:48
+#: src/mysubtree/web/components/int/routes/node/rename/rename.py:21
+msgid "This field is required."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:30
+#, python-format
+msgid "Image size %(s1)s is not allowed. Allowed image size is: %(s2)s."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:32
+msgid "Error occured while examining image file."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:41
+msgid "File extension is missing."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:44
+#, python-format
+msgid "File extension %(e1)s is not allowed. Allowed extension is %(e2)s."
+msgstr ""
+
+#: src/lib/wtforms/validators.py:55
+msgid "it is too short"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:57
+msgid "it is WAY too short"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:59
+msgid "is too simple"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:61
+msgid "it does not contain enough DIFFERENT characters"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:63
+msgid "it is based on a dictionary word"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:65
+msgid "it is based on a (reversed) dictionary word"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:67
+msgid "it is too simplistic/systematic"
+msgstr ""
+
+#: src/lib/wtforms/validators.py:69
+msgid "it looks like a National Insurance number"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:21
+msgid "This edit suggestion is already accepted."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:23
+msgid "This node is not acceptable."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:25
+msgid "This edit suggestion is not yet possible to accept."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:27
+msgid ""
+"This edit suggestion is not possible to accept anymore because a "
+"different one was accepted."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:29
+#: src/mysubtree/backend/models/node/node_deleting.py:36
+#: src/mysubtree/backend/models/node/node_deleting.py:46
+#: src/mysubtree/backend/models/node/node_editing.py:39
+#: src/mysubtree/backend/models/node/node_editing.py:54
+#: src/mysubtree/backend/models/node/node_icon.py:27
+#: src/mysubtree/backend/models/node/node_moving.py:23
+#: src/mysubtree/backend/models/node/node_renaming.py:34
+msgid "You must be logged in to do it."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_accepting.py:31
+msgid "Only moderator can accept that."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_adding.py:32
+msgid "You must be logged in to post anything."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:34
+msgid "This node cannot be deleted."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:38
+#: src/mysubtree/backend/models/node/node_deleting.py:48
+#: src/mysubtree/backend/models/node/node_editing.py:41
+#: src/mysubtree/backend/models/node/node_icon.py:29
+#: src/mysubtree/backend/models/node/node_moving.py:25
+#: src/mysubtree/backend/models/node/node_renaming.py:36
+msgid "You are neither owner nor moderator of that node."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:40
+msgid "It is already deleted."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:44
+msgid "This node cannot be restored."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:50
+msgid "It is not deleted."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:58
+#: src/mysubtree/backend/models/node/node_hierarchy.py:270
+msgid "deleted"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_deleting.py:66
+msgid "restored"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:35
+#: src/mysubtree/backend/models/node/node_editing.py:52
+msgid "This node cannot be edited."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:37
+msgid "Edit suggestions cannot be edited."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:56
+msgid "You cannot edit that node directly."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:61
+msgid "The text should not be empty."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:86
+msgid "accepted edit"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_editing.py:109
+msgid "Meanwhile the content has changed, so the update was not possible."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:12
+msgid "You already sent the feedback."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:15
+msgid "You already undid your feedback."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:48
+msgid "This node cannot be flagged."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:50
+msgid "This is created by you. Are you sure it is spam?"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:52
+msgid "You are moderator of that node."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_flagging.py:90
+#: src/mysubtree/backend/models/node/node_voting.py:144
+msgid "Temporary error, please try again."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_icon.py:25
+msgid "Icon of this node cannot be changed."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_icon.py:34
+msgid "changed icon"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:21
+msgid "This node cannot be moved."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:30
+msgid "Could not find the destination node."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:32
+msgid "Could not move to itself."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:35
+#: src/mysubtree/backend/models/node/node_moving.py:47
+msgid "Could not move to inside of itself."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:37
+#: src/mysubtree/backend/models/node/node_moving.py:41
+#, python-format
+msgid "Could not move %(n1)s to %(n2)s."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:39
+msgid "Use delete instead."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_moving.py:53
+msgid "moved"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_renaming.py:6
+msgid "renamed"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_renaming.py:32
+msgid "This node cannot be renamed."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:15
+msgid "You like it already."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:18
+msgid "No like to undo."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:67
+msgid "This node cannot be voted for."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:69
+msgid ""
+"This node is created by your IP address. The author is not allowed to "
+"vote for his node. Wait for the likes from others."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:71
+msgid ""
+"This node is created by you. The author is not allowed to vote for his "
+"node. Wait for the likes from others."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:82
+msgid ""
+"From your IP address has been voted +1 for it while being logged off. Log"
+" off and try again."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:84
+msgid ""
+"From your IP address has been voted +1 for it by another user. Undo is "
+"not possible."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/node_voting.py:86
+msgid "From your IP address has been voted +1 for it."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/comments.py:19
+msgid "comment"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/comments.py:23
+#, python-format
+msgid "%(num)s comment"
+msgid_plural "%(num)s comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/backend/models/node/types/comments.py:27
+msgid "new comment"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/comments.py:31
+msgid "Attach comment"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:17
+#, python-format
+msgid "%(num)s edit suggestion"
+msgid_plural "%(num)s edit suggestions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:21
+msgid "change text"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:25
+#: src/mysubtree/web/components/int/node/inside/body/edit/edit.py:19
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:43
+msgid "suggest edit"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:41
+msgid "edit suggestion"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:73
+msgid "No changes?"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:77
+#: src/mysubtree/backend/models/node/types/edit_suggestions.py:81
+msgid ""
+"Meanwhile, a different edit suggestion has been accepted. Warning: your "
+"changes were not saved."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/items.py:21
+msgid "item"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/items.py:25
+#, python-format
+msgid "%(num)s item"
+msgid_plural "%(num)s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/backend/models/node/types/items.py:29
+msgid "new item"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/items.py:33
+msgid "Attach item"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/log_entries.py:16
+msgid "log"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/log_entries.py:20
+msgid "log entry"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/root.py:14
+#: src/mysubtree/backend/models/node/types/root.py:24
+#: src/mysubtree/web/components/int/layout/breadcrumb/_breadcrumb.html:6
+msgid "root"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/trash.py:13
+#: src/mysubtree/backend/models/node/types/trash.py:27
+msgid "trash"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/trash.py:30
+msgid "Nodes in trash will be permanently deleted after 30 days."
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/users.py:16
+msgid "users"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/users.py:35
+msgid "user"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/versions.py:18
+msgid "version"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/versions.py:22
+#, python-format
+msgid "%(num)s version"
+msgid_plural "%(num)s versions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/backend/models/node/types/versions.py:25
+msgid "(original)"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/votes.py:12
+msgid "votes"
+msgstr ""
+
+#: src/mysubtree/backend/models/node/types/votes.py:16
+msgid "vote"
+msgstr ""
+
+#: src/mysubtree/web/templatefilters.py:14
+msgid "just now"
+msgstr ""
+
+#: src/mysubtree/web/templatefilters.py:22
+#, python-format
+msgid "%(num)s year ago"
+msgid_plural "%(num)s years ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:25
+#, python-format
+msgid "%(num)s month ago"
+msgid_plural "%(num)s months ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:28
+#, python-format
+msgid "%(num)s week ago"
+msgid_plural "%(num)s weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:31
+#, python-format
+msgid "%(num)s day ago"
+msgid_plural "%(num)s days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:34
+#, python-format
+msgid "%(num)s hour ago"
+msgid_plural "%(num)s hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:37
+#, python-format
+msgid "%(num)s minute ago"
+msgid_plural "%(num)s minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:41
+#, python-format
+msgid "%(num)s second ago"
+msgid_plural "%(num)s seconds ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/templatefilters.py:43
+msgid "less than a minute ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/layout/layout.html:6
+msgid "Error"
+msgstr ""
+
+#: src/mysubtree/web/components/int/layout/layout.html:7
+msgid ""
+"<b>Unable to connect to the server.</b> The site could be temporarily "
+"unavailable or too busy. Try again in a few moments. If you are unable to"
+" load any pages, check your computer's network connection."
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/body/body.py:25
+msgid "expand"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/body/body.py:30
+msgid "collapse"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/body/body.py:37
+msgid "(without description)"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/body/accept/accept.py:12
+#: src/mysubtree/web/components/int/routes/node/accept/accept.py:20
+#: src/mysubtree/web/components/int/routes/node/accept/accept.py:21
+msgid "accept"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/body/edit/edit.py:11
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:41
+msgid "edit"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/branching/branching.py:80
+msgid "activity"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/branching/adding/adding.py:17
+msgid "add"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/branching/adding/adding.py:40
+#: src/mysubtree/web/components/int/node/inside/branching/adding/adding.py:54
+msgid "move it here"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/delete/delete.py:13
+#: src/mysubtree/web/components/int/routes/node/delete/delete.py:23
+#: src/mysubtree/web/components/int/routes/node/delete/delete.py:24
+msgid "delete"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/delete/delete.py:20
+#: src/mysubtree/web/components/int/routes/node/delete/restore.py:23
+#: src/mysubtree/web/components/int/routes/node/delete/restore.py:24
+msgid "restore"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/move/move.py:11
+#: src/mysubtree/web/components/int/routes/node/move/move.py:21
+msgid "move"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/permalink/permalink.py:9
+msgid "permalink"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/timesince/timesince.py:15
+#: src/mysubtree/web/components/int/node/inside/title/title.py:27
+msgid "created"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/title/icon/icon.py:11
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:54
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:84
+msgid "set icon"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/title/rename/rename.py:11
+#: src/mysubtree/web/components/int/routes/node/rename/rename.py:29
+msgid "rename"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/inside/voting/flag/flag.py:11
+msgid "report problem"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/paging/paging.py:33
+msgid "previous"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/paging/paging.py:50
+msgid "next"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:17
+msgid "newest"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:18
+msgid "newest first"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:21
+msgid "top day"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:22
+msgid "best voted for the last 24 hours"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:25
+msgid "top week"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:26
+msgid "best voted for the last 7 days"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:29
+msgid "top month"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:30
+msgid "best voted for the last 1 month"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:33
+msgid "top year"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:34
+msgid "best voted for the last 1 year"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:37
+msgid "top all time"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:38
+msgid "best voted of all time"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:41
+msgid "active"
+msgstr ""
+
+#: src/mysubtree/web/components/int/node/sorting/sorting.py:42
+msgid "recently active first"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/password_validators.py:8
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:47
+#, python-format
+msgid "Field must be at least %(num)s character long."
+msgid_plural "Field must be at least %(num)s characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/components/int/routes/account/account/account.html:6
+msgid "Log out"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/account/account.html:9
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:5
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:10
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:26
+#: src/mysubtree/web/components/int/routes/account/login/login.html:24
+msgid "Create account"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/account/account.html:12
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:31
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.html:17
+#: src/mysubtree/web/components/int/routes/account/login/login.html:5
+#: src/mysubtree/web/components/int/routes/account/login/login.html:10
+#: src/mysubtree/web/components/int/routes/account/login/login.html:15
+msgid "Log in"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/account/notifications/_notifications.html:9
+#: src/mysubtree/web/components/int/routes/node/nodelist/problematic/problematic.py:23
+msgid "problematic"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/account/notifications/_notifications.html:23
+#: src/mysubtree/web/components/int/routes/node/nodelist/responses/responses.py:26
+msgid "responses"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:16
+msgid ""
+"When you post something that is not welcomed here it may and probably "
+"will be removed."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:19
+msgid "What is currently not welcomed here?"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:20
+#, python-format
+msgid ""
+"<a "
+"href=\"http://en.wikipedia.org/wiki/Spam_%%28electronic%%29\">Spam</a>, "
+"<a href=\"http://en.wikipedia.org/wiki/Copyright_infringement\">copyright"
+" violations</a>, <a "
+"href=\"http://en.wikipedia.org/wiki/Pornography\">porn</a>."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.html:22
+msgid "We may have to eventually put some ads to cover our expenses."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:37
+msgid "Such e-mail address is already registered."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:39
+msgid "Such e-mail address is just in process of being registered."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:45
+msgid "Your name"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:48
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:52
+#, python-format
+msgid "Field cannot be longer than %(num)s character."
+msgid_plural "Field cannot be longer than %(num)s characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:50
+msgid "Your e-mail"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:53
+msgid "Invalid e-mail address."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:56
+#: src/mysubtree/web/components/int/routes/account/login/login.py:25
+msgid "Password"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:57
+msgid "Password can't be identical to your name"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:59
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:21
+msgid "Repeat password"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:61
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:23
+msgid "Passwords must match"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:63
+msgid "I agree to anything."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:84
+msgid "We'll send you a confirmation."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:89
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:32
+#: src/mysubtree/web/components/int/routes/account/login/login.py:37
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:44
+#: src/mysubtree/web/components/int/routes/node/accept/accept.py:26
+#: src/mysubtree/web/components/int/routes/node/delete/delete.py:28
+#: src/mysubtree/web/components/int/routes/node/delete/restore.py:28
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:49
+#: src/mysubtree/web/components/int/routes/node/flag/flag.py:33
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:58
+#: src/mysubtree/web/components/int/routes/node/move/move.py:26
+#: src/mysubtree/web/components/int/routes/node/move/move_to.py:60
+#: src/mysubtree/web/components/int/routes/node/post/post.py:53
+#: src/mysubtree/web/components/int/routes/node/rename/rename.py:33
+#: src/mysubtree/web/components/int/routes/node/vote/vote.py:40
+msgid "Form did not have all fields filled correctly."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:103
+msgid "Use the following link within 24 hours to complete your account creation:"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/create_account/create_account.py:107
+msgid ""
+"An e-mail has been sent to you containing verification instructions. "
+"Please follow them before continuing."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.html:5
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.html:10
+#: src/mysubtree/web/components/int/routes/account/login/login.html:20
+msgid "Forgot password?"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.html:13
+msgid "Submit"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:22
+#: src/mysubtree/web/components/int/routes/account/login/login.py:22
+msgid "E-mail"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:40
+msgid "The e-mail has already been sent."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:45
+msgid "Use the following link within 24 hours to reset your password:"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:49
+msgid "An e-mail has been sent to you containing password reset instructions."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/forgot/forgot.py:52
+#: src/mysubtree/web/components/int/routes/account/login/login.py:50
+msgid "The e-mail you provided is not registered."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/login/login.py:46
+msgid "The e-mail address is not yet verified."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/login/login.py:48
+msgid "The password you provided is incorrect."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/login/login.py:53
+msgid "You have been logged in."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/logout/logout.py:16
+msgid "You have been logged out."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/reset/reset.html:5
+#: src/mysubtree/web/components/int/routes/account/reset/reset.html:10
+msgid "Reset password"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/reset/reset.html:13
+msgid "Set password"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:20
+msgid "New password"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:29
+msgid "Invalid reset code."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/reset/reset.py:50
+msgid "Password changed successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/verify/verify.py:32
+msgid "E-mail was successfully verified."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/verify/verify.py:36
+msgid "E-mail is already verified."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/account/verify/verify.py:38
+msgid "Invalid verification code."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/markdown_help/markdown_help.html:4
+#: src/mysubtree/web/components/int/routes/markdown_help/markdown_help.html:11
+msgid "Editing help"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/markdown_help/markdown_help.html:13
+msgid "See the Wikipedia entry on"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/action.html:28
+#: src/mysubtree/web/components/int/routes/node/move/move_to.html:21
+#: src/mysubtree/web/components/int/routes/node/post/post.html:30
+msgid "back"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/accept/accept.py:36
+msgid "Accepted sucessfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/delete/delete.py:36
+msgid "Deleted successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/delete/restore.py:36
+msgid "Restored successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:40
+msgid "save"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:55
+msgid "Saved successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/edit/edit.py:74
+#: src/mysubtree/web/components/int/routes/node/post/post.py:67
+msgid "Posted successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/flag/flag.html:5
+msgid "flag"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/flag/flag.html:15
+msgid "flag as spam"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/flag/flag.html:22
+msgid "undo flag"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/flag/flag.py:57
+msgid "Thank you for the feedback."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/flag/flag.py:59
+msgid "You undid your feedback."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:29
+#, python-format
+msgid "Mime-type %(m1)s is not allowed. Allowed mime-type is %(m2)s."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:37
+msgid "Use"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:38
+msgid "default icon"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:38
+msgid "custom icon"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/icon/icon.py:75
+msgid "Set icon successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move.py:22
+msgid "move this somewhere..."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move.py:36
+msgid "You may now paste the node somewhere."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move_to.html:4
+#: src/mysubtree/web/components/int/routes/node/move/move_to.html:12
+msgid "Move here"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move_to.html:17
+msgid "Cancel moving"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move_to.py:50
+msgid ""
+"Are you sure? You would cease to be moderator of that node if you move it"
+" there. That means also that you would not be able to move it back "
+"yourself."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/move/move_to.py:76
+msgid "Moved successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/node.py:64
+#: src/mysubtree/web/components/int/routes/node/nodelist/problematic/problematic.py:17
+msgid "under"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:3
+msgid "Highlight recent activity"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:5
+msgid "off"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:6
+msgid "minutes ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:7
+msgid "hours ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:8
+msgid "days ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:9
+msgid "weeks ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:10
+msgid "months ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:11
+msgid "years ago"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/node/activity_highlighter/_activity_highlighter.html:15
+msgid "Activity highlighter"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/nodelist/responses/responses.py:17
+msgid "to"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/post/post.html:4
+#: src/mysubtree/web/components/int/routes/node/post/post.html:18
+msgid "Add to"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/post/post.html:13
+msgid "keep this form open"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/post/post.html:14
+msgid "close"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/rename/rename.py:38
+msgid "Renamed successfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/vote/vote.html:5
+msgid "Vote for"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/vote/vote.html:15
+msgid "give +1"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/vote/vote.html:22
+msgid "undo +1"
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/vote/vote.py:73
+msgid "Voted sucessfully."
+msgstr ""
+
+#: src/mysubtree/web/components/int/routes/node/vote/vote.py:75
+msgid "You sucessfully undid your vote."
+msgstr ""
+

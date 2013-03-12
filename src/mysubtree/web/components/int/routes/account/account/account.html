@@ -1,0 +1,25 @@
+{% from "int/macros/links.html" import li_a with context %}
+
+<span id="account" data-url="{{ url_for('account', lang=lang) }}">
+    <ul class="nav pull-right">
+        {%- if user.get_user() -%}
+            <li><a href="{{ url_for('logout', lang=lang) }}">{{ _("Log out") }}</a></li>
+        {%- else -%}
+            {% call li_a(href=url_for('create_account', lang=lang)) %}
+                {{ _("Create account") }}
+            {% endcall %}
+            {% call li_a(href=url_for('login', lang=lang)) %}
+                {{ _("Log in") }}
+            {% endcall %}
+        {%- endif -%}
+    </ul>
+
+    {%- if user.get_user() -%}
+        <ul class="nav pull-right">
+            <li>{{ user_component(user.get_user_node(), user.get_user_name(), lang=lang)|safe }}</li>
+        </ul>
+        
+        {%- include "int/routes/account/account/notifications/_notifications.html" -%}
+    {%- endif -%}
+</span>
+

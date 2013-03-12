@@ -1,0 +1,35 @@
+{%- macro a(href, class) -%}
+    {#
+        Abstracting away the problem with links to current page.
+        Ignores query string by using `request.path`
+        
+        Usage:
+            {% call a(href="/", class="some classes") %}
+                link text
+            {% endcall %}
+    #}
+    {%- if request.path == href -%}
+        <span class="current {{ class }}">{{ caller() }}</span>
+    {%- else -%}
+        <a href="{{ href }}" class="{{ class }}">{{ caller() }}</a>
+    {%- endif -%}
+{%- endmacro -%}
+
+
+
+{%- macro li_a(href, class, title) -%}
+    {#
+        Abstracting away the problem with links to current page.
+        Ignores query string by using `request.path`
+        
+        Usage:
+            {% call li_a(href="/", class="some classes") %}
+                link text
+            {% endcall %}
+    #}
+    {%- if request.path == href -%}
+        <li class="active"><a href="{{ href }}" class="{{ class }}" title="{{ title }}">{{ caller() }}</a></li>
+    {%- else -%}
+        <li><a href="{{ href }}" class="{{ class }}" title="{{ title }}">{{ caller() }}</a></li>
+    {%- endif -%}
+{%- endmacro -%}

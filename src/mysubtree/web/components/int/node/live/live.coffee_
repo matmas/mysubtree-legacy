@@ -1,0 +1,119 @@
+#= require ext/socket.io
+#= require int/node/inside/refresh
+#= require int/node/inside/branching/branching
+#= require int/user/user
+#= require int/node/inside/permalink/permalink
+
+mysubtree = window.mysubtree
+
+socket = io.connect("http://#{document.domain}:3001")
+
+get_live_ids = (container) ->
+    if $(container).is(".live")
+        return [container.attr("id")]
+
+    live_ids = []
+    $(".live", container).each( (index, element) ->
+        live_ids.push(element.id)
+    )
+    return live_ids
+
+get_nodelist = (container) ->
+    if $(container).is(".nodelist")
+        nodelist = new Nodelist(container)
+        return nodelist
+    
+    nodelist = $(".nodelist", container)
+    if nodelist.length
+        nodelist = new Nodelist(nodelist)
+        return nodelist
+
+Nodelist.prototype.getParentId = ->
+    parent_node = new Node(this.$)
+    return parent_node.inside().$.attr("id") # .live == .inside
+
+#-------------------------------------------------------------------------------
+
+watch = (container) ->
+    live_ids = get_live_ids(container)
+    if live_ids.length > 0
+        socket.emit("watch", live_ids)
+
+    nodelist = get_nodelist(container)
+    if nodelist
+        type = nodelist.getOpenedType()
+        parent_node_id = nodelist.getParentId()
+        socket.emit("watchnodelist", {"nparent": parent_node_id, "type": type})
+
+unwatch = (container) ->
+    live_ids = get_live_ids(container)
+    if live_ids.length > 0
+        socket.emit("unwatch", live_ids)
+    
+    nodelist = get_nodelist(container)
+    if nodelist
+        type = nodelist.getOpenedType()
+        parent_node_id = nodelist.getParentId()
+        socket.emit("unwatchnodelist", {"nparent": parent_node_id, "type": type})
+
+#-------------------------------------------------------------------------------
+
+$(document).ready( ->
+    watch(document)
+    socket.emit("user", mysubtree.getCurrentUser())
+)
+
+$(document).on("ajax", (event, container, href) ->
+    watch(container)
+)
+
+$(document).on("closing", ".nodelist", (event) ->
+    event.stopPropagation() # or else other node containers will receive this event
+    unwatch(this)
+)
+
+$(document).on("editing-start", ".node", (event) ->
+    event.stopPropagation() # or else other nodes will receive this event
+    node = new Node(this)
+    unwatch(node.inside().$)
+)
+
+$(document).on("editing-stop", ".node", (event) ->
+    event.stopPropagation() # or else other nodes will receive this event
+    node = new Node(this)
+    watch(node.inside().$)
+)
+
+#-------------------------------------------------------------------------------
+
+socket.on('changed', (affected_ids) ->
+    for affected_id in affected_ids
+        node = new Node(document.getElementById(affected_id))
+        node.refreshInside( ->
+            node.inside().$.children(".inside-inside").effect("highlight", {}, 2000)
+        )
+)
+
+socket.on('appeared', (records) ->
+    for record in records
+        node = new Node(document.getElementById(record.nparent))
+        nodes = node.typeContainer().nodelist().nodes().$
+        url = record.url
+        $.ajax({
+            url: url,
+            success: (node_html) ->
+                $(node_html).prependTo(nodes)
+                $(document).trigger("ajax", [nodes, url]) # for hiding buttons...
+        })
+)
+
+socket.on('disappeared', (ids) ->
+    for id in ids
+        node = new Node(document.getElementById(id))
+        node.$.remove()
+)
+
+socket.on("responses", ->
+    account = $("#account")
+    utils.ajax(account, account.data("url"))
+)

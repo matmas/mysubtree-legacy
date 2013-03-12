@@ -1,0 +1,44 @@
+// Edit
+@import "int/consts";
+
+.edit {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    &:after { content: "\a0 "; }
+    sprite(ext/famfamfam/20x20/desaturated/icons/pencil.png);
+    opacity: 0.5;
+/*     visibility: hidden; */
+    _visibility: visible; // IE6
+}
+.node-top:hover .edit {
+    visibility: visible;
+}
+.edit {
+    &:hover, &:focus {
+        opacity: 1;
+/*         sprite(ext/famfamfam/20x20/icons/pencil.png); */
+    }
+}
+
+.edit.suggest {
+    sprite(ext/famfamfam/20x20/desaturated/icons/pencil_add.png);
+    &:hover {
+        sprite(ext/famfamfam/20x20/icons/pencil_add.png);
+    }
+}
+
+.body.empty > .text {
+    color: gray;
+    font-style: italic;
+/*     visibility: hidden; */
+}
+.node-top:hover {
+    & > .body.empty > .text {
+        visibility: visible;
+    }
+    & > .body > .edit {
+        visibility: visible;
+    }
+}

@@ -1,0 +1,154 @@
+{%- macro form_fields_horizontal(fields) -%}
+    {% for field in fields %}
+        {% if field.type in ('HiddenField', 'CSRFTokenField') %}
+            {{ field() }}
+        {% endif %}
+    {% endfor %}
+    
+    {% for field in fields %}
+        {% if field.type not in ('HiddenField', 'CSRFTokenField') %}
+            {{ form_field_horizontal(field) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+
+{%- macro form_field_horizontal(field) -%}
+    <div class="control-group {{ 'error' if field.errors else '' }}">
+        {% if field.type == 'BooleanField' %}
+            <div class="controls">
+                <label class="checkbox">
+                    {{ field(**kwargs) }}
+                    {{ field.label.text }}
+                    
+                    {%- if field.flags.required and field.label.text != "" -%}
+                        <abbr title="{{ _('This field is required.') }}">*</abbr>
+                    {%- endif %}
+                    
+                    <span class="help-inline">
+                        {{ form_field_errors(field) }}
+                    </span>
+                    
+                    {{ form_field_description(field) }}
+                </label>
+            </div>
+        {% else %}
+            {{ form_field_label(field) }}
+            <div class="controls">
+                {{ field(placeholder=field.label.text, **kwargs) }}
+                
+                <span class="help-inline">
+                    {{ form_field_errors(field) }}
+                </span>
+                
+                {{ form_field_description(field) }}
+            </div>
+            
+        {% endif %}
+    </div>
+{%- endmacro -%}
+
+
+
+{##############################################################################}
+
+{%- macro form_field_label(field) -%}
+    <label class="control-label" for="{{ field.id }}">{{ field.label.text }}
+    {%- if field.flags.required and field.label.text != "" -%}
+        <abbr title="{{ _('This field is required.') }}">*</abbr>
+    {%- endif %}</label>
+{% endmacro %}
+
+{%- macro form_field_description(field) -%}
+    {% if field.description %}
+        <span class="help-block">{{ field.description }}</span>
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro form_field_errors(field) -%}
+    {% if field.errors %}
+    <ul class="errors">
+        {%- for error in field.errors -%}
+        <li class="error">{{ error }}</li>
+        {%- endfor -%}
+    </ul>
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro form_field_boolean(field) -%}
+    {{ field(**kwargs) }}
+    {{ form_field_label(field) }}
+    {{ form_field_description(field) }}
+    {{ form_field_errors(field) }}
+{%- endmacro -%}
+
+{%- macro form_field(field) -%}
+    {% if field.type in ('HiddenField', 'CSRFTokenField') %}
+        {{ field() }}
+    {% else %}
+        {% if field.type == 'BooleanField' %}
+            {{ form_field_boolean(field, **kwargs) }}
+        {% else%}
+            {{ form_field_label(field) }}
+            {% if field.type == 'RadioField' %}
+                {{ field(class='radio-group', **kwargs) }}
+            {% else %}
+                {{ field(**kwargs) }}
+            {% endif %}
+            {{ form_field_description(field) }}
+            {{ form_field_errors(field) }}
+        {% endif %}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro form_field_td(field) -%}
+    {% if field.type == 'BooleanField' %}
+        <td class="control-label"></td>
+        <td class="field">
+            {{ form_field_boolean(field, **kwargs) }}
+        </td>
+    {% else %}
+        <td class="control-label">
+            {{ form_field_label(field) }}
+        </td>
+        <td class="field">
+        {% if field.type == 'RadioField' %}
+            {{ field(class='radio-group', **kwargs) }}
+        {% else %}
+            {{ field(**kwargs) }}
+        {% endif %}
+        {{ form_field_description(field) }}
+        {{ form_field_errors(field) }}
+        </td>
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro form_fields(fields) -%}
+    {% for field in fields %}
+        {% if field.type in ('HiddenField', 'CSRFTokenField') %}
+            {{ field() }}
+        {% endif %}
+    {% endfor %}
+
+    {% for field in fields %}
+        {% if field.type not in ('HiddenField', 'CSRFTokenField') %}
+            {{ form_field(field) }}
+        {% endif %}
+    {% endfor %}
+
+{%- endmacro -%}
+
+{%- macro form_fields_table(fields) -%}
+    {% for field in fields %}
+        {% if field.type in ('HiddenField', 'CSRFTokenField') %}
+            {{ field() }}
+        {% endif %}
+    {% endfor %}
+    <table class="form">
+    {% for field in fields %}
+        {% if field.type not in ('HiddenField', 'CSRFTokenField') %}
+            <tr>{{ form_field_td(field) }}</tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+{%- endmacro -%}

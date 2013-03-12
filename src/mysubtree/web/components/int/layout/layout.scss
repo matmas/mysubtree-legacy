@@ -1,0 +1,101 @@
+// Page layout
+@import "int/consts";
+
+// Fix bootstrap responsive body padding:
+@media (max-width: 767px) {
+  body {
+    padding-right: 0; // back from 20px
+    padding-left: 0; // back from 20px
+  }
+  .container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+/*$footer_height: 60px;
+
+
+html, body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}*/
+
+/*#main {
+    overflow: auto;
+    padding-bottom: 150px;
+}*/
+
+/*.footer {
+    position: relative;
+    margin-top: -150px;
+    height: 150px;
+    clear: both;
+    padding-top: 20px;
+}*/
+
+
+
+
+
+
+
+/* #footer, #body { */
+/*     padding: $body_padding; */
+/* } */
+
+
+/* $footer_height */
+/* background-color: #F5F5F5; */
+
+
+/* $page_header_bg_color: white; */
+
+/*div#header {
+    background-color: $page_header_bg_color;
+    padding: $body_padding;
+    border-bottom: 2px solid $border_color;
+    box-shadow: 0 5px 5px $border_color;
+//     overflow: hidden; // doesn't work in ie6 TODO: try ie7
+}*/
+/*
+span#top-right {
+    float: right;
+}*/
+/*
+body {
+    background-color: $body_bg_color;
+}*/
+
+//------------------------------------------------------------------------------                                                                                                                                                                                               
+// Sticky footer tutorial: http://www.lwis.net/journal/2008/02/08/pure-css-sticky-footer/
+
+/* $footer_height: $body_padding*3 + 1em; // 1em accounts for the text line */
+/*
+html, body, .layout {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}*/
+/*
+div.layout {
+    height: auto;
+    min-height: 100%;
+}*/
+
+#body {
+    padding: $body_padding;
+/*     padding-bottom: $footer_height + 2em; // + of some negative space */
+}
+/*
+div.footer {
+    margin-top: -$footer_height;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: $footer_height;
+    background: #eee;
+}*/

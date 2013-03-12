@@ -1,0 +1,22 @@
+// Icon
+
+.seticon {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    &:after { content: "\a0 "; }
+    sprite(ext/famfamfam/20x20/desaturated/icons/picture.png);
+    opacity: 0.5;
+    &:hover, &:focus {
+        opacity: 1;
+/*         sprite(ext/famfamfam/20x20/icons/picture.png); */
+    }
+/*     visibility: hidden; */
+}
+
+.title:hover {
+    & > .seticon {
+        visibility: visible;
+    }
+}

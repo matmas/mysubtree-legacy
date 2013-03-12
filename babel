@@ -1,0 +1,13 @@
+#!/bin/bash
+POEDITOR="poedit"
+
+. $HOME/.venv/bin/activate
+DIR=src/mysubtree/web/translations
+pybabel extract -F $DIR/babel.cfg -o $DIR/messages.pot src/ \
+  && pybabel update -i $DIR/messages.pot -d $DIR \
+  && pybabel compile -d $DIR \
+  && $POEDITOR $DIR/sk/LC_MESSAGES/messages.po
+
+# to create new language use:
+# WARNING: it will overwrite existing translation if exists
+# pybabel init -i src/babel/messages.pot -d src/mysubtree/web/translations -l de

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+psql -c 'BEGIN; DROP SCHEMA public CASCADE; CREATE SCHEMA public; COMMIT;'
+
+#project="mysubtree"
+#========================================================================
+# MYSQL:
+
+#user="$project"
+#pass="$project"
+#db="$project"
+#mysql --user=$user --password=$pass -BNe "show tables" $db | tr '\n' ',' | sed -e 's/,$//' | awk '{print "SET FOREIGN_KEY_CHECKS = 0;DROP TABLE IF EXISTS " $1 ";SET FOREIGN_KEY_CHECKS = 1;"}' | mysql --user=$user --password=$pass $db

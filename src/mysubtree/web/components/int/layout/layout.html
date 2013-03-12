@@ -1,0 +1,47 @@
+{%- extends "base.html" -%}
+
+{%- block html_head -%}
+    {{ super() }}
+    <script type="text/javascript"><!--
+    var error_msg = "{{ _('Error') }}";
+    var conn_failed_msg = "{{ _('<b>Unable to connect to the server.</b> The site could be temporarily unavailable or too busy. Try again in a few moments. If you are unable to load any pages, check your computer\'s network connection.') }}";
+    {% if not g.is_ajax -%}
+        var csrf_token = "{{ Form().csrf_token.current_token }}";
+    {%- endif -%}
+    //-->
+    </script>
+{%- endblock -%}
+
+{% block html_title -%}
+    {% block title %}{% endblock %} - {{ config.APP_NAME }}
+{%- endblock %}
+
+{%- block html_body %}
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="navbar-inner">
+            <a class="brand" href="{{ url_for('home') }}">{{ config.APP_NAME }}</a>
+            <ul class="nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('home') }}">{{ "English" if lang == "en" else "Slovenčina" }}<b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li><a href="{{ url_for('language_root', lang='en') }}">English</a></li>
+                        <li><a href="{{ url_for('language_root', lang='sk') }}">Slovenčina</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {%- include "int/routes/account/account/account.html" -%}
+        </div>
+    </div>
+
+    <div class="main">
+        {%- include "flash_messages/_flash_messages.html" -%}
+        {%- include "breadcrumb/_breadcrumb.html" -%}
+        {% block body %}
+        {% endblock %}
+    </div>
+    
+    <div class="footer">
+        {% block footer %}
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{%- if node -%}
+<ul class="breadcrumb">
+    {%- if lang and node and node.type == "users" -%}
+        <li><a class="type root" href="{{ url_for('language_root', lang=lang) }}">
+            <span class="icon"></span>{{
+            _("root")
+        }}</a>
+        <span class="divider">&rsaquo;</span></li>
+    {%- endif -%}
+
+    {%- if not node.has_full_path() -%}
+        <li>… <span class="divider">&rsaquo;</span></li>
+    {%- endif -%}
+    {%- for index, ancestor in enumerate(node.path) -%}
+        {%- if ancestor == node.path|last -%}
+            {%- set next_type = node.type -%}
+        {%- else -%}
+            {%- set next_type = node.path[index+1]['type'] -%}
+        {%- endif -%}
+        <li><a class="type {{ ancestor['type'] }}" href="{{ url_for('node', lang=node.lang, nparent=base_encode(ancestor['parent']), nid=base_encode(ancestor['id']), slug=ancestor['slug'], type=next_type) }}"><span class="icon"></span>{{
+            ancestor["short_name"]|__
+        }}</a>
+        <span class="divider">&rsaquo;</span></li>
+    {%- endfor -%}
+    <li class="active"><span class="type {{ node.type }} current"><span class="icon"></span>{{
+        node.short_name()|__
+    }}</span></li>
+</ul>
+{%- endif -%}

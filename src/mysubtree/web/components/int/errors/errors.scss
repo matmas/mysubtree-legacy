@@ -1,0 +1,18 @@
+// Errors
+
+ul.errors {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+li.error {
+    display: inline;
+    padding-left: 16px + 2px;
+    sprite(ext/famfamfam/icons/delete.png);
+}
+
+span.ok {
+    padding-left: 16px + 2px;
+    sprite(ext/famfamfam/icons/accept.png);
+}

@@ -1,0 +1,67 @@
+//=================
+// Menu stylesheet
+//=================
+
+@import "int/consts";
+
+.menu,
+.menu ul {
+    list-style: none; // unstyle default
+    padding: 0;       // unstyle default
+    z-index: 100;
+}
+//==============================================================================
+
+@mixin inline-block() {
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+.menu ul a {
+    color: black;
+    display: block; // link fills the space inside <li> tag
+    padding: 0.5ex 1ex 0.5ex 1ex; // 1ex padding between everything
+    text-decoration: none;
+    &:first-child {
+        padding-top: 1ex; // also from the top
+    }
+    &:last-child {
+        padding-bottom: 1ex; // also from the bottom
+    }
+    &:hover {
+        background-color: $hover_color; // nice highlighting of selected items
+    }
+}
+
+.menu ul {
+    width: 150px;
+    background-color: white; // menu background
+}
+
+.menu {
+    @include inline-block();
+    cursor: default;
+//     border-bottom: 1px dotted $border-color;
+//     background-image: url("dropdown.png");
+//     background-repeat: no-repeat;
+//     background-position: 95% 50%;
+//     padding-right: 1.5ex;
+
+    ul {
+        margin-top: -1px;
+        border: 2px solid $border-color;
+        position: absolute; visibility: hidden;
+    }
+    &:hover {
+        background-color: $hover_color;
+        ul {
+            z-index: 1; // to be above some of the wmd editor buttons
+            position: absolute; visibility: visible;
+        }
+    }
+    
+    @media print {
+        display: none;
+    }
+}

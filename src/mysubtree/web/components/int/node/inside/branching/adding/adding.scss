@@ -1,0 +1,142 @@
+// Adding
+//= require int/misc/menu/menu
+//= require int/node/inside/body/body
+
+@import "int/consts";
+
+$button_size: 20px;
+
+span#close-button,
+span#pin-button {
+    cursor: pointer;
+    display: none; // JS will unhide them
+    color: white;
+    text-decoration: none;
+    
+    display: block;
+    background-color: gray;
+    border: 2px solid gray;
+    &:hover {
+        background-color: white;
+        color: gray;
+        border: 2px solid gray;
+    }
+    right: 0;
+    position: absolute;
+}
+
+span#close-button {
+    width: 1em;
+    text-align: center;
+    padding: 2px;
+    font-weight: bold;
+    
+    top: 0;
+}
+
+span#pin-button {
+    width: $button_size;
+    height: $button_size;
+    sprite(images/pin_white_20x20.png);
+    
+    bottom: 0;
+    &:hover {
+        background-color: gray; // all toggle buttons should not appear similar to toggled when hovering because of touch devices
+        border: 2px solid $body_bg_color; // use border instead
+        color: white;
+    }
+    &.pinned {
+        background-color: white;
+        sprite(images/pin_gray_20x20.png);
+        color: gray;
+        border: 2px solid gray;
+    }
+}
+
+div.add-container {
+    position: relative;
+    border: 2px solid transparent; // mimick node
+    padding: $padding;
+    
+    max-width: $node_width;
+    background-color: $separator-color;
+}
+
+form.add-submit {
+//     max-width: $node_width - 2*$padding;
+    
+    .wmd-button {
+        background-image: url(images/wmd-buttons_inverted.png);
+    }
+    
+    td.label {
+        padding: 0;
+        vertical-align: top;
+    }
+    td.field {
+        padding: 0;
+    }
+    
+    color: white;
+    
+    
+    label {
+        font-weight: bold;
+    }
+    
+    input[type="text"] {
+        width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box;
+        margin-right: $button_size;
+    }
+    
+    textarea#body-textarea {
+        outline: none; // cursor inside is enough clue
+        border: 1px solid white;
+        box-shadow: 0px 10px 5px #888;
+    }
+    
+    span#body-preview {
+        box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box;
+        width: 100%;
+        color: gray;
+        padding: 1px $padding 1px $padding;
+        border: 1px solid $body_bg_color;
+        background: $body_bg_color;
+        display: block;
+        
+        & > p:first-child, & > p.first-child {
+            margin-top: 1em;
+            display: block; // for case when there is only one paragraph - first == last
+        }
+    }
+}
+
+textarea#body-textarea {
+    width: 100%; box-sizing: border-box; -webkit-box-sizing:border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box;
+    padding: $padding;
+}
+
+.add, .change {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    box-shadow: 0px 0px 2px gray;
+    border-radius: 10px;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.add {
+    sprite(images/add_20x20_desaturated.png);
+    &:hover {
+        sprite(images/add_20x20.png);
+    }
+}
+.change {
+    sprite(images/wrench_20x20_desaturated.png);
+    &:hover {
+        sprite(images/wrench_20x20.png);
+    }
+}

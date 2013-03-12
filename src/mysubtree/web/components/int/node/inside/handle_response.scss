@@ -1,0 +1,14 @@
+.bubble {
+    .value {
+        font-weight: bold;
+    }
+    .voter {
+        padding-left: 1ex;
+        color: #ddd;
+        &:before { content: "("; }
+        &:after  { content: ")"; }
+    }
+    &.deleted {
+        text-decoration: line-through;
+    }
+}

@@ -1,0 +1,26 @@
+//= require ext/jquery-ui/jquery-ui-1.8.20.custom
+//=======
+// Basic
+//=======
+@import "int/consts";
+
+.ui-widget {
+    font-size: 100%; // restore jQuery UI resize
+}
+
+
+
+//==============================================================================
+// // NOT USED:
+
+// $separator-color: #ccc;
+
+// abbr {
+//     cursor: help;
+//     border-bottom: 1px dotted;
+// }
+// hr {
+//     border: 0;
+//     border-bottom: thin solid $separator-color;
+//     height: 1px;
+// }

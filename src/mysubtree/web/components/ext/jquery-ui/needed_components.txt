@@ -1,0 +1,6 @@
+Interactions: Draggable
+Widgets: Autocomplete (if needed)
+         Dialog
+         Slider
+Effects: Effects Core
+	 Effects Highlight

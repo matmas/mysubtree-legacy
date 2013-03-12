@@ -1,0 +1,36 @@
+#= require common
+#= require int/node/inside/voting/voting
+#= require int/node/inside/refresh
+
+utils = window.utils
+voting = window.voting
+
+$(document).on("click", "a.flag", (event) ->
+    event.preventDefault()
+    node = new Node(this)
+    link = this
+    
+    $.ajax({
+        type: "POST",
+        url: link.href,
+        data: "csrf_token=#{csrf_token}",
+        success: (response) ->
+            if response.error
+                utils.messageBox("", response.error)
+            else
+                relative_value = parseInt(response.relative_value)
+                if relative_value != 0
+#                         if relative_value == +1
+                    utils.raising_effect($(link))
+                    node.refreshInside()
+                voting.update_link_state($(link), relative_value)
+    })
+)
+
+$(document).ready( ->
+    voting.reflect_link_states($(document), "a.flag")
+)
+
+$(document).on("ajax", (event, container) ->
+    voting.reflect_link_states(container, "a.flag")
+)

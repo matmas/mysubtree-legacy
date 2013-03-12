@@ -1,0 +1,25 @@
+{%- extends "int/layout/layout.html" -%}
+{% from "int/macros/forms.html" import form_fields_table with context %}
+
+{%- block title -%}
+    {{ _("Vote for") }} {{ node.short_name() }}
+{%- endblock -%}
+
+
+{%- block body -%}
+    <h1>{{ node.short_name() }}</h1>
+
+    {% if likeform %}
+        <form action="{{ url_for('vote', nparent=node.nparent(), nid=node.nid()) }}" method="post">
+            {{ form_fields_table(likeform) }}
+            <button type="submit" class="btn">{{ _('give +1') }}</button>
+        </form>
+    {% endif %}
+    
+    {% if undoform %}
+        <form action="{{ url_for('vote', nparent=node.nparent(), nid=node.nid(), undo='y') }}" method="post">
+            {{ form_fields_table(undoform) }}
+            <button type="submit" class="btn">{{ _('undo +1') }}</button>
+        </form>
+    {% endif %}
+{%- endblock -%}

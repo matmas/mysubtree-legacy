@@ -1,0 +1,406 @@
+BEFORE FIRST PUBLIC RELEASE:
+    
+    git repo
+    
+    split Node table into many types tables and do instead of /node /items /comments...
+    split table node to items, comments... with url /en/items/<id>/slug/comments
+                                                    /en/root
+                                                    /en/log-entry/<id>/comments (no slug because of type in url)
+    double post
+    
+    voting only for registered users? yes
+    
+    selective revoking of moderator priviledges? not yet
+    -- OR --
+    verification of domains? yes
+    
+    rss??, no, instead watch/unwatch/auto-watch - e-mail notifications
+    
+    
+
+HTML ANNOYANCES:
+    ?
+    !!! links to other nodes !!!
+        name: [_______] optional if url points to some other node
+
+        url:  [_______] [...]
+        
+        body: [       ] use Markdown
+              [       ]
+              [_______]
+    
+    images must be allowed by author of the parent node
+    icons/pictures - exact sizes will be set in parent node by moderator
+        facebook/twitter sign in? as alternative to password?
+    reenable visited link color especially on like button
+
+JAVASCRIPT BUGS:
+    weak bookmarkability: sorting and paging not persisted across refreshes
+    inconsistency: ajax refresh inplace does not honor show_parent=True etc. in user nodes
+    ensure ids on page are unique -- just one open form at a time? OR - use multi-instance wmd
+    when moving, after collapsing and reopening moving branch the dashed border disappear
+    inconsistency: when log entries are shown they are not ajax auto refreshed; log-entries not refreshing when change icon
+    inconsistency: viewing sorted by best voted of the day & ajax node refresh -> votes counter is different - does not account for the list - context unaware
+        fix the node refresher: detect vote counter type used, display accordingly
+        another possible solution: unify voting count displayed
+    maybe bugs:
+        check if live does check appearing different type nodes
+        csrf with javascript?
+
+
+
+sans-javascript version because javascript is PITA
+
+
+
+
+?o=asd+dfg(rty+iop(feg+wew)+asd)+jkl (Nested because of easier generation inside templates (no need to scan through entire document to prune subtrees))
+
+<nparent>-<nid>/slug/ia10/
+<nparent>-<nid>/-/ia10?o=<nid>/ia10/+<nid>/ia/ (ia implies ia0) (i implies in0) ("" imlies in0)
+
+<nparent>-<nid>/-/ia10?o=<nid>/ia10/+<nid>/ia/
+
+
+
+
+
+http://www.mysubtree.org/en/b/asd-fgh/test-item?o=a&s=10&o=hjk/c/n/0+bnm/i/n/0
+
+
+
+
+transition from /en/branches/np-nid/items#nid/items+nid/comments
+             to /en/branches/np-nid/items?open=nid/items+nid/comments
+why?
+    1. to ensure no-javascript comfort on mobile devices
+    2. to speed things up when adding a new node and propagating activity times to opened root
+
+
+
+################################################################################
+
+css: icon external link with target="_blank
+
+wmd editor problems:
+    /en/editing-help as constant link
+    impossible to translate
+
+################################################################################
+- BUG in live: closing branch does not unwatch recursively
+- reset flags as moderator?
+- paging -> more link
+GOOD: add page form + checkboxes + auto-appearing toolbar with "delete" button + auto-appearing "move here" buttons
+- inline editing/renaming -> auto-disable page form
+- remove user nodes - not needed anymore; user, usernode? only user is enough, moderator is usernode? user!
+GOOD: disable headers in markdown and make names h1: possible SEO gain
+- google should not see trash
+
+PERFORMANCE:
+- either disable live or make ajax versioning because multiple refreshes can occur ( impression of slow site )
+
+
+
+concern:
+    vote, wait for the other user to notice and then undo the vote. try using live...
+
+JAVASCRIPT ONLY:
+
+- remove richtext from comments
+
+
+Before public release:
+
+
+- post rules
+    http://articles.businessinsider.com/2012-02-28/tech/31106641_1_repinning-copyright-entire-image
+    - look at reddit post rules, add futher rules according to e.g. child pornography
+    - Do not post anything "provocative", post link instead.
+    - You agree not to post any abusive, obscene, vulgar, slanderous, hateful, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being immediately and permanently banned (and your service provider being informed). The IP address of all posts is recorded and part of it will be published along with the post. You agree that the webmaster, administrator and moderators of this site have the right to remove, edit or move any topic at any time should they see fit. 
+    - incluce privacy policy maybe similar to http://wikimediafoundation.org/wiki/Privacy_policy
+      or maybe use something similar to www.freeprivacypolicy.com/free-privacy-policy-generator.php
+
+
+================================================================================
+================================================================================
+================================================================================
+Maybe not so important:
+- prevent abuse of live?
+
+- verify user in live?
+
+- search box
+
+- better identicons / possibility of change, not really needed, wikipedia has survived for so long without them and id of a user is clue enough for user to differentiate users.
+
+- Some votes count more than others. Consider giving votes from users to their friends less value than to strangers.
+
+- paging -> ajax segmented load
+- avoid skips in paging
+
+- RSS for each node
+
+- search edit suggestions only
+
+? tags vs "[solved]"
+- init_ie ! namespace collisions!
+
+- direct relationship between work done and power?
+- prevent log filling up disk space
+- transfer unregistered nodes to new account
+
+Not so important:
+- spam *of* flags?
+- color lightness ~ number of other moderators, darkest = one mod
+- viewing node as parent node author: javascript callback: unmark it as unread + decrement unread notification counter
+- XMPP
+
+[icon] Name (3) [edit] [link]
+       --------
+       (branching)
+[icon] 4 comments  (adding)
+
+? remove moderator powers - better job in fear of being replaced?
+
+- inlude lang in url? e.g. mysubtree.org/en/ ? yes = visual clue + seo + marketing
+- mailboxes
+- merge log entries with versions, reintroduce subtypes?
+- mongodb worries:
+    - bigger than RAM (transition to MySQL/Postgresql)
+    - many writes like facebook (transition to MySQL/Postgresql)
+    - slave not up to date with master so that user does not see his own post right away (okay for now when not reading from slaves, in the future, cookie/localStorage-based solution viable)
+- test with shard key {"parent": 1}
+- alert user when writing too much characters over limit
+- autoban (based on reputation)
+- invitation at first
+- do not allow weak passwords
+- uwsgi socket instead of tcp for performance, resolve uid/gid
+- enable cpu affinity in nginx
+- walk through http://www.phpied.com/performance-advent-calendar-2009/
+- optimize PNGs using pngcrush or optipng
+- block vulgar nicks
+- distinguish male/female user with icon
+- IP address -> country flag
+- tooltip advanced info:
+    - show number of authors participating in the branch
+    - show total number of nodes inside in the branch
+- evaluate migration to mysql (with custom app sharding logic)
+- check printer friendly css stylesheet
+- javascripts_md5.js is better than javascripts.js?random because proxies do not cache reseources with ? in query string, stylesheets_md5.js detto
+- remove "--bare" from coffeescript args
+- incorporate Require.JS or other AMD with good tooling support (r.js), adapt assetwatch
+- i18n, l10n, RTL support
+- scalable comet notifications/autoupdate of html (append new nodes without refreshing the rest).
+  Probably one or more node.js servers communicating with python webservers through RabbitMQ or similar.
+- openid, twitter, facebook
+- tags - good+bad, (are tags necessary? filtering using tags?), num of visible tags...
+- table view using fields - custom type
+- geoip world map of voting - 1pixel = 1 vote, color = position in time relative to other votes
+- make certain AJAX cacheable, etags, 403 http, specify expires header
+- compress css
+- ensure gzip
+- use CDN (cookieless domain)
+- menu closeable after click elsewhere
+- allow for custom domains
+- review all TODO comments
+- convert "5 seconds ago" to timestamp + javascript "5 seconds ago" for better caching. (maybe even autoupdating with javascript? and then maybe rather not)
+- replace secure cookie-based sessions with something better
+- make use of the SON() instead of the {} in pymongo calls
+- attach comment to comment = reply
+- archive trash nodes after for 30 days
+
+VERSION 2.0
+===========
+indenticons
+10 items  20 comments
+
+->
+|____     _______|
+|    \   /       |
+|_10__|__|__20_@_|
+
+
+Optional:
+- set node as sticky as moderator (rules, etc)
+
+named lists?
+
+instead of:
+
+________________________________
+
+[] Name
+10 items
+________________________________
+
+do:
+________________________________
+
+[] Name
+10 somethings 12 something elses
+________________________________
+
+
+
+16x16
+
+(can be in breadcrumb)
+better if icon is really an extra (if there are many cases when icon is not necessary)
+
+
+32x32
+
+better looking
+
+
+? delete node is too visible even when not popular
+
+Challenging:
+- refresh automatically [a-z...].mysubtree.org
+
+
+Setting:
+- add policy: user x - forbid adding immediately, approve by mod only
+              all users --//--
+
+- user definable/overridable node settings, autoinheritable from parent nodes
+- node settings:
+    - subnodes hand-sortable by owner + different sorting panel for visitors
+    - forbid everybody attach new nodes 
+    
+    - change "items" -> to sth else
+    - maybe even duplicate "items" with custom type name
+    
+    - every settings may be applied to 1/2/3/.../infinity level(s) below
+    - setting to autocreate subnodes to emulate form
+
+    - rigid item
+
+Untranslated:
+- root
+- wmd editor
+
+VERSION 3.0
+===========
+- dual voting (anonymous + trusted users) because of botnets
+  OR: trustedness of liked as percentage shown
+- reputation calculation algorithm:
+  moderator vote = trusted vote
+  trusted vote to a given content makes content author able to cast trusted votes to subnodes of the voter
+
+show nicknames in votes only for hi-rep users - not needed for dual counters
+filtering based on tags
+edit summary?
+- allow for custom themes (how?)
+- problem: owner moves away uncomfortable answer?
+
+TLD:
+Sweden, Iceland, Belgium and New York state
+Servers:
+Switzerland?
+
+slogan: popular should stick out
+    community tree
+
+================================================================================
+Design decisions:
+-----------------
+allow instant move/rename:
+    - it is easier to ask forgiveness than to ask permission
+    - the overripeness problem (when there is many old votes on old decisions) is not really a problem, because people do not tend to overvote things much more than necessary
+
+fields are not needed:
+    "text" will be comment (maybe with custom named type)
+    "string" will be item (maybe with custom named type)
+    "named additional vote counter" will be item (maybe with custom named type)
+    ...
+    icon AS CUSTOM TYPE? Yes
+    url as item with ADDED SUPPORT FOR CLICKING ON IT?
+    video as item implemented as link to youtube.com   \_ not as custom type because they may not be directly related to parent node (icon *of an item* is)
+    audio as item implemented as direct link to mp3    /
+    image as item implemented as direct link to image / (maybe with icon thumbnail?)
+    gps(my loc/pick from map) as item with special viewing capability as a map...
+new node type:
+- icon because it will not be a good idea to mix icons with subitems that are unrelated with high probability
+DUMMY TEXT:
+Kríza politiky na Slovensku je v súčasnosti vystupňovaná kauzou Gorila. Blížiace sa parlamentné voľby, ako sa všeobecne usudzuje, neprinesú na slovenskú politickú scénu pozitívne zmeny. Staré tváre určite ostanú... Príde niekto dostatočne morálny a politicky prezieravý, aby tento stav zmenil?
+
+parent node log entries - prone to create-delete spam; solution: preview past version of the list - very hard to do
+--------------------------------------------------------------------------------
+Utf8 nicknames:
+    login using e-mail
+    assign unique numeric id to users
+pro: international names
+pro: allow openid later
+pro: easy to change without breaking old urls
+con: easy recognizable user url (no when url shortening is in use)
+--------------------------------------------------------------------------------
+
+parent log is not needed because search will suffice and reason for having a log is mainly for node authors to track changes made by moderators, not the other way around
+
+id
+    NOT: folder/random_id
+    INSTEAD: parent_seq_id/seq_id
+
+    123/s1
+    124/s1
+    125/s1
+    day incrementer + auto incrementer
+    00365|000123
+    aa1X3C5
+    ..,,,,,
+    ..timestamp
+    ,,random
+    0001X3C5
+    ...,,,,,
+    days - shuffled bits
+    eliminate folder + make ids time-based/approx. sequentional + make shard key md5(parent_id)
+    what if generated verification code is not unique?
+
+    tttpppppiiiii
+    ...,,,,,*****
+    .time
+    ,parent id
+    *id
+    
+    OR
+
+    tttppppp/tttiiiii
+    ...,,,,, ...*****
+    .time
+    ,parent id
+    *id
+
+    OR
+
+    ppp/iii
+
+    1 SERVER:
+        sequence numbers using findAndModify
+    2 SERVERS:
+        even/odd sequence numbers + autosynchronizing continuously every now and then (to guarantee roughly sequencional property across servers)
+    3+ SERVERS
+        and so on
+        
+hide users node for privacy reasons
+do not allow posting items to user nodes to encourage building common tree and work together
+richtext item - no good: for summary we need short titles - e.g. in search results
+
+- link to problematic content of all levels
+    no need for level 0 - regular notification,
+    no need for separate levels - only few mods have so big subtree and theese will have plenty of submoderators to take care of themes
+
+- removed comments on users, because commenting can be done anywhere, reduces potential bad exposure on users (good thing when against trolls), seeing best of his work should be enough
+- numberic ids in db are good because of memory footprint
+
+- /n/ -> split nodes to separate tables based on the type?  /i/ - items, /c/ - comments, NO, because Single Table Inheritance is okay and we would need /t/parent/t/id (type everywhere)
+    ...
+voting using Javascript because much less SQL is used
+
+voting allowed to unregistered users because initially there will be only a few users so the whole value of this site will be very low
+
+it is better to have different languages separated because:
+    user do not like to see content in unfamiliar language
+    login, logout, etc should be automatically translated (this is easier when we dont want to use some kind of browser locale detection)
+
+embed lang code in url as subdomain - users accustomized to wikipedia expect this, login should be without subdomain to login user to all languages

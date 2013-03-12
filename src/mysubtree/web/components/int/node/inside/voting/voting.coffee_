@@ -1,0 +1,47 @@
+#= require common
+
+utils = window.utils
+
+window.voting = window.voting or {}
+voting = window.voting
+
+voting.update_link_state = (link, relative_value) ->
+    if relative_value > 0
+        setPressed(link, true)
+    else if relative_value < 0
+        setPressed(link, false)
+    else if relative_value == 0
+        setPressed(link, not getPressed(link))
+
+voting.reflect_link_states = (container, selector) ->
+    container.find(selector).each( ->
+        link = $(this)
+#         console.log(link.attr("href"))
+#         console.log(utils.stripQueryString(link.attr("href")))
+        should_be_pressed = try localStorage[utils.stripQueryString(link.attr("href"))] catch error
+        if should_be_pressed
+            link.addClass("pressed")
+            link.attr("href", link.attr("href") + "?undo=y")
+            if link.data("pressed")
+                link.text(link.data("pressed"))
+    )
+
+setPressed = (link, pressed) ->
+    if pressed
+        try localStorage[utils.stripQueryString(link.attr("href"))] = new Date() catch error
+        if not getPressed(link)
+            link.addClass("pressed")
+            link.attr("href", link.attr("href") + "?undo=y")
+            if link.data("pressed")
+                link.text(link.data("pressed"))
+    else
+        try localStorage.removeItem(utils.stripQueryString(link.attr("href"))) catch error
+        if getPressed(link)
+            link.removeClass("pressed")
+            link.attr("href", link.attr("href").replace(/\?undo=y$/, ""))
+            if link.data("default")
+                link.text(link.data("default"))
+
+getPressed = (link) ->
+    return link.hasClass("pressed")
+ 

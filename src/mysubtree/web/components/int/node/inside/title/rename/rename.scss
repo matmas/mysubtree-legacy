@@ -1,0 +1,22 @@
+// Rename
+
+a.rename {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    &:after { content: "\a0 "; }
+    sprite(ext/famfamfam/20x20/desaturated/icons/pencil.png);
+    &:hover, &:focus {
+        opacity: 1;
+/*         sprite(ext/famfamfam/20x20/icons/pencil.png); */
+    }
+    opacity: 0.5;
+/*     visibility: hidden; */
+}
+
+.title:hover {
+    & > a.rename {
+        visibility: visible;
+    }
+}

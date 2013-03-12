@@ -1,0 +1,32 @@
+#= require common
+#= require int/node/inside/permalink/permalink
+#= require int/node/inside/branching/branching
+#= require int/node/inside/refresh
+#= require int/node/inside/voting/voting
+#= require int/node/inside/handle_response
+
+utils = window.utils
+voting = window.voting
+
+$(document).on("click", "a.like", (event) ->
+    event.preventDefault()
+    href = this.href
+    
+    $.ajax({
+        type: "POST",
+        url: href,
+        data: "csrf_token=#{csrf_token}",
+        success: (response) ->
+            handle_response(response)
+    })
+)
+
+$(document).ready( ->
+    voting.reflect_link_states($(document), "a.like")
+)
+
+$(document).on("ajax", (event, container) ->
+    voting.reflect_link_states(container, "a.like")
+)
+
+        

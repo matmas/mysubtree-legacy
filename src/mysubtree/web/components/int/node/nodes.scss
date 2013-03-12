@@ -1,0 +1,36 @@
+// Nodes
+
+@import "int/consts";
+
+.type-container {
+    padding: 0;
+    border: 0;
+}
+
+// Desktop support
+.type-container {
+    padding-left: $node_indentation;
+}
+
+// Low-resolution support
+// max-device-width only for devices with small displays
+// max-width        also for browsers with resized windows
+@media only screen and (max-width: 480px) { // NOTE: the same as in branching.scss
+    .type-container {
+        padding-left: 0;
+    }
+    .node-list {
+        border: solid gray;
+    }
+}
+
+.type-container {
+//     border-width: 5px 0;
+    border-radius: 20px;
+}
+
+.node-list {
+    border-collapse: separate;
+    border-width: 5px 0;
+    border-radius: 20px;
+}

@@ -1,0 +1,7 @@
+{% from "int/macros/forms.html" import form_field_errors with context %}
+
+{{ form_field_errors(field) }}
+
+{% if not field.errors %}
+    <span class="ok" title="ok">&nbsp;{{ message }}</span>
+{% endif %}

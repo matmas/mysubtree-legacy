@@ -1,0 +1,56 @@
+// Activity Highlighter
+//=require ext/jquery-ui/jquery-ui-1.8.20.custom
+
+@import "int/consts";
+
+.activity-highlighter-open {
+    sprite(ext/famfamfam/20x20/icons/transmit_blue.png);
+    width: 20px;
+    height: 20px;
+    display: none; // JS will make it inline-block
+    
+    border-radius: 10px;
+    margin: 5px;
+    &:hover {
+        cursor: pointer;
+        background-color: lightgray;
+    }
+}
+
+.activity-highlight-color {  // just for javascript to query
+    color: $highlight_color;
+}
+
+.activity-highlighter-area {
+    text-align: right;
+//     margin-right: -$body_padding;
+//     &.collapsed {
+//         margin-right: 0;
+//         position: absolute;
+//         right: 0;
+//         .activity-highlighter-open {
+//             float: right;
+//         }
+//     }
+}
+
+.activity-highlighter {
+    
+    .ui-slider-range {
+        background: $highlight_color;
+    }
+    .ui-slider-handle {
+        border: 2px solid $highlight_color;
+    }
+    .time-slider {
+        display: inline-block;
+        width: 200px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    display: none; // JS will make it inline
+    
+    @media print {
+        display: none;
+    }
+}

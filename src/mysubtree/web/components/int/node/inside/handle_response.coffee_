@@ -1,0 +1,128 @@
+#= require common
+#= require int/node/node
+#= require int/node/inside/permalink/permalink
+#= require int/node/inside/branching/branching
+#= require int/node/inside/voting/voting
+
+utils = window.utils
+voting = window.voting
+
+
+feedback_bubble = (node, response) ->
+    voter = $("#account > .user").text() or response.voting.ipaddress
+    element = $(".branch.votes", node.inside().branching().$)[0]
+    if element
+        bubble = $("""
+        <div class="bubble topright">
+            <span class="value">#{response.voting.relative_value}</span>
+            <span class="voter">#{voter}</span>
+        </div>
+        """)
+        if not response.voting.is_votenode_created
+            $(".value", bubble).text("+1") # indicate previous vote
+            bubble.addClass("deleted")     # but with strikethrough text
+        $(element).css({visibility: "visible"})
+        bubble.appendTo($(document.body))
+            .css({
+                position: "absolute",
+                display: "none",
+            })
+            .position({
+                my: "left bottom",
+                at: "left top", "of": element,
+                offset: "0 -10", # approx. arrow height in css
+                collision: "fit",
+            })
+            .fadeIn(1000)
+            .delay(1000)
+            .fadeOut(1000, ->
+                $(this).remove()
+            )
+
+
+handle_response = (response) ->
+    if response.error
+        utils.messageBox("", response.error)
+    else
+        if response.refresh_account
+            utils.ajax($("#account"), "/account", ->
+                handle_response(response.refresh_account)
+            )
+    
+        if response.voting
+            node = new Node($("#" + response.voting.nid))
+            voteIndicator = node.inside().voting().voteIndicator()
+            like          = node.inside().voting().like()
+            relative_value = parseInt(response.voting.relative_value)
+            if relative_value != 0
+                # nice effect:
+                utils.raising_effect(voteIndicator.$)
+                    .html(response.voting.relative_value)
+                    .css({color: if relative_value > 0 then "green" else "red"})
+                
+                # increment/decrement votes:
+                oldValue = parseInt(voteIndicator.$.html())
+                voteIndicator.$.html(oldValue + relative_value)
+                
+                node.refreshInside( ->
+                    feedback_bubble(node, response)
+                    if node.typeContainer().nodelist().getOpenedType() == "votes"
+                        node.refreshNodes()
+                )
+            voting.update_link_state(like.$, relative_value)
+    
+        if response.refresh
+            node = new Node($("#" + response.refresh.nid))
+            node.refreshInside( ->
+                handle_response(response.refresh)
+                if response.refresh.highlight
+                    node.inside().$.effect("highlight", {}, 2000)
+            )
+        
+        if response.refresh_nodes
+            node = new Node($("#" + response.refresh_nodes.nid))
+            node.refreshNodes( ->
+                handle_response(response.refresh_nodes)
+            )
+        
+        if response.refresh_nodes_of_parent
+            node = new Node($("#" + response.refresh_nodes_of_parent.nid))
+            node.parentNode().refreshNodes( ->
+                handle_response(response.refresh_nodes_of_parent)
+            )
+        
+        if response.refresh_siblings
+            node = new Node($("#" + response.refresh_siblings.nid))
+            if node.parentNode().exists()
+                node.parentNode().refreshNodes( ->
+                    handle_response(response.refresh_siblings)
+                )
+            else
+                window.location.href = window.location.href
+        
+#         if response.refresh_parent
+#             node = new Node($("#" + response.refresh_parent.nid))
+#             node.parentNode().refreshInside( ->
+#                 if response.refresh_parent.highlight
+#                     node.parentNode().inside().$.effect("highlight", {}, 2000)
+#             )
+        
+#         if response.refresh_parent_of_parent
+#             node = new Node($("#" + response.refresh_parent.nid))
+#             parentOfParentNode = node.parentNode().parentNode()
+#             parentOfParentNode.refreshInside( ->
+#                 parentOfParentNode.inside().$.effect("highlight", {}, 2000)
+#             )
+        
+        if response.refresh_ancestors
+            node = new Node($("#" + response.refresh_ancestors.nid))
+            for parentNode in node.parentNodes()
+                parentNode.refreshInside()
+        
+#         if response.refresh_manually
+#             href = node.permalinkHref()
+#             if parentNode.exists()
+#                 href = parentNode.permalinkHref()
+#             utils.messageBox("refresh needed", """
+#             Please, <a href="#{href}">refresh page</a> to see changes.
+#             """)

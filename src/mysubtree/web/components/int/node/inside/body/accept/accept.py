@@ -1,0 +1,13 @@
+from flask import url_for
+from flaskext.babel import gettext as _
+from lib.html import Html
+
+def accept(node):
+    html = Html()
+    if node.is_acceptable_by_current_user():
+        with html.a(
+            href=url_for('accept', nparent=node.nparent(), nid=node.nid()),
+            class_=["accept", "button"],
+        ):
+            html.text(_("accept"))
+    return html

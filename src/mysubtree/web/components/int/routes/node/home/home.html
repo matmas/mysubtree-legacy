@@ -1,0 +1,12 @@
+{%- extends "int/layout/base.html" -%}
+
+{%- block html_body -%}
+
+<div style="margin: 10px">
+    <h1>Mysubtree</h1>
+
+    <a class="btn btn-large btn-inverse" href="{{ url_for('language_root', lang='en') }}">English</a>
+    &nbsp;
+    <a class="btn btn-large" href="{{ url_for('language_root', lang='sk') }}">Slovenčina</a>
+</div>
+{%- endblock -%}
