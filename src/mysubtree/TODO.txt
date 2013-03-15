@@ -1,7 +1,5 @@
 BEFORE FIRST PUBLIC RELEASE:
     
-    git repo
-    
     split Node table into many types tables and do instead of /node /items /comments...
     split table node to items, comments... with url /en/items/<id>/slug/comments
                                                     /en/root
@@ -16,11 +14,10 @@ BEFORE FIRST PUBLIC RELEASE:
     
     rss??, no, instead watch/unwatch/auto-watch - e-mail notifications
     
-    
+    edit link ("Edit URL")
 
 HTML ANNOYANCES:
     ?
-    !!! links to other nodes !!!
         name: [_______] optional if url points to some other node
 
         url:  [_______] [...]
