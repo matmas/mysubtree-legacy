@@ -19,6 +19,14 @@ class NodeRenaming:
             return False
         return True
     
+    def _going_to_rename(self):
+        if not self.is_renameable():
+            raise Error(_("This node cannot be renamed."))
+        if not get_user():
+            raise Error(_("You must be logged in to do it."))
+        if get_user_node() not in self.get_moderators():
+            raise Error(_("You are neither owner nor moderator of that node."))
+    
     def rename(self, name):
         self._going_to_rename()
         old_name = self.name
@@ -27,10 +35,3 @@ class NodeRenaming:
             return True
         return False
     
-    def _going_to_rename(self):
-        if not self.is_renameable():
-            raise Error(_("This node cannot be renamed."))
-        if not get_user():
-            raise Error(_("You must be logged in to do it."))
-        if get_user_node() not in self.get_moderators():
-            raise Error(_("You are neither owner nor moderator of that node."))
