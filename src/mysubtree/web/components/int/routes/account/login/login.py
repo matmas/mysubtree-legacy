@@ -21,7 +21,7 @@ def login(lang):
     class LoginForm(RedirectForm):
         email = fields.TextField(_("E-mail"), [
             validators.Required(message=_("This field is required.")),
-        ], widget=TextInput(autofocus=True))
+        ], widget=TextInput(autofocus=True, type="email"))
         password = fields.PasswordField(_("Password"), [
             validators.Required(message=_("This field is required.")),
         ])

@@ -52,7 +52,7 @@ def create_account(lang):
             validators.Length(max=email_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", email_max_length)),
             validators.Email(message=_("Invalid e-mail address.")),
             EmailNotTakenValidator(),
-        ])
+        ], widget=TextInput(type="email"))
         password = fields.PasswordField(_("Password"), password_validators.get_password_validators() + [
             NotEqualTo("name", _("Password can't be identical to your name"))
         ])

@@ -6,9 +6,10 @@ from flask import Markup
         #return ""
 
 class TextInput(widgets.TextInput):
-    def __init__(self, **kwargs):
+    def __init__(self, type="text", **kwargs):
         super(TextInput, self).__init__()
         self.kwargs = kwargs
+        self.input_type = type # https://groups.google.com/d/msg/wtforms/8xt6dI5jd48/22GMCbt8wjYJ
     
     def __call__(self, field, **kwargs):
         kwargs.update(self.kwargs)

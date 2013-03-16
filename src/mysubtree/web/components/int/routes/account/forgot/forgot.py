@@ -21,7 +21,7 @@ def forgot(lang):
     class ForgotForm(Form):
         email = fields.TextField(_("E-mail"), [
             validators.Required(message=_("This field is required.")),
-        ], widget=TextInput(autofocus=True))
+        ], widget=TextInput(autofocus=True, type="email"))
     form = ForgotForm(csrf_enabled=False)
     
     if request.method == "GET":
