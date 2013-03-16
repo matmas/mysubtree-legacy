@@ -1,9 +1,22 @@
+actions:
+    accept()
+    delete()
+    restore()
+
+properties:
+    icon
+    title
+    body
+    url (new)
+
+
+
 BEFORE FIRST PUBLIC RELEASE:
     
-    split Node table into many types tables and do instead of /node /items /comments...
-    split table node to items, comments... with url /en/items/<id>/slug/comments
-                                                    /en/root
-                                                    /en/log-entry/<id>/comments (no slug because of type in url)
+    urls /en/items/<id>/slug/comments
+         /en/root
+         /en/log-entries/<id>/comments (no slug because of type in url)
+
     double post
     
     voting only for registered users? yes
@@ -401,3 +414,5 @@ it is better to have different languages separated because:
     login, logout, etc should be automatically translated (this is easier when we dont want to use some kind of browser locale detection)
 
 embed lang code in url as subdomain - users accustomized to wikipedia expect this, login should be without subdomain to login user to all languages
+
+split Node table into many types tables? no because of e.x. get responses returns multiple types at once
