@@ -1,8 +1,9 @@
 import os
 import urllib2
 import shutil
+import sys
 from operator import itemgetter
-from os.path import basename, getsize
+from os.path import basename, getsize, relpath
 from lib.fileextension import extension
 from register import Register
 from dependencies.dependencies import DependencyResolver
@@ -43,15 +44,18 @@ class ScriptRegister(Register):
         return (".js", ".coffee") #, ".jsurl")
         
     def new_file_detected(self, file):
+        print >> sys.stderr, '[notice] new script was created: %s' % relpath(start=self.assets_dir, path=file)
         self._files.append(file)
         self.get_compiled(file, recompile=True)
         self.reassemble_all()
     
     def file_deleted(self, file):
+        print >> sys.stderr, '[notice] script was deleted: %s' % relpath(start=self.assets_dir, path=file)
         self._files.remove(file)
         self.reassemble_all()
     
     def file_modified(self, file):
+        print >> sys.stderr, '[notice] script was modified: %s' % relpath(start=self.assets_dir, path=file)
         self.get_compiled(file, recompile=True)
         self.reassemble_all()
     

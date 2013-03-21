@@ -1,6 +1,7 @@
 from register import Register
 import os
-from os.path import dirname, exists
+import sys
+from os.path import dirname, exists, relpath
 import shutil
 
 
@@ -16,18 +17,21 @@ class CloneRegister(Register):
         return True # may be overriden
 
     def new_file_detected(self, file):
+        print >> sys.stderr, '[notice] new file was created: %s' % relpath(start=self.assets_dir, path=file)
         if self.should_do_clone_of(file):
             self.about_to_add_clone(file)
             self.ensure_clone(file)
             self.clone_added(file)
 
     def file_deleted(self, file):
+        print >> sys.stderr, '[notice] file was deleted: %s' % relpath(start=self.assets_dir, path=file)
         if self.should_do_clone_of(file):
             self.about_to_delete_clone(file)
             self.delete_clone(file)
             self.clone_deleted(file)
 
     def file_modified(self, file):
+        print >> sys.stderr, '[notice] file was modified: %s' % relpath(start=self.assets_dir, path=file)
         if self.should_do_clone_of(file):
             self.about_to_refresh_clone(file)
             self.ensure_clone(file)
