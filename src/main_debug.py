@@ -35,7 +35,6 @@ if __name__ == "__main__":
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
     
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://mysubtree:mysubtree@localhost/mysubtree?unix_socket=/var/run/mysqld/mysqld.sock"
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost"
     #app.config["SQLALCHEMY_ECHO"] = True
     

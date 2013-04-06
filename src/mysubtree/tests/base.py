@@ -7,7 +7,6 @@ from mysubtree.db import db, autoimport_and_init_db
 class Base(unittest.TestCase):
 
     def setUp(self):
-        app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://mysubtree-test:mysubtree-test@localhost/mysubtree-test?unix_socket=/var/run/mysqld/mysqld.sock"
         app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost"
         #app.config["SQLALCHEMY_ECHO"] = True
         app.config['TESTING'] = True
