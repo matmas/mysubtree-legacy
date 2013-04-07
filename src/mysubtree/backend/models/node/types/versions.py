@@ -28,7 +28,7 @@ class Versions(Node):
         return Markup('<span class="diff">%s</span>' % self.diff)
     
     def slug(self):
-        return utils.slugify(self.body) 
+        return None
     
     def short_name(self):
         return utils.short_name(self.body)

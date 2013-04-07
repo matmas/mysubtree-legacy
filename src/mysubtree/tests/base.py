@@ -36,6 +36,12 @@ class Base(unittest.TestCase):
     
     #---------------------------------------------------------------------------
     
+    def follow_redirect(self, new_location):
+        prefix_to_strip = "http://localhost"
+        if new_location.startswith(prefix_to_strip):
+            new_location = new_location[len(prefix_to_strip):]
+        return self.client.get(new_location)
+    
     def url_for(self, endpoint, **kwargs):
         with self.app.test_request_context() as c:
             url = url_for(endpoint, **kwargs)

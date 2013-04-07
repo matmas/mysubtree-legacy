@@ -4,7 +4,11 @@ from .base import Base
 class Editing(Base):
     
     def edit(self, nid, new_body, version):
-        return self.client.post("/edit/%s" % nid, data=dict(body=new_body, version=version), follow_redirects=True)
+        rv = self.client.post("/edit/%s" % nid, data=dict(body=new_body, version=version))
+        if rv.location:
+            rv = self.follow_redirect(rv.location)
+            assert not rv.location # max one redirect
+        return rv
     
     def runTest(self):
         #--- User 1 ------------------------------------------------------------
@@ -45,7 +49,7 @@ class Editing(Base):
         assert "Posted successfully." in rv.data # edit suggestion
         rv = self.get_nodes("items", item1, "edit-suggestions")
         edit2 = self.get_newest_node_nid(rv.data)
-                
+        
         # Suggest edit 1-1:
         rv = self.edit(edit2, "suggested edit 1-1", version=4)
         assert "Posted successfully." in rv.data # edit suggestion

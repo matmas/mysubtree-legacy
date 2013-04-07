@@ -3,13 +3,6 @@ from .base import Base
 
 class O(Base):
     
-    def follow_redirect(self, new_location):
-        prefix_to_strip = "http://localhost"
-        if new_location.startswith(prefix_to_strip):
-            new_location = new_location[len(prefix_to_strip):]
-        return self.client.get(new_location)
-        
-    
     def runTest(self):
         self.register_test_user("1")
         rv = self.post_node(type="items", parent="en", name="item1")
