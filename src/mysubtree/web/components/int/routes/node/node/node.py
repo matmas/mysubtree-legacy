@@ -35,18 +35,15 @@ def language_root(lang):
     return redirect(url_for("node", lang=lang, nid=base_encode(get_root_id(lang)), type=Root.branching()[0]))
 
 
-@app.route("/en/root",                                       defaults={"nodetype": "root", "nid": "en", "lang": "en"})
-@app.route("/en/root/<type>",                                defaults={"nodetype": "root", "nid": "en", "lang": "en"})
-@app.route("/sk/root",                                       defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
-@app.route("/sk/root/<type>",                                defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
+@app.route("/en/root",                                      defaults={"nodetype": "root", "nid": "en", "lang": "en"})
+@app.route("/en/root/<type>",                               defaults={"nodetype": "root", "nid": "en", "lang": "en"})
+@app.route("/sk/root",                                      defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
+@app.route("/sk/root/<type>",                               defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
 
-@app.route("/<lang>/users/<alphanum:nid>",                   defaults={"nodetype": "users"})
-@app.route("/<lang>/users/<alphanum:nid>/<type>",            defaults={"nodetype": "users"})
-
-@app.route("/<lang>/users/<alphanum:nid>-<slug>",            defaults={"nodetype": "users"})
-@app.route("/<lang>/users/<alphanum:nid>-<slug>/<type>",     defaults={"nodetype": "users"})  # without the url convertor nid will contain part of the multi-word slug until the last dash
-
-
+@app.route("/<lang>/users/<alphanum:nid>",                  defaults={"nodetype": "users"})
+@app.route("/<lang>/users/<alphanum:nid>/<type>",           defaults={"nodetype": "users"})
+@app.route("/<lang>/users/<alphanum:nid>-<slug>",           defaults={"nodetype": "users"})
+@app.route("/<lang>/users/<alphanum:nid>-<slug>/<type>",    defaults={"nodetype": "users"})  # without the url convertor nid will contain part of the multi-word slug until the last dash
 @app.route("/<lang>/items/<alphanum:nid>",                  defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>/<type>",           defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>-<slug>",           defaults={"nodetype": "items"})
@@ -55,6 +52,7 @@ def language_root(lang):
 @app.route("/<lang>/comments/<alphanum:nid>/<type>",        defaults={"nodetype": "comments"})
 @app.route("/<lang>/comments/<alphanum:nid>-<slug>",        defaults={"nodetype": "comments"})
 @app.route("/<lang>/comments/<alphanum:nid>-<slug>/<type>", defaults={"nodetype": "comments"})
+
 @app.route("/<lang>/edit-suggestions/<nid>",                defaults={"nodetype": "edit-suggestions"})
 @app.route("/<lang>/edit-suggestions/<nid>/<type>",         defaults={"nodetype": "edit-suggestions"})
 @app.route("/<lang>/log-entries/<nid>",                     defaults={"nodetype": "log-entries"})
@@ -66,12 +64,6 @@ def language_root(lang):
 @app.route("/<lang>/votes/<nid>",                           defaults={"nodetype": "votes"})
 @app.route("/<lang>/votes/<nid>/<type>",                    defaults={"nodetype": "votes"})
 
-
-#@app.route("/<lang>/nodes/<nparent>-<nid>")
-#@app.route("/<lang>/nodes/<nparent>-<nid>/<slug>")
-
-#@app.route("/<lang>/branches/<nparent>-<nid>/<type>")
-#@app.route("/<lang>/branches/<nparent>-<nid>/<slug>/<type>")
 @line_profile
 @cache.cached(timeout=60, unless=should_not_cache)
 def node(lang, nodetype, nid, type=None, slug=None):
