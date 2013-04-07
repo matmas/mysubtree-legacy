@@ -18,7 +18,7 @@ class Editing(Base):
         # Post a comment:
         rv = self.post_node(type="comments", parent=item1, body="comment1")
         assert "Posted successfully." in rv.data
-        comment1 = self.get_node_nid(rv.data, slug="comment1")
+        comment1 = self.get_newest_node_nid(rv.data)
         
         # Edit an item:
         rv = self.edit(item1, "item1 description", version=2)
@@ -38,13 +38,13 @@ class Editing(Base):
         rv = self.edit(item1, "suggested edit 1", version=3)
         assert "Posted successfully." in rv.data # edit suggestion
         rv = self.get_nodes(item1, "edit-suggestions")
-        edit1 = self.get_node_nid(rv.data, slug="suggested-edit-1")
+        edit1 = self.get_newest_node_nid(rv.data)
         
         # Suggest edit 2:
         rv = self.edit(item1, "suggested edit 2", version=3)
         assert "Posted successfully." in rv.data # edit suggestion
         rv = self.get_nodes(item1, "edit-suggestions")
-        edit2 = self.get_node_nid(rv.data, slug="suggested-edit-2")
+        edit2 = self.get_newest_node_nid(rv.data)
                 
         # Suggest edit 1-1:
         rv = self.edit(edit2, "suggested edit 1-1", version=4)

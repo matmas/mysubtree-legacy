@@ -1,6 +1,7 @@
 import re
 import unittest
 from werkzeug.contrib.profiler import ProfilerMiddleware
+from pyquery import PyQuery as pq
 from mysubtree.web.app import app
 from mysubtree.db import db, autoimport_and_init_db
 
@@ -89,6 +90,10 @@ class Base(unittest.TestCase):
     def get_node_nid(self, html, slug):
         finder = re.compile("""<a class=["'][^"']*["'] href=["']/en/nodes/[^-"]*-([^/"]*)/%s["']""" % slug).finditer(html)
         node_nid = finder.next().groups()[0]
+        return node_nid
+    
+    def get_newest_node_nid(self, html):
+        node_nid = pq(html)(".nodes > .node .nodes > .node").eq(0).children(".inside").attr("id")
         return node_nid
     
     def move_node(self, nid, target_nid):
