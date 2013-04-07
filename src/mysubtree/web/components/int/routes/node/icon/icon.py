@@ -29,9 +29,9 @@ class MimeType:
                 raise validators.StopValidation(_("Mime-type %(m1)s is not allowed. Allowed mime-type is %(m2)s.", m1=detected_mime, m2=self.mimetype))
             request.files[field.name].detected_mime = detected_mime
 
-@app.route("/icon/<nparent>-<nid>", methods=["GET", "POST"])
-def icon(nparent, nid):
-    node = backend.get_node_from(nid, nparent)
+@app.route("/icon/<nid>", methods=["GET", "POST"])
+def icon(nid):
+    node = backend.get_node_from(nid)
     set_locale(node.lang)
     class IconForm(RedirectForm):
         use = fields.SelectField(_("Use"),

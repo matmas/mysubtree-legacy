@@ -141,7 +141,7 @@ class NodeHierarchy(NodeUnread):
     def get_parent(self):
         from mysubtree.backend.backend import get_node
         if not self.get("_parent_node"):
-            self._parent_node = get_node(id=self.parent, parent=self.parent_of_parent)
+            self._parent_node = get_node(self.parent)
         return self._parent_node
     
     #===========================================================================
@@ -191,7 +191,7 @@ class NodeHierarchy(NodeUnread):
         if not self.has_full_path():
             node = self
             while not node.has_full_path():
-                node = get_node(node.path[0]["id"], node.path[0]["parent"])
+                node = get_node(node.path[0]["id"])
                 full_path[0:0] = node.path
         return full_path
     

@@ -15,9 +15,9 @@ from mysubtree.db import db
 from mysubtree.web.babel import set_locale
 from mysubtree.web.user import get_user_node
 
-@app.route("/edit/<nparent>-<nid>", methods=["GET", "POST"])
-def edit(nparent, nid):
-    node = backend.get_node_from(nid, nparent)
+@app.route("/edit/<nid>", methods=["GET", "POST"])
+def edit(nid):
+    node = backend.get_node_from(nid)
     set_locale(node.lang)
     class EditForm(RedirectForm):
         #body = fields.TextAreaField("", widget=widgets.WikiareaWidget(

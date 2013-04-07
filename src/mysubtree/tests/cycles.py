@@ -4,9 +4,9 @@ class Cycles(Base):
     def runTest(self):
         self.register_test_user("1")
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent="en", name="item2")
-        item2 = self.get_node_nid(rv.data, slug="item2")
+        item2 = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -36,9 +36,9 @@ class Cycles(Base):
                 # item2
         
         rv = self.post_node(type="items", parent=item1, name="item1-1")
-        item1_1 = self.get_node_nid(rv.data, slug="item1-1")
+        item1_1 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent=item2, name="item2-2")
-        item2_2 = self.get_node_nid(rv.data, slug="item2-2")
+        item2_2 = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -75,9 +75,9 @@ class Cycles(Base):
                     # item2-2
         
         rv = self.post_node(type="items", parent=item1_1, name="item1-1-1")
-        item1_1_1 = self.get_node_nid(rv.data, slug="item1-1-1")
+        item1_1_1 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent=item2_2, name="item2-2-2")
-        item2_2_2 = self.get_node_nid(rv.data, slug="item2-2-2")
+        item2_2_2 = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -114,11 +114,11 @@ class Cycles(Base):
                             # item2                  |
                                 # item2-2            |
                                     # item2-2-2------/
-        #rv = self.get_node(item1)
-        rv = self.get_node(item1_1)
-        rv = self.get_node(item1_1_1)
-        rv = self.get_node(item2)
-        #rv = self.get_node(item2_2)
-        #rv = self.get_node(item2_2_2)
+        #rv = self.get_node("items", item1)
+        rv = self.get_node("items", item1_1)
+        rv = self.get_node("items", item1_1_1)
+        rv = self.get_node("items", item2)
+        #rv = self.get_node("items", item2_2)
+        #rv = self.get_node("items", item2_2_2)
         
         assert "trash" in rv.data # in breadcrumb

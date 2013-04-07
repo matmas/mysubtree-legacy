@@ -10,7 +10,7 @@ class Voting(Base):
         
         # Post item
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         
         # root
             # en
@@ -35,7 +35,7 @@ class Voting(Base):
                     # +1 (User2 (127.0.0.2))
         
         # Check that the IP address is hidden and user name is shown:
-        rv = self.get_nodes(item1, "votes")
+        rv = self.get_nodes("items", item1, "votes")
         assert "User2" in rv.data
         assert "127.0.0.2" not in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
@@ -74,7 +74,7 @@ class Voting(Base):
                     # +1 (127.0.0.3)
         
         # Check IP-address only vote:
-        rv = self.get_nodes(item1, "votes")
+        rv = self.get_nodes("items", item1, "votes")
         assert "127.0.0.3" in rv.data
         
         #--- User 2 ------------------------------------------------------------
@@ -91,7 +91,7 @@ class Voting(Base):
         rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "You sucessfully undid your vote." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
-        rv = self.get_nodes(item1, "votes")
+        rv = self.get_nodes("items", item1, "votes")
         assert "127.0.0.3" not in rv.data
         
         # root
@@ -116,7 +116,7 @@ class Voting(Base):
         rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "You sucessfully undid your vote." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
-        rv = self.get_nodes(item1, "votes")
+        rv = self.get_nodes("items", item1, "votes")
         assert "127.0.0.3" in rv.data # It should remain
         
         # root
@@ -143,7 +143,7 @@ class Voting(Base):
                     # -1 (127.0.0.3)
                     # +1 (127.0.0.3)
         
-        rv = self.get_nodes(item1, "votes")
+        rv = self.get_nodes("items", item1, "votes")
         votenodes = pq(rv.data)(".inside")
         
         num_plus1 = 0

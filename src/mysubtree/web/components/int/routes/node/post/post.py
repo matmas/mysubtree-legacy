@@ -15,15 +15,13 @@ from mysubtree.backend.models.node.types.all import get_model
 from mysubtree.web.components.int.routes.middleware.ajax_response import ajax_response
 from mysubtree.web.components.int.routes.middleware.refresh_account import refresh_account
 
-@app.route("/post/<type>/to/<nparent>-<nid>", methods=["GET", "POST"])
-@app.route("/post/<type>/to/<nid>",           methods=["GET", "POST"])
-@app.route("/post-to/<nparent>-<nid>",        methods=["GET", "POST"])
-@app.route("/post-to/<nid>",                  methods=["GET", "POST"])
+@app.route("/post/<type>/to/<nid>", methods=["GET", "POST"])
+@app.route("/post-to/<nid>",        methods=["GET", "POST"])
 @ajax_response
 @refresh_account
-def post(nid, type=None, nparent=None, slug=None):
+def post(nid, type=None):
     app.jinja_env.globals.update(locals())
-    node = backend.get_node_from(nid, nparent) or abort(404)
+    node = backend.get_node_from(nid) or abort(404)
     set_locale(node.lang)
     if request.method == "GET":
         if type:

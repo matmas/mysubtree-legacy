@@ -10,16 +10,16 @@ class Flagging(Base):
     def flag_as(self, ip_address, nid, undo=False):
         self.logout()
         if not undo:
-            url = "/flag/unknown-%s" % nid
+            url = "/flag/%s" % nid
         else:
-            url = "/flag/unknown-%s?undo=true" % nid
+            url = "/flag/%s?undo=true" % nid
         rv = self.client.post(url, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": ip_address})
         if not undo:
             assert "Thank you for the feedback." in rv.data
     
     def get_num_problematic_of_current_user(self):
-        rv = self.get_node("en")
+        rv = self.client.get(self.url_for("node", lang="en", nodetype="root", nid="en"))
         num_problematic = int(pq(rv.data)("#num-problematic").text() or "0")
         
         rv = self.client.get("/en/problematic")
@@ -36,7 +36,7 @@ class Flagging(Base):
         
         # Add item1 as User1
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -49,7 +49,7 @@ class Flagging(Base):
         
         # Add item2 as User2
         rv = self.post_node(type="items", parent=item1, name="item2")
-        item2 = self.get_node_nid(rv.data, slug="item2")
+        item2 = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -63,7 +63,7 @@ class Flagging(Base):
         
         # Add spam as Userspammer
         rv = self.post_node(type="items", parent=item2, name="spam")
-        spam = self.get_node_nid(rv.data, slug="spam")
+        spam = self.get_newest_node_nid(rv.data)
         
         # root
             # sk
@@ -74,25 +74,25 @@ class Flagging(Base):
         
         self.logout()
         #-----------------------------------------------------------------------
-        rv = self.client.post("/flag/unknown-%s" % spam, follow_redirects=True,
+        rv = self.client.post("/flag/%s" % spam, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": "127.0.0.1"})
         assert "Thank you for the feedback." in rv.data
         
-        rv = self.client.post("/flag/unknown-%s" % spam, follow_redirects=True,
+        rv = self.client.post("/flag/%s" % spam, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": "127.0.0.1"})
         assert "You already sent the feedback." in rv.data
         
-        rv = self.client.post("/flag/unknown-%s" % spam, follow_redirects=True,
+        rv = self.client.post("/flag/%s" % spam, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": "127.0.0.1"}, headers=[('X-Requested-With', 'XMLHttpRequest')])
         assert "You already sent the feedback." not in rv.data
         assert "error" not in rv.data
         
         
-        rv = self.client.post("/flag/unknown-%s?undo=true" % spam, follow_redirects=True,
+        rv = self.client.post("/flag/%s?undo=true" % spam, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": "127.0.0.1"})
         assert "You undid your feedback." in rv.data
         
-        rv = self.client.post("/flag/unknown-%s" % spam, follow_redirects=True,
+        rv = self.client.post("/flag/%s" % spam, follow_redirects=True,
             environ_overrides={"REMOTE_ADDR": "127.0.0.1"})
         assert "Thank you for the feedback." in rv.data
         

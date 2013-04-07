@@ -6,7 +6,7 @@ def flag(node):
     html = Html()
     if node.is_flaggable_by_current_user():
         with html.a(
-            href=url_for("flag", nparent=node.nparent(), nid=node.nid()),
+            href=url_for("flag", nid=node.nid()),
             class_=["flag", "problematic" if node.is_problematic() else ""],
             title=_("report problem"),
         ):

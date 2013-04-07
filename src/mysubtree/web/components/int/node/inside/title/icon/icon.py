@@ -7,7 +7,7 @@ def icon(node):
     if node.is_icon_changeable_by_current_user():
         with html.a(
             class_="seticon",
-            href=url_for('icon', nparent=node.nparent(), nid=node.nid()),
+            href=url_for('icon', nid=node.nid()),
             title=_("set icon"),
         ):
             pass

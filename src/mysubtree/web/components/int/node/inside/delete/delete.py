@@ -8,14 +8,14 @@ def delete(node):
     html = Html()
     if node.is_deletable_by_current_user():
         with html.a(
-            href=url_for('delete', nparent=node.nparent(), nid=node.nid()),
+            href=url_for('delete', nid=node.nid()),
             class_="delete",
             title=_("delete"),
         ):
             pass
     if node.is_restorable_by_current_user():
         with html.a(
-            href=url_for('restore', nparent=node.nparent(), nid=node.nid()),
+            href=url_for('restore', nid=node.nid()),
             class_="restore",
             title=_("restore"),
         ):

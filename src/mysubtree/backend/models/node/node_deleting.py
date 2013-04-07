@@ -52,7 +52,7 @@ class NodeDeleting:
     def delete(self):
         self._going_to_delete()
         from mysubtree.backend import backend
-        trash = backend.get_node(get_trash_id(self.lang), parent=self.lang)
+        trash = backend.get_node(get_trash_id(self.lang))
         self.previous_location = self.parent # remember last location
         self.move_to(trash)
         self.log("_(deleted)"); _("deleted")

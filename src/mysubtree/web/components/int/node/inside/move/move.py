@@ -7,7 +7,7 @@ def move(node):
     if node.is_movable_by_current_user():
         with html.a(
             class_="move",
-            href=url_for('move', nparent=node.nparent(), nid=node.nid()),
+            href=url_for('move', nid=node.nid()),
             title=_("move")
         ):
             pass

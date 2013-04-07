@@ -1,5 +1,6 @@
 import re
 import unittest
+from flask import url_for
 from werkzeug.contrib.profiler import ProfilerMiddleware
 from pyquery import PyQuery as pq
 from mysubtree.web.app import app
@@ -34,6 +35,11 @@ class Base(unittest.TestCase):
         pass
     
     #---------------------------------------------------------------------------
+    
+    def url_for(self, endpoint, **kwargs):
+        with self.app.test_request_context() as c:
+            url = url_for(endpoint, **kwargs)
+        return url
     
     def create_account(self, email, name, password):
         # Create account:
@@ -78,17 +84,17 @@ class Base(unittest.TestCase):
     #---------------------------------------------------------------------------
     
     def post_node(self, type, parent, **kwargs):
-        return self.client.post("/post/%s/to/unknown-%s" % (type, parent), data=kwargs, follow_redirects=True)
+        return self.client.post("/post/%s/to/%s" % (type, parent), data=kwargs, follow_redirects=True)
     
-    def get_node(self, nid):
-        return self.client.get("/en/nodes/unknown-%s" % nid, follow_redirects=True)
+    def get_node(self, type, nid):
+        return self.client.get("/en/%s/%s" % (type, nid), follow_redirects=True)
+        #return self.client.get(url_for("node", lang="en", nodetype=nodetype, nid=nid), follow_redirects=True)
     
-    def get_nodes(self, nid, type, sort=None):
-        url_suffix = "?sort=%s" % sort if sort else ""
-        return self.client.get("/en/branches/unknown-%s/%s%s" % (nid, type, url_suffix), follow_redirects=True)
+    def get_nodes(self, nodetype, nid, type, sort=None):
+        return self.client.get(self.url_for("node", lang="en", nodetype=nodetype, nid=nid, type=type, sort=sort), follow_redirects=True)
     
-    def get_node_nid(self, html, slug):
-        finder = re.compile("""<a class=["'][^"']*["'] href=["']/en/nodes/[^-"]*-([^/"]*)/%s["']""" % slug).finditer(html)
+    def get_node_nid(self, html, type, slug):
+        finder = re.compile("""<a class=["'][^"']*["'] href=["']/en/%s/[^-"]*-([^-"]*)-%s["']""" % (type, slug)).finditer(html)
         node_nid = finder.next().groups()[0]
         return node_nid
     
@@ -97,23 +103,23 @@ class Base(unittest.TestCase):
         return node_nid
     
     def move_node(self, nid, target_nid):
-        rv = self.client.post("/move/unknown-%s" % nid, follow_redirects=True)
+        rv = self.client.post("/move/%s" % nid, follow_redirects=True)
         assert "You may now paste the node somewhere." in rv.data
-        return self.client.post("/move-to/unknown-%s" % target_nid, follow_redirects=True)
-        #return self.client.post("/move/unknown-%s" % nid, data=dict(url="/en/nodes/unknown-%s" % target_nid), follow_redirects=True)
+        return self.client.post("/move-to/%s" % target_nid, follow_redirects=True)
+        #return self.client.post("/move/%s" % nid, data=dict(url="/en/nodes/%s" % target_nid), follow_redirects=True)
     
     def rename_node(self, nid, new_name):
-        return self.client.post("/rename/unknown-%s" % nid, data=dict(name=new_name), follow_redirects=True)
+        return self.client.post("/rename/%s" % nid, data=dict(name=new_name), follow_redirects=True)
     
     def vote(self, nid, undo=False, **kwargs):
         if not undo:
-            return self.client.post("/vote/unknown-%s" % nid, follow_redirects=True, **kwargs)
+            return self.client.post("/vote/%s" % nid, follow_redirects=True, **kwargs)
         else:
-            return self.client.post("/vote/unknown-%s?undo=true" % nid, follow_redirects=True, **kwargs)
+            return self.client.post("/vote/%s?undo=true" % nid, follow_redirects=True, **kwargs)
     
     def delete_node(self, nid):
-        return self.client.post("/delete/unknown-%s" % nid, follow_redirects=True)
+        return self.client.post("/delete/%s" % nid, follow_redirects=True)
     
     def restore_node(self, nid):
-        return  self.client.post("/restore/unknown-%s" % nid, follow_redirects=True)
+        return  self.client.post("/restore/%s" % nid, follow_redirects=True)
     

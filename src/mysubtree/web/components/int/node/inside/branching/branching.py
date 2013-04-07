@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, Markup, url_for
+from flask import request, Markup
 from flaskext.babel import gettext as _
 from lib.base57 import base_encode
 from lib.html import Html
@@ -50,7 +50,7 @@ def branching_link(html, branching_type, node, nodelist=None, nodelists=None, le
     
     if not is_expanded: # open
         o = compile_o(reversed(nodelists[:level+1])) if level >= 0 else None
-        href = url("node", lang=lang, nparent=node.nparent(), nid=node.nid(), slug=node.slug(), type=branching_type, sort=sort, o=o, _anchor=node.nid()) 
+        href = url("node", lang=lang, nodetype=node.type, nid=node.nid(), slug=node.slug(), type=branching_type, sort=sort, o=o, _anchor=node.nid()) 
     else: # close
         o = compile_o(reversed(nodelists[:level])) if level >= 0 else None
         offset = nodelists[level].get("offset", 0) if nodelists else None
@@ -58,11 +58,11 @@ def branching_link(html, branching_type, node, nodelist=None, nodelists=None, le
         if level == -1:
             parent_node = node # node stays the same
             type = None # type is closed
-            href = url("node", lang=lang, nparent=parent_node.nparent(), nid=parent_node.nid(), slug=parent_node.slug(), type=type, sort=sort, offset=offset, o=o)
+            href = url("node", lang=lang, nodetype=parent_node.type, nid=parent_node.nid(), slug=parent_node.slug(), type=type, sort=sort, offset=offset, o=o)
         else:
             #parent_node = nodelist["node"] # opened node moved upwards
             type = node.type
-            href = url("node", lang=lang, nparent=base_encode(node.parent_of_parent), nid=base_encode(node.parent), slug=node.path[-1]["slug"], type=type, sort=sort, offset=offset, o=o,
+            href = url("node", lang=lang, nodetype=node.parent_type, nid=base_encode(node.parent), slug=node.path[-1]["slug"], type=type, sort=sort, offset=offset, o=o,
                 _anchor=node.nid() # focus this node
             )
         

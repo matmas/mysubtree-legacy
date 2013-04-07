@@ -19,7 +19,7 @@
     {% endif %}
 
     {% from "int/macros/forms.html" import form_fields with context %}
-    <form class="form-inline action" action="{{ url_for(action, nparent=node.nparent(), nid=node.nid()) }}" method="post" name="{{ action }}" enctype="multipart/form-data">
+    <form class="form-inline action" action="{{ url_for(action, nid=node.nid()) }}" method="post" name="{{ action }}" enctype="multipart/form-data">
         {{ form_fields(form) }}
         <button type="submit" class="btn {{ btn_class }}">{{ action_name.capitalize() }}</button>
     </form>

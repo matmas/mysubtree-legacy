@@ -12,9 +12,9 @@ from mysubtree.web.templating import render_template
 from mysubtree.web.babel import set_locale
 from mysubtree.backend import backend
 
-@app.route("/rename/<nparent>-<nid>", methods=["GET", "POST"])
-def rename(nparent, nid):
-    node = backend.get_node_from(nid, nparent)
+@app.route("/rename/<nid>", methods=["GET", "POST"])
+def rename(nid):
+    node = backend.get_node_from(nid)
     set_locale(node.lang)
     class RenameForm(RedirectForm):
         name = fields.TextField("", [

@@ -49,7 +49,7 @@ def sorting(node, nodelist, nodelists, level):
             for new_sort in sort_types:
                 sort_info = sort_infos[new_sort]
                 with html.li():
-                    href = url("node", lang=lang, nparent=node.nparent(), nid=node.nid(), slug=node.slug(), type=type, sort=new_sort, o=o, _anchor=node.nid())
+                    href = url("node", lang=lang, nodetype=node.type, nid=node.nid(), slug=node.slug(), type=type, sort=new_sort, o=o, _anchor=node.nid())
                     with html.a(
                         href=href,
                             title=sort_info["description"],

@@ -11,18 +11,12 @@ from mysubtree.web.user import get_user_node
 from mysubtree.decrementer.decrementer import decrement_if_needed
 from mysubtree.web.app import app
 
-def get_node(id, parent="unknown"):
+def get_node(id):
     _decrement_if_needed()
-    #if parent != "unknown":
-        #node = Node.query.filter_by(parent=parent, id=id).first()
-    #if parent == "unknown" or not node:
-        #node = Node.query.get(id)
-        
-    node = Node.query.get(id)
-    return node
+    return Node.query.get(id)
 
-def get_node_from(nid, nparent):
-    return get_node(base_decode(nid), base_decode(nparent))
+def get_node_from(nid):
+    return get_node(base_decode(nid))
 
 
 #def add_node(node):

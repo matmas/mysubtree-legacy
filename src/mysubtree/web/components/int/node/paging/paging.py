@@ -14,7 +14,7 @@ def paging(node, nodelist, nodelists, level):
     def href(new_offset):
         if node:
             lang = node.lang or request.view_args["lang"]
-            return url("node", lang=lang, nparent=node.nparent(), nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=o, offset=new_offset, _anchor=node.nid())
+            return url("node", lang=lang, nodetype=node.type, nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=o, offset=new_offset, _anchor=node.nid())
         else: # responses, problematic:
             return url(request.endpoint, offset=new_offset, **request.view_args)
     

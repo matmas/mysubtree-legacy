@@ -7,12 +7,12 @@
 
 {%- block body -%}
     {% from "int/macros/forms.html" import form_fields with context %}
-    <form action="{{ url_for('move_to', nparent=node.nparent(), nid=node.nid()) }}" method="post" class="action">
+    <form action="{{ url_for('move_to', nid=node.nid()) }}" method="post" class="action">
         {{ form_fields(form) }}
         <button type="submit" class="btn btn-primary">{{ _('Move here') }}</button>
     </form>
     &nbsp;
-    <form action="{{ url_for('move_to', nparent=node.nparent(), nid=node.nid(), cancel=true) }}" method="post" class="action">
+    <form action="{{ url_for('move_to', nid=node.nid(), cancel=true) }}" method="post" class="action">
         {{ form_fields(form) }}
         <button type="submit" class="btn">{{ _('Cancel moving') }}</button>
     </form>

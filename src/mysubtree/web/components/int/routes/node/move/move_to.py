@@ -19,15 +19,13 @@ def cancel_moving():
     if "moving_node" in session:
         del session["moving_node"]
 
-@app.route("/move-to/<nparent>-<nid>", methods=["GET", "POST"])
-@app.route("/move-to/<nid>",           methods=["GET", "POST"]) # root
-def move_to(nid, nparent=None, moving_node_nid=None):
+@app.route("/move-to/<nid>", methods=["GET", "POST"])
+def move_to(nid, moving_node_nid=None):
     
     moving_node_info = session.get("moving_node") or {}
     
     moving_node_nid = moving_node_info.get("nid")
-    moving_node_nparent = moving_node_info.get("nparent")
-    node = backend.get_node_from(nid, nparent)
+    node = backend.get_node_from(nid)
     
     if not moving_node_nid:
         return redirect_back(node.url())
@@ -39,11 +37,10 @@ def move_to(nid, nparent=None, moving_node_nid=None):
             route, params = app.url_map.bind("").match(url.path)
             route == "node" or abort(403)
             moving_node_nid = params.get("nid")
-            moving_node_nparent = params.get("nparent")
         except AttributeError:
             abort(403)
     
-    moving_node = backend.get_node_from(moving_node_nid, moving_node_nparent)
+    moving_node = backend.get_node_from(moving_node_nid)
     
     set_locale(node.lang)
     form = RedirectForm()

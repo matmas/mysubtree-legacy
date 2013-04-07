@@ -9,7 +9,7 @@ class LongBreadcrumb(Base):
         
         for i in xrange(MAX_PATH_SIZE + 3):
             rv = self.post_node(type="items", parent=next_parent, name="item number %03d" % i)
-            next_parent = self.get_node_nid(rv.data, slug="item-number-%03d" % i)
+            next_parent = self.get_newest_node_nid(rv.data)
             if i < MAX_PATH_SIZE + 2:
                 assert "item number 000" in rv.data
             else:

@@ -15,7 +15,7 @@ def adding(node):
             with html.a(
                 class_="add",
                 title=_("add"),
-                href=url_for("post", nparent=node.nparent(), nid=node.nid()),
+                href=url_for("post", nid=node.nid()),
             ):
                 html.text(Markup("&nbsp;"))
             
@@ -28,7 +28,7 @@ def adding(node):
                     #for type in types:
                         #with html.li():
                             #with html.a(
-                                #href=url_for("post", nparent=node.nparent(), nid=node.nid(), type=type),
+                                #href=url_for("post", nid=node.nid(), type=type),
                                 #class_=["add", "type", type],
                                 #**{"data-type": type}
                             #):
@@ -39,7 +39,7 @@ def adding(node):
                 class_=["paste"] + types,
                 title=_("move it here"),
                 component=True,
-                **{"data-url": url_for("move_to", nid=node.nid(), nparent=node.nparent())}
+                **{"data-url": url_for("move_to", nid=node.nid())}
             ):
                 pass
             
@@ -49,7 +49,7 @@ def adding(node):
             moving_node_parent = base_decode(moving_node.get("nparent"))
             if moving_node_type in types and moving_node_parent != node.id and moving_node_id != node.id and moving_node_id not in [ancestor["id"] for ancestor in node.path]:
                 with html.a(
-                    href=url_for("move_to", nid=node.nid(), nparent=node.nparent()),
+                    href=url_for("move_to", nid=node.nid()),
                     class_=["paste-now"],
                     title=_("move it here"),
                 ):

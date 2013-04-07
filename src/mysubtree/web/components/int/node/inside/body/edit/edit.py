@@ -6,15 +6,15 @@ def edit(node):
     html = Html()
     if node.is_editable_by_current_user():
         with html.a(
-            href=url_for("edit", nparent=node.nparent(), nid=node.nid()),
+            href=url_for("edit", nid=node.nid()),
             class_="edit",
             title=_("edit")
         ):
             pass
     if node.is_edit_suggestable_by_current_user():
         with html.a(
-            href=url_for("edit", nparent=node.nparent(), nid=node.nid()),
-            #href=url_for("post", type="edit-suggestions", nparent=node.nparent(), nid=node.nid()),
+            href=url_for("edit", nid=node.nid()),
+            #href=url_for("post", type="edit-suggestions", nid=node.nid()),
             class_="edit suggest",
             title=_("suggest edit"),
         ):

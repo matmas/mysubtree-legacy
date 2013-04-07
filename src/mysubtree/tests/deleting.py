@@ -7,7 +7,7 @@ class Deleting(Base):
         
         # Add item1:
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         
         # Delete item1:
         rv = self.delete_node(item1)
@@ -18,7 +18,7 @@ class Deleting(Base):
         assert "It is already deleted." in rv.data
         
         # Check that item1 is in trash:
-        rv = self. get_node(item1)
+        rv = self. get_node("items", item1)
         assert "trash" in pq(rv.data)(".breadcrumb").html()
         
         self.logout()
@@ -38,5 +38,5 @@ class Deleting(Base):
         assert "Restored successfully." in rv.data
         
         # Check that item1 is *not* in trash:
-        rv = self. get_node(item1)
+        rv = self. get_node("items", item1)
         assert "trash" not in pq(rv.data)(".breadcrumb").html()

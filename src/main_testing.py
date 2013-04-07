@@ -12,6 +12,7 @@ from mysubtree.tests.voting import Voting
 from mysubtree.tests.editing import Editing
 from mysubtree.tests.deleting import Deleting
 from mysubtree.tests.paging import Paging
+from mysubtree.tests.o import O
 #from mysubtree.tests.icons import Icons
 
 # Not yet complete:

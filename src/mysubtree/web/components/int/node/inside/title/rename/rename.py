@@ -7,7 +7,7 @@ def rename(node):
     if node.is_renameable_by_current_user():
         with html.a(
             class_="rename",
-            href=url_for("rename", lang=node.lang, nparent=node.nparent(), nid=node.nid()),
+            href=url_for("rename", lang=node.lang, nid=node.nid()),
             title=_("rename"),
         ):
             pass

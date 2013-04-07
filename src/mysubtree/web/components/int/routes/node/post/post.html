@@ -20,7 +20,7 @@
     
     {% for type in types %}
         <h3>{{ get_model(type).str_new_type() }}</h3>
-        <form class="well form-inline {{ 'add-submit' if g.is_ajax }}" action="{{ url_for('post', nparent=nparent, nid=nid, slug=slug, type=type) }}" method="POST" enctype="multipart/form-data">
+        <form class="well form-inline {{ 'add-submit' if g.is_ajax }}" action="{{ url_for('post', nid=nid, slug=slug, type=type) }}" method="POST" enctype="multipart/form-data">
             {{ form_fields_horizontal(forms[type]) }}
             <button type="submit" class="btn" name="attach">{{ get_model(type).str_attach_type() }}</button>
         </form>

@@ -28,23 +28,23 @@ class Icons(Base):
         'RlADIwMTItMDQtMjVUMjE6NDk6MjErMDI6MDAtS1deAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDA2LTAzLTEyVDIxOjQ4OjE0KzAxOjAwXllSGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=')
 
         # Set custom icon 16x16 PNG:
-        rv = self.client.post("/icon/unknown-%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_16x16_png)), "accept.png")}, follow_redirects=True)
+        rv = self.client.post("/icon/%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_16x16_png)), "accept.png")}, follow_redirects=True)
         assert "Set icon successfully." in rv.data
         assert accept_16x16_png in rv.data
         
         # Set icon with different file extension from "png":
-        rv = self.client.post("/icon/unknown-%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_16x16_png)), "accept.PNG")}, follow_redirects=True)
+        rv = self.client.post("/icon/%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_16x16_png)), "accept.PNG")}, follow_redirects=True)
         assert "File extension PNG is not allowed. Allowed extension is png." in rv.data
         
         # Set original icon:
-        rv = self.client.post("/icon/unknown-%s" % item1, data={"use": "default", "icon": (None, "")}, follow_redirects=True)
+        rv = self.client.post("/icon/%s" % item1, data={"use": "default", "icon": (None, "")}, follow_redirects=True)
         assert "Set icon successfully." in rv.data
         
         # Try to set 20x20x PNG:
-        rv = self.client.post("/icon/unknown-%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_20x20_png)), "accept.png")}, follow_redirects=True)
+        rv = self.client.post("/icon/%s" % item1, data={"use": "custom", "icon": (StringIO(b64decode(accept_20x20_png)), "accept.png")}, follow_redirects=True)
         assert "Image size 20x20 is not allowed. Allowed image size is: 16x16." in rv.data
         
         # Try to set text file with png extension:
-        rv = self.client.post("/icon/unknown-%s" % item1, data={"use": "custom", "icon": (StringIO("some text"), "text.png")}, follow_redirects=True)
+        rv = self.client.post("/icon/%s" % item1, data={"use": "custom", "icon": (StringIO("some text"), "text.png")}, follow_redirects=True)
         assert "Mime-type text/plain is not allowed. Allowed mime-type is image/png." in rv.data
         

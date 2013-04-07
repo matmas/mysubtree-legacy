@@ -26,6 +26,7 @@ class LogEntries(Node):
             if from_:
                 self.from_ = {
                     "lang": from_.lang,
+                    "type": from_.type,
                     "parent": from_.parent,
                     "id": from_.id,
                     "slug": from_.slug(),
@@ -33,7 +34,8 @@ class LogEntries(Node):
                 }
             if to:
                 self.to = {
-                    "lang": from_.lang,
+                    "lang": to.lang,
+                    "type": to.type,
                     "parent": to.parent,
                     "id": to.id,
                     "slug": to.slug(),
@@ -52,9 +54,9 @@ class LogEntries(Node):
             return Markup(u"%s <b>→</b> %s" % (self.from_name, self.to_name))
         if self.from_ and self.to:
             return Markup(u'<a href="%s">%s</a> <b>→</b> <a href="%s">%s</a>' % (
-            url_for("node", lang=self.from_["lang"], nparent=base_encode(self.from_["parent"]), nid=base_encode(self.from_["id"]), slug=self.from_["slug"]),
+            url_for("node", lang=self.from_["lang"], nodetype=self.from_["type"], nid=base_encode(self.from_["id"]), slug=self.from_["slug"]),
             __(self.from_["short_name"]),
-            url_for("node", lang=self.to["lang"], nparent=base_encode(self.to["parent"]), nid=base_encode(self.to["id"]), slug=self.to["slug"]),
+            url_for("node", lang=self.to["lang"], nodetype=self.to["type"], nid=base_encode(self.to["id"]), slug=self.to["slug"]),
             __(self.to["short_name"]),
         ))
         return ""

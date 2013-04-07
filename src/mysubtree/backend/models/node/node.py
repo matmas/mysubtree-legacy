@@ -74,7 +74,7 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
     
     def url(self, **kwargs):
         # using url unstead of url_for in case we need to pass arguments such as offset and so on, e.g. for making canonical urls
-        return url("node", lang=self.lang or request.view_args["lang"], nid=self.nid(), nparent=self.nparent(), slug=self.slug(), **kwargs)
+        return url("node", lang=self.lang or request.view_args["lang"], nodetype=self.type, nid=self.nid(), slug=self.slug(), **kwargs)
     
     def __init__(self, data=None):
         NodeVoting.__init__(self, data)

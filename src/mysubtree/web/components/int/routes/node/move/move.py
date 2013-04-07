@@ -12,9 +12,9 @@ from mysubtree.web.templating import render_template
 from mysubtree.db import db
 from mysubtree.web.babel import set_locale
 
-@app.route("/move/<nparent>-<nid>", methods=["GET", "POST"])
-def move(nparent, nid):
-    node = backend.get_node_from(nid, nparent) or abort(404)
+@app.route("/move/<nid>", methods=["GET", "POST"])
+def move(nid):
+    node = backend.get_node_from(nid) or abort(404)
     set_locale(node.lang)
     form = RedirectForm()
     if request.method == "GET":
@@ -27,7 +27,7 @@ def move(nparent, nid):
             
             session["moving_node"] = {
                 "nid": node.nid(),
-                "nparent": node.nparent(),
+                "nparent": node.nparent(), # currently unused
                 "type": node.type,
             }
             

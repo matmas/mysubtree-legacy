@@ -11,7 +11,7 @@ class UnreadNotifications(Base):
     def runTest(self):
         self.register_test_user("1")
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         assert self.get_num_unread(rv.data) == 0
         
         self.logout()
@@ -24,11 +24,11 @@ class UnreadNotifications(Base):
         #-----------------------------------------------------------------------
         self.login_test_user("1")
         
-        rv = self.get_node(item1)
+        rv = self.get_node("items", item1)
         assert self.get_num_unread(rv.data) == 1
-        rv = self.get_node(item1)
+        rv = self.get_node("items", item1)
         assert self.get_num_unread(rv.data) == 1
-        rv = self.get_nodes(item1, "items")
+        rv = self.get_nodes("items", item1, "items")
         assert self.get_num_unread(rv.data) == 0
         
         self.logout()
@@ -50,7 +50,7 @@ class UnreadNotifications(Base):
         self.login_test_user("1")
         
         # Verify there are 11 unread responses:
-        rv = self.get_node(item1)
+        rv = self.get_node("items", item1)
         assert self.get_num_unread(rv.data) == num_per_page + 1
         
         # Read first 10 responses (1 unread response left):

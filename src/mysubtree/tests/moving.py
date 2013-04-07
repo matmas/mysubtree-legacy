@@ -4,20 +4,20 @@ class Moving(Base):
     def runTest(self):
         self.register_test_user("1")
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent=item1, name="item2")
-        item2 = self.get_node_nid(rv.data, slug="item2")
+        item2 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent=item2, name="item3")
-        item3 = self.get_node_nid(rv.data, slug="item3")
+        item3 = self.get_newest_node_nid(rv.data)
         rv = self.post_node(type="items", parent="en", name="item4")
-        item4 = self.get_node_nid(rv.data, slug="item4")
+        item4 = self.get_newest_node_nid(rv.data)
         
         self.logout()
         #--- User 2 ------------------------------------------------------------
         self.register_test_user("2")
         
         rv = self.post_node(type="items", parent=item3, name="my item")
-        myitem = self.get_node_nid(rv.data, slug="my-item")
+        myitem = self.get_newest_node_nid(rv.data)
         
         self.logout()
         #--- User 1 ------------------------------------------------------------
@@ -45,11 +45,11 @@ class Moving(Base):
                             # item3
                                 # my item
         
-        rv = self.get_node(myitem)
+        rv = self.get_node("items", myitem)
         assert "item4" not in rv.data # not yet propagated
-        self.get_nodes(item2, "items") # trigger the propagation
-        self.get_nodes(item3, "items") # trigger the propagation
-        rv = self.get_node(myitem)
+        self.get_nodes("items", item2, "items") # trigger the propagation
+        self.get_nodes("items", item3, "items") # trigger the propagation
+        rv = self.get_node("items", myitem)
         assert "item4" in rv.data # should be propagated now
         
         # Move my item into en:

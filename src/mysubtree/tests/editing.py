@@ -4,7 +4,7 @@ from .base import Base
 class Editing(Base):
     
     def edit(self, nid, new_body, version):
-        return self.client.post("/edit/unknown-%s" % nid, data=dict(body=new_body, version=version), follow_redirects=True)
+        return self.client.post("/edit/%s" % nid, data=dict(body=new_body, version=version), follow_redirects=True)
     
     def runTest(self):
         #--- User 1 ------------------------------------------------------------
@@ -13,7 +13,7 @@ class Editing(Base):
         # Post an item:
         rv = self.post_node(type="items", parent="en", name="item1")
         assert "Posted successfully." in rv.data
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         
         # Post a comment:
         rv = self.post_node(type="comments", parent=item1, body="comment1")
@@ -37,13 +37,13 @@ class Editing(Base):
         # Suggest edit 1:
         rv = self.edit(item1, "suggested edit 1", version=3)
         assert "Posted successfully." in rv.data # edit suggestion
-        rv = self.get_nodes(item1, "edit-suggestions")
+        rv = self.get_nodes("items", item1, "edit-suggestions")
         edit1 = self.get_newest_node_nid(rv.data)
         
         # Suggest edit 2:
         rv = self.edit(item1, "suggested edit 2", version=3)
         assert "Posted successfully." in rv.data # edit suggestion
-        rv = self.get_nodes(item1, "edit-suggestions")
+        rv = self.get_nodes("items", item1, "edit-suggestions")
         edit2 = self.get_newest_node_nid(rv.data)
                 
         # Suggest edit 1-1:
@@ -55,17 +55,17 @@ class Editing(Base):
         self.login_test_user("1")
         
         # Accept suggested edit 1
-        rv = self.client.post("/accept/unknown-%s" % edit1, follow_redirects=True)
+        rv = self.client.post("/accept/%s" % edit1, follow_redirects=True)
         assert "Accepted sucessfully." in rv.data
         
         # Accept suggested edit 1 again
-        rv = self.client.post("/accept/unknown-%s" % edit1, follow_redirects=True)
+        rv = self.client.post("/accept/%s" % edit1, follow_redirects=True)
         assert "This edit suggestion is already accepted." in rv.data
         
         # Accept suggested edit 2
-        rv = self.client.post("/accept/unknown-%s" % edit2, follow_redirects=True)
+        rv = self.client.post("/accept/%s" % edit2, follow_redirects=True)
         assert "This edit suggestion is not possible to accept anymore because a different one was accepted." in rv.data
         
         # Check the versions:
-        rv = self.get_nodes(item1, "versions")
+        rv = self.get_nodes("items", item1, "versions")
         assert len(pq(rv.data)(".permalink")) == 4 # original + two accepted edit suggestions + parent node

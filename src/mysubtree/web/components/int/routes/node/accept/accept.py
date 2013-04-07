@@ -11,9 +11,9 @@ from mysubtree.web.templating import render_template
 from mysubtree.db import db
 from mysubtree.web.babel import set_locale
 
-@app.route("/accept/<nparent>-<nid>", methods=["GET", "POST"])
-def accept(nparent, nid):
-    node = backend.get_node_from(nid, nparent)
+@app.route("/accept/<nid>", methods=["GET", "POST"])
+def accept(nid):
+    node = backend.get_node_from(nid)
     set_locale(node.lang)
     form = RedirectForm()
     if request.method == "GET":
@@ -21,17 +21,17 @@ def accept(nparent, nid):
         return render_template("int/routes/node/action.html", action="accept", action_name=_("accept"), title=title, node=node, form=form)
     else: # POST
         try:
-            parent_node_url = url_for("node", lang=node.lang, nid=node.nparent(), nparent=base_encode(node.parent_of_parent), slug=node.path[-1]["slug"])
+            parent_node_url = url_for("node", lang=node.lang, nodetype=node.type, nid=node.nparent(), slug=node.path[-1]["slug"])
             if not form.validate():
                 raise Error(_("Form did not have all fields filled correctly."))
             node.accept()
             db.session.commit()
             if request.is_xhr: # AJAX
                 return jsonify({
-                    "refresh": {"nid": nparent, "highlight": True,
-                        "refresh_nodes": {"nid": nparent}
+                    "refresh": {"nid": node.nparent(), "highlight": True,
+                        "refresh_nodes": {"nid": node.nparent()}
                     },
-                    "refresh_ancestors": {"nid": nparent} # because of consistent activity
+                    "refresh_ancestors": {"nid": node.nparent()} # because of consistent activity
                 })
             flash(_("Accepted sucessfully."), category="info")
             return redirect_back(parent_node_url)

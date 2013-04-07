@@ -9,7 +9,7 @@ def parent(node, indicate_parent=False):
     if indicate_parent and node.path:
         with html.span(class_="parent"):
             link = Markup('<a href="%s">%s</a>' % (
-                url_for("node", lang=node.lang, nparent=base_encode(node.path[-1]["parent"]), nid=node.nparent(), slug=node.path[-1]["slug"]),
+                url_for("node", lang=node.lang, nodetype=node.type, nid=node.nparent(), slug=node.path[-1]["slug"]),
                 __(node.path[-1]["short_name"])
             ))
             if isinstance(indicate_parent, basestring):

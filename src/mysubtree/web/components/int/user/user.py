@@ -10,7 +10,7 @@ def user(user_, username, lang):
     html = Html()
     if user_:
         with html.a(
-            href=url_for("node", lang=lang, nparent=base_encode(common.users_parent), nid=base_encode(user_), slug=utils.slugify(username), type=get_model("users").branching()[0]),
+            href=url_for("node", lang=lang, nodetype="users", nid=base_encode(user_), slug=utils.slugify(username), type=get_model("users").branching()[0]),
             class_="user",
             component=True,
             **{"data-user": base_encode(user_)} # for live for getting current user
