@@ -120,8 +120,9 @@ def node(lang, nodetype, nid, type=None, slug=None):
         
         try:
             this_node = (node_of_parent for node_of_parent in nodelist["nodes"] if node_of_parent.id == node_id).next()
-            nodelists[-1]["node"] = this_node
-            nodelists[-1]["nodes_count"] = this_node.count(nodelists[-1]["type"])
+            if nodelists:
+                nodelists[-1]["node"] = this_node
+                nodelists[-1]["nodes_count"] = this_node.count(nodelists[-1]["type"])
         except StopIteration: # in the middle of move - not propagated yet
             nodelist = nodelists[-1] # last good one
             break # cut it there
