@@ -20,9 +20,8 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
     problematic = db.Column(db.Boolean())
     num_problematic_here_and_below = db.Column(db.Integer(), default=0)
     
-    def __init__(self, data):
-        if not data:
-            self.flags = 0
+    def __init__(self):
+        self.flags = 0
     
     def is_flaggable(self):
         return self.is_votable()

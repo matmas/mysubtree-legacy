@@ -3,7 +3,7 @@ from lib.error import Error
 from mysubtree.web.user import get_user, get_user_node
 
 class NodeAccepting:
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_acceptable(self):

@@ -6,7 +6,7 @@ from mysubtree.backend.live.live import on_node_insert
 from mysubtree.web.user import get_user
 
 class NodeAdding:
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_addable_to_by_current_user(self):

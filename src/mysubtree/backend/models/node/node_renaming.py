@@ -6,7 +6,7 @@ from mysubtree.web.user import get_user, get_user_node
 _("renamed")
 
 class NodeRenaming:
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_renameable(self):

@@ -19,32 +19,31 @@ class LogEntries(Node):
     def type_long_name(cls):
         return _("log entry")
     
-    def __init__(self, data=None, action=None, from_=None, to=None, from_name=None, to_name=None):
-        Node.__init__(self, data)
-        if not data:
-            self.action = action
-            if from_:
-                self.from_ = {
-                    "lang": from_.lang,
-                    "type": from_.type,
-                    "parent": from_.parent,
-                    "id": from_.id,
-                    "slug": from_.slug(),
-                    "short_name": from_.short_name(),
-                }
-            if to:
-                self.to = {
-                    "lang": to.lang,
-                    "type": to.type,
-                    "parent": to.parent,
-                    "id": to.id,
-                    "slug": to.slug(),
-                    "short_name": to.short_name(),
-                }
-            if from_name:
-                self.from_name = from_name
-            if to_name:
-                self.to_name = to_name
+    def __init__(self, action=None, from_=None, to=None, from_name=None, to_name=None):
+        Node.__init__(self)
+        self.action = action
+        if from_:
+            self.from_ = {
+                "lang": from_.lang,
+                "type": from_.type,
+                "parent": from_.parent,
+                "id": from_.id,
+                "slug": from_.slug(),
+                "short_name": from_.short_name(),
+            }
+        if to:
+            self.to = {
+                "lang": to.lang,
+                "type": to.type,
+                "parent": to.parent,
+                "id": to.id,
+                "slug": to.slug(),
+                "short_name": to.short_name(),
+            }
+        if from_name:
+            self.from_name = from_name
+        if to_name:
+            self.to_name = to_name
     
     def title(self):
         return __(self.action)

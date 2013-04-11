@@ -11,10 +11,9 @@ class Items(Comments):
     
     __mapper_args__ = {"polymorphic_identity": "items"}
     
-    def __init__(self, data=None):
-        Comments.__init__(self, data)
-        if not data:
-            self.body = ""
+    def __init__(self):
+        Comments.__init__(self)
+        self.body = ""
     
     @classmethod
     def type_long_name(cls):

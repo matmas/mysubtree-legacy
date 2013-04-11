@@ -15,13 +15,12 @@ class Users(Node):
     def type_name(num):
         return _("users")
     
-    def __init__(self, data=None, username=None):
-        Node.__init__(self, data)
-        if not data:
-            self.parent = common.users_parent
-            self.username = username
-            self.set_parent(None)
-            #self.lang = get_browser_locale()
+    def __init__(self, username=None):
+        Node.__init__(self)
+        self.parent = common.users_parent
+        self.username = username
+        self.set_parent(None)
+        #self.lang = get_browser_locale()
     
     def after_attach(self):
         Node.after_attach(self)

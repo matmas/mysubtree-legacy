@@ -14,9 +14,8 @@ class NodeActivity:
     
     activity = db.Column(db.DateTime())
     
-    def __init__(self, data):
-        if not data:
-            self.activity = utcnow()
+    def __init__(self):
+        self.activity = utcnow()
     
     def is_activity_propagation_forbidden(self):
         return False

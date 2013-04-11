@@ -14,7 +14,7 @@ class NodeEditing:
     
     edited = db.Column(db.DateTime())
     
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_editable(self):

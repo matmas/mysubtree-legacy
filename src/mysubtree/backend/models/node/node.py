@@ -76,28 +76,28 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
         # using url unstead of url_for in case we need to pass arguments such as offset and so on, e.g. for making canonical urls
         return url("node", lang=self.lang or request.view_args["lang"], nodetype=self.type, nid=self.nid(), slug=self.slug(), **kwargs)
     
-    def __init__(self, data=None):
-        NodeVoting.__init__(self, data)
-        NodeActivity.__init__(self, data)
-        NodeHierarchy.__init__(self, data)
-        NodeFlagging.__init__(self, data)
-        NodeDeleting.__init__(self, data)
-        NodeRenaming.__init__(self, data)
-        NodeEditing.__init__(self, data)
-        NodeMoving.__init__(self, data)
-        NodeIcon.__init__(self, data)
-        NodeAccepting.__init__(self, data)
-        NodeAdding.__init__(self, data)
-        if not data:
-            self.type = decamelcase(self.__class__.__name__, separator="-")
-            self.created = utcnow()
-            self.user = get_user_node()
-            self.username = get_user_name()
-            try:
-                self.ipaddress = request.remote_addr
-            except RuntimeError: # working outside of request context
-                pass
-            self._is_new = True
+    def __init__(self):
+        NodeVoting.__init__(self)
+        NodeActivity.__init__(self)
+        NodeHierarchy.__init__(self)
+        NodeFlagging.__init__(self)
+        NodeDeleting.__init__(self)
+        NodeRenaming.__init__(self)
+        NodeEditing.__init__(self)
+        NodeMoving.__init__(self)
+        NodeIcon.__init__(self)
+        NodeAccepting.__init__(self)
+        NodeAdding.__init__(self)
+        
+        self.type = decamelcase(self.__class__.__name__, separator="-")
+        self.created = utcnow()
+        self.user = get_user_node()
+        self.username = get_user_name()
+        try:
+            self.ipaddress = request.remote_addr
+        except RuntimeError: # working outside of request context
+            pass
+        self._is_new = True
     
     #---------------------------------------------------------------------------
     @staticmethod

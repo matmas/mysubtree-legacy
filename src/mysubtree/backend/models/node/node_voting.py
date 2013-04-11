@@ -33,14 +33,13 @@ class NodeVoting:
     votes_y = db.Column(db.Integer(), default=0)
     votes_a = db.Column(db.Integer(), default=0)
     
-    def __init__(self, data):
-        if not data:
-            if self.is_votable():
-                self.votes_d = 0
-                self.votes_w = 0
-                self.votes_m = 0
-                self.votes_y = 0
-                self.votes_a = 0
+    def __init__(self):
+        if self.is_votable():
+            self.votes_d = 0
+            self.votes_w = 0
+            self.votes_m = 0
+            self.votes_y = 0
+            self.votes_a = 0
     
     def is_votable(self):
         return False

@@ -7,7 +7,7 @@ class NodeIcon:
     
     icon = db.Column(db.String(65536))
     
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_icon_changeable(self):

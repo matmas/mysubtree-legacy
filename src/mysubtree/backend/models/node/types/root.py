@@ -13,12 +13,11 @@ class Root(Node):
     def type_name(num):
         return _("root")
 
-    def __init__(self, data=None):
-        Node.__init__(self, data)
-        if not data:
-            self.type = "root"
-            self.user = common.system_user
-            self.username = common.system_username
+    def __init__(self):
+        Node.__init__(self)
+        self.type = "root"
+        self.user = common.system_user
+        self.username = common.system_username
     
     def title(self):
         return _("root")

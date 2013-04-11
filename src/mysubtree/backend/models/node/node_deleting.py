@@ -9,7 +9,7 @@ class NodeDeleting:
     previous_location = db.Column(db.Integer())
     deleted_when = db.Column(db.DateTime())
     
-    def __init__(self, data):
+    def __init__(self):
         pass
     
     def is_deletable(self):

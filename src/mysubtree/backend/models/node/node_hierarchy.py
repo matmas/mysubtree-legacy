@@ -24,16 +24,16 @@ class NodeHierarchy(NodeUnread):
     propagate_path_rebuild = db.Column(db.Boolean())
     references = db.Column(JSON())
     
-    def __init__(self, data):
-        NodeUnread.__init__(self, data)
-        if not data:
-            self.parent = None
-            self.parent_type = None
-            self.parent_of_parent = None
-            self.path = []
-            self.lang = None
-            self.references = []
-        self._parent_node = None
+    def __init__(self):
+        NodeUnread.__init__(self)
+        self.parent = None
+        self.parent_type = None
+        self.parent_of_parent = None
+        self.path = []
+        self.lang = None
+        self.references = []
+        
+        self._parent_node = None # just for caching parent node for some operations
     
     #===========================================================================
     

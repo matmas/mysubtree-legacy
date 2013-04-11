@@ -12,12 +12,11 @@ class Trash(Node):
     def type_name(num):
         return _("trash")
 
-    def __init__(self, data=None):
-        Node.__init__(self, data)
-        if not data:
-            self.type = "trash"
-            self.user = common.system_user
-            self.username = common.system_username
+    def __init__(self):
+        Node.__init__(self)
+        self.type = "trash"
+        self.user = common.system_user
+        self.username = common.system_username
 
     @staticmethod
     def always_show_type():

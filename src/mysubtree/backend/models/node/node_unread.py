@@ -7,7 +7,7 @@ class NodeUnread:
     
     unread = db.Column(db.Boolean())
     
-    def __init__(self, data=None):
+    def __init__(self):
         pass
     
     def set_unread(self):
