@@ -1,15 +1,14 @@
 #!/bin/bash
-if [ -f /etc/arch-release ]; then 
-        distro="arch" 
-elif [ -f /etc/lsb-release ]; then 
-        distro="ubuntu" 
-else 
-        echo "Unexpected distro"; exit 1 
-fi
-
 . run-servers
 
 clear
-~/.venv/bin/python src/main_testing.py $@
+
+PYTHON="$VIRTUAL_ENV/bin/python"
+
+if [[ -z $VIRTUAL_ENV ]]; then
+    PYTHON="$HOME/.venv/bin/python"
+fi
+
+$PYTHON src/main_testing.py $@
 #~/.venv/bin/coverage run --source=src/mysubtree src/main_testing.py $@
 #~/.venv/bin/coverage html
