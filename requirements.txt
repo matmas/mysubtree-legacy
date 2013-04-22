@@ -1,0 +1,57 @@
+# web framework
+Flask==0.9
+
+# wtforms
+Flask-WTF==0.8.2
+
+# for translated interface
+Flask-Babel==0.8
+
+# ORM
+Flask-SQLAlchemy==0.16
+
+# to determine image size
+PIL==1.1.7
+
+# to determine mimetype of images
+python-magic==0.4.3
+
+# to close HTML tags in teaser
+pytidylib==0.2.1
+
+# for making diffs
+diff-match-patch==20120106
+
+# for assetwatch
+watchdog==0.6.0
+
+# for tests
+coverage==3.6
+pyquery==1.2.4
+
+# to speedup JSON generation
+simplejson==3.0.7
+ujson==1.23
+
+# cracklib bindings
+cracklib==2.8.19
+
+# debug toolbar
+Flask-DebugToolbar==0.7.1
+Flask-DebugToolbar-LineProfilerPanel==0.0.6
+
+# database driver
+psycopg2==2.4.6
+
+# for caching
+Flask-Cache==0.10.1
+
+# memcached client
+pylibmc==1.2.3
+
+# for testing
+pyflakes==0.6.1
+
+# for production
+gunicorn==0.17.2
+uWSGI==1.4.5
