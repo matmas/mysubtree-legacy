@@ -50,49 +50,12 @@ function require {
 	}
 }
 
-#function install_mongodb_ubuntu {
-#	echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list >/dev/null
-#	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
-#	sudo aptitude update
-#	sudo aptitude install mongodb-10gen
-#}
-
-#function install_nodejs_ubuntu {
-#	sudo apt-get install python-software-properties
-#	sudo add-apt-repository ppa:chris-lea/node.js
-#	sudo aptitude update
-#	sudo aptitude install nodejs npm
-#}
-
-#function install_nginx_ubuntu {
-#	sudo add-apt-repository ppa:nginx/stable
-#	sudo aptitude update
-#	sudo aptitude install nginx
-#}
-
 function create_postgresql_user_and_db {
 	local me=`whoami`
 	psql -c '\qecho test' >/dev/null 2>&1 || ( confirm "create db" && sudo -i -u postgres createuser -s $me && sudo -i -u postgres createdb $me )
 
 	psql -c '\qecho test' $me-test >/dev/null 2>&1 || ( confirm "create test db" && sudo -i -u postgres createdb $me-test )
 }
-
-#function create_mysql_user_and_db {
-#	db="$1"
-#	user="$db"
-#	password="$db"
-#	local me=`whoami`
-#	mysql="mysql -u root"
-#
-#	echo "SELECT 1;" | $mysql $db >/dev/null 2>&1 \
-#	|| ( \
- #		   echo "CREATE USER '$user'@'localhost' IDENTIFIED BY '$password';" | $mysql \
-#		&& echo "GRANT USAGE ON	*.* TO '$user'@'localhost' IDENTIFIED BY '$password';" | $mysql \
-#		&& echo "CREATE DATABASE IF NOT EXISTS \`$db\`;" | $mysql \
-#		&& echo "GRANT ALL PRIVILEGES ON \`$db\`.* TO '$user'@'localhost';" | $mysql \
-#		&& echo "FLUSH PRIVILEGES;" | $mysql \
-#	)
-#}
 
 function configure_nginx_uwsgi {
 	socket="/var/run/mysubtree-uwsgi.sock"
