@@ -2,7 +2,6 @@ import sys, os
 sys.path.append(os.path.dirname(__file__)) # to be able to import our modules
 from mysubtree import config
 config.debug = False
-config.activate_enviroment()
 #===============================================================================
 
 import logging
