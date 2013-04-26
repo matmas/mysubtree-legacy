@@ -35,11 +35,11 @@ def autoimport_and_init_db():
         __import__(module)
     try:
         db.create_all()
+        _ensure_initial_data()
     except ProgrammingError, e:
         print e
         print dir(e)
-    _ensure_initial_data()
-
+    
 def _ensure_initial_data():
     from mysubtree.backend.backend import get_node
     from mysubtree.backend.models.node.types.all import get_model
