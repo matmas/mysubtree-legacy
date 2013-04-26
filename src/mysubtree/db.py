@@ -2,6 +2,7 @@
 from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.event import listen
+from sqlalchemy.exc import ProgrammingError
 from lib.autoimport import autoimport_modules
 from lib.base57 import base_decode
 from mysubtree.web.app import app
@@ -32,7 +33,11 @@ listen(db.session.__class__, "after_commit", _after_commit)
 def autoimport_and_init_db():
     for module in autoimport_modules(__file__, __package__):
         __import__(module)
-    db.create_all()
+    try:
+        db.create_all()
+    except ProgrammingError, e:
+        print e
+        print dir(e)
     _ensure_initial_data()
 
 def _ensure_initial_data():
