@@ -2,7 +2,6 @@
 from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.event import listen
-from sqlalchemy.exc import ProgrammingError
 from lib.autoimport import autoimport_modules
 from lib.base57 import base_decode
 from mysubtree.web.app import app
@@ -36,9 +35,8 @@ def autoimport_and_init_db():
     try:
         db.create_all()
         _ensure_initial_data()
-    except ProgrammingError, e:
+    except:
         print e
-        print dir(e)
     
 def _ensure_initial_data():
     from mysubtree.backend.backend import get_node
