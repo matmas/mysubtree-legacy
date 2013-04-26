@@ -8,7 +8,7 @@ else
 fi
 
 if [ "$distro" == "arch" ]; then
-    ruby_version="1.9.1"
+    ruby_version="2.0.0"
 elif [ "$distro" == "ubuntu" ]; then
     ruby_version="1.8"
 fi
@@ -16,4 +16,8 @@ PATH="$PATH:$HOME/.gem/ruby/$ruby_version/bin/"
 
 . run-servers
 
-~/.venv/bin/python src/main_debug.py 0.0.0.0
+if [[ -z $VIRTUAL_ENV ]]; then
+    VIRTUAL_ENV="$HOME/.venv"
+fi
+
+$VIRTUAL_ENV/bin/python src/main_debug.py 0.0.0.0
