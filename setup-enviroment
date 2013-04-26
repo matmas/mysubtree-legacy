@@ -57,55 +57,6 @@ function create_postgresql_user_and_db {
 	psql -c '\qecho test' $me-test >/dev/null 2>&1 || ( confirm "create test db" && sudo -i -u postgres createdb $me-test )
 }
 
-function configure_nginx_uwsgi {
-	socket="/var/run/mysubtree-uwsgi.sock"
-	sudo tee /etc/nginx/conf.d/mysubtree.conf >/dev/null << EOF
-server {
-	listen 80;
-	root `pwd`/src/mysubtree/web/static;
-	server_name localhost;
-	location / {
-		include uwsgi_params;
-		uwsgi_pass 127.0.0.1:3031;
-		# uwsgi_pass unix:/$socket;
-	}
-	location /static/ {
-		alias `pwd`/src/mysubtree/web/static/; 
-	}
-	error_page 404 /static/404.html;
-	error_page 500 502 503 504 /static/50x.html;
-}
-EOF
-	sudo rm -f /etc/nginx/sites-enabled/default
-	sudo service nginx reload
-
-	uwsgi_conf_dir=`pwd`/tmp/uwsgi-emperor.conf.d
-	mkdir -p $uwsgi_conf_dir
-	cat > $uwsgi_conf_dir/uwsgi.ini << EOF
-[uwsgi]
-master = true
-socket = 127.0.0.1:3031
-file = `pwd`/src/main.py
-processes = 8
-uid = matmas
-gid = matmas
-t = 30
-logto = /tmp/mysubtree.log
-logfile-chown = true
-EOF
-
-	service=mysubtree-uwsgi
-	sudo tee /etc/init/$service.conf >/dev/null << EOF
-description "uWSGI server for Mysubtree"
-start on runlevel [2345]
-stop on runlevel [!2345]
-respawn
-exec $HOME/.venv/bin/uwsgi --emperor $uwsgi_conf_dir --uid matmas --gid matmas
-EOF
-
-	sudo service $service stop 2>/dev/null
-	sudo service $service start
-}
 
 if [ -f /etc/arch-release ]; then
         distro="arch"
@@ -150,40 +101,9 @@ require coffee        "sudo npm install -g coffee-script" "sudo npm install -g c
 require uglifyjs      "sudo npm install -g uglify-js"     ""
 
 
-if [ ! -d "$HOME/.venv" ]; then
-    virtualenv --python=python2.7 $HOME/.venv || virtualenv --python=python2.6 $HOME/.venv || exit 1
-fi
-. $HOME/.venv/bin/activate
-
-require_python_packages \
-    Flask              `: web framework`\
-    Flask-WTF          `: wtforms`\
-    Flask-Babel        `: for translated interface`\
-    Flask-SQLAlchemy   `: ORM`\
-    PIL                `: to determine image size`\
-    python-magic       `: to determine mimetype of images `\
-    pytidylib          `: to close HTML tags in teaser`\
-    diff-match-patch   `: for making diffs`\
-    watchdog           `: for assetwatch`\
-    coverage           `: for tests`\
-    pyquery            `: for tests`\
-    simplejson         `: to speedup JSON generation`\
-    ujson              `: to speedup JSON generation`\
-    cracklib           `: cracklib bindings`\
-    Flask-DebugToolbar `: debug toolbar`\
-    Flask-DebugToolbar-LineProfilerPanel `: debug toolbar addon`\
-    psycopg2           `: database driver`\
-    Flask-Cache        `: for caching`\
-    pylibmc            `: memcached client`\
-    pyflakes           `: for testing`\
-    gunicorn           `: for production`\
-    ansible            `: for deployment`\
-    tornado            `: for production`\
-    uWSGI              `: for production`
-
-if [ "$distro" == "ubuntu" ]; then
-    configure_nginx_uwsgi
-fi
+# if [ ! -d "$HOME/.venv" ]; then
+#     virtualenv --python=python2.7 $HOME/.venv || virtualenv --python=python2.6 $HOME/.venv || exit 1
+# fi
 
 cd src/mysubtree/backend/live/live_server
 npm install
@@ -207,13 +127,3 @@ cd $OLDPWD
 #pip install profilestats
 #gem install rb-inotify
 #gem install oily_png
-
-
-
-
-exit 0
-sudo vim /etc/postgresql/9.1/main/pg_hba.conf
-host    all             all             127.0.0.1/32            md5
-->
-host    all             all             127.0.0.1/32            trust
-sudo service postgresql reload
