@@ -4,8 +4,6 @@ import sys
 if __name__ == "__main__":
     src_dir = dirname(dirname(dirname(abspath(__file__))))
     sys.path.append(src_dir)
-    from mysubtree import config
-    config.activate_enviroment()
 #===============================================================================
 from flask import url_for
 from lib import process
