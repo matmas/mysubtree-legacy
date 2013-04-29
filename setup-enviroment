@@ -74,7 +74,8 @@ if [ "$distro" == "arch" ]; then
 elif [ "$distro" == "ubuntu" ]; then
 	ruby_version="1.8"
 fi
-PATH="$PATH:$HOME/.gem/ruby/$ruby_version/bin/"
+RUBY_PATH="$HOME/.gem/ruby/$ruby_version/bin"
+PATH="$PATH:$RUBY_PATH"
 
 # Arch Linux
 # Ubuntu Server  10.04 Lucid
@@ -96,7 +97,7 @@ require xml2-config   ""                                  "sudo aptitude install
 require xslt-config   ""                                  "sudo aptitude install libxslt1-dev" # pyquery dependency
 
 require nginx         ""                                  "sudo aptitude install nginx"
-require compass       "gem install compass"               "sudo gem install compass --no-ri --no-rdoc"
+require $RUBY_PATH/compass "gem install compass"               "sudo gem install compass --no-ri --no-rdoc"
 require coffee        "sudo npm install -g coffee-script" "sudo npm install -g coffee-script" # live server
 require uglifyjs      "sudo npm install -g uglify-js"     ""
 
