@@ -8,11 +8,9 @@ from . import common
 from .models.node.node import Node
 from .models.node.node_unread import reading_nodes
 from mysubtree.web.user import get_user_node
-from mysubtree.decrementer.decrementer import decrement_if_needed
 from mysubtree.web.app import app
 
 def get_node(id):
-    _decrement_if_needed()
     return Node.query.get(id)
 
 def get_node_from(nid):
@@ -26,13 +24,8 @@ def get_node_from(nid):
 #def save_node(node):
     #db.session.commit()
 
-def _decrement_if_needed():
-    #pass
-    decrement_if_needed()
-
 
 def get_responses_of_current_user(offset):
-    _decrement_if_needed()
     user = get_user_node()
     nodes = (Node.query
         .filter_by(parent_user=user)
@@ -47,7 +40,6 @@ def get_responses_of_current_user(offset):
 
 
 def get_problematic(user, offset):
-    _decrement_if_needed()
     from .models.moderator import Moderator
     nodes = Node.query \
         .filter_by(problematic=True) \

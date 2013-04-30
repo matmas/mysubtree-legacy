@@ -59,12 +59,12 @@ class NodeHierarchy(NodeUnread):
     #===========================================================================
     
     def remember_referencing(self):
-        from .node import Node
+        from mysubtree.backend import backend
         
         for property in ["from_", "to"]:
             reference = getattr(self, property, None)
             if reference:
-                node = Node.query.get(reference["id"])
+                node = backend.get_node(reference["id"])
                 
                 if not self.id:
                     db.session.add(self)
@@ -139,9 +139,9 @@ class NodeHierarchy(NodeUnread):
             self.set_unread()
 
     def get_parent(self):
-        from mysubtree.backend.backend import get_node
+        from mysubtree.backend import backend
         if not self.get("_parent_node"):
-            self._parent_node = get_node(self.parent)
+            self._parent_node = backend.get_node(self.parent)
         return self._parent_node
     
     #===========================================================================
@@ -186,12 +186,12 @@ class NodeHierarchy(NodeUnread):
             return True
     
     def get_full_path(self):
-        from mysubtree.backend.backend import get_node
+        from mysubtree.backend import backend
         full_path = self.path
         if not self.has_full_path():
             node = self
             while not node.has_full_path():
-                node = get_node(node.path[0]["id"])
+                node = backend.get_node(node.path[0]["id"])
                 full_path[0:0] = node.path
         return full_path
     
@@ -261,6 +261,7 @@ class NodeHierarchy(NodeUnread):
     
     def propagate_path_rebuild_if_needed(self):
         from mysubtree.backend.models.moderator import Moderator
+        from mysubtree.backend import backend
         if self.propagate_path_rebuild:
             # Cycle detector:
             if self.id in [ancestor["id"] for ancestor in self.path]:
@@ -278,12 +279,12 @@ class NodeHierarchy(NodeUnread):
         
     
     def invalidate_short_name_and_slug_in_path(self, target=None):
+        from mysubtree.backend import backend
         if not target:
             target = self
         if target.get("references"):
             for reference in target.references:
-                from .node import Node
-                node = Node.query.get(reference["id"])
+                node = backend.get_node(reference["id"])
                 info = dict.copy(node.get(reference["property"]))
                 info["short_name"] = self.short_name() # TODO: check if info["parent"] is also needed to update and when. TODO: also info["lang"]
                 info["slug"] = self.slug()

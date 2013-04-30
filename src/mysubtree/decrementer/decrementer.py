@@ -1,3 +1,4 @@
+#autoimport
 from os.path import dirname, abspath
 import sys
 if __name__ == "__main__":
@@ -14,6 +15,7 @@ from mysubtree.backend.models.decrement import Decrement
 from mysubtree.db import db
 from mysubtree.web.app import app
 
+@app.before_request
 def decrement_if_needed():
     now = utcnow()
     for decrement in Decrement.query.filter(Decrement.at < now):

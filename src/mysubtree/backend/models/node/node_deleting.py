@@ -60,8 +60,8 @@ class NodeDeleting:
     
     def restore(self): # restore from trash to previous location
         self._going_to_restore()
-        from .node import Node
-        previous_location = Node.query.get(self.previous_location)
+        from mysubtree.backend import backend
+        previous_location = backend.get_node(self.previous_location)
         self.move_to(previous_location)
         self.log("_(restored)"); _("restored")
         self.deleted_when = None

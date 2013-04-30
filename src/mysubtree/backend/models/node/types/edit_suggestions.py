@@ -7,6 +7,7 @@ from lib.wtforms import widgets
 from lib.error import Error
 from lib.markdown import markdown
 from ..node import Node
+from mysubtree.backend import backend
 
 class EditSuggestions(Node):
 
@@ -76,7 +77,7 @@ class EditSuggestions(Node):
             if self.version - 1 != self.get_parent().version:
                 raise Error(_("Meanwhile, a different edit suggestion has been accepted. Warning: your changes were not saved."))
             elif self.parent_type == "versions": # posting edit-suggestion too late as well because, parent one is already accepted as a version
-                comment_node = Node.query.get(self.parent_of_parent)
+                comment_node = backend.get_node(self.parent_of_parent)
                 if self.version - 1 != comment_node.version:
                     raise Error(_("Meanwhile, a different edit suggestion has been accepted. Warning: your changes were not saved."))
                 self.set_parent(comment_node) # we should move it directly below comment node

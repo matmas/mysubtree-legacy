@@ -39,13 +39,13 @@ def autoimport_and_init_db():
         print e
     
 def _ensure_initial_data():
-    from mysubtree.backend.backend import get_node
+    from mysubtree.backend import backend
     from mysubtree.backend.models.node.types.all import get_model
     from mysubtree.backend.models.node.types.users import Users
     from mysubtree.backend.models.node.node import Node
     from mysubtree.backend.models.user import User
     
-    if not Node.query.get(_basic_nodes[0]["id"]):
+    if not backend.get_node(_basic_nodes[0]["id"]):
         created_nodes = {}
         for basic_node in _basic_nodes:
             node = get_model(basic_node["type"])()
