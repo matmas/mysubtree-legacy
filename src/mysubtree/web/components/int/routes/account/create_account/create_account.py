@@ -52,7 +52,8 @@ def create_account(lang):
             validators.Required(message=_("This field is required.")),
             validators.Length(min=nick_min_length, message=ngettext("Field must be at least %(num)s character long.", "Field must be at least %(num)s characters long.", nick_min_length)),
             validators.Length(max=nick_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", nick_max_length)),
-            NotTakenValidator("nick", _("Such nickname is already registered."), _("Such nickname is just in process of being registered.")),
+            validators.Regexp(r'^\w+$', message=_("Nickname must not contain characters other than unaccented letters and numbers.")),
+            NotTakenValidator("nick", _("Such nickname is already registered."), _("Such nickname is just in the process of being registered.")),
         ], widget=TextInput(autofocus=True))
         name = fields.TextField(_("Your name"), [
             validators.Required(message=_("This field is required.")),
@@ -63,7 +64,7 @@ def create_account(lang):
             validators.Required(message=_("This field is required.")),
             validators.Length(max=email_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", email_max_length)),
             validators.Email(message=_("Invalid e-mail address.")),
-            NotTakenValidator("email", _("Such e-mail address is already registered."), _("Such e-mail address is just in process of being registered.")),
+            NotTakenValidator("email", _("Such e-mail address is already registered."), _("Such e-mail address is just in the process of being registered.")),
         ], widget=TextInput(type="email"))
         password = fields.PasswordField(_("Password"), password_validators.get_password_validators() + [
             NotEqualTo("name", _("Password can't be identical to your name"))
@@ -107,6 +108,7 @@ def create_account(lang):
                 user.code = user.generate_code()
                 user.date = utcnow()
                 user.name = form.name.data
+                user.nick = form.nick.data
                 user.set_password(form.password.data)
                 db.session.add(user)
                 db.session.commit()
