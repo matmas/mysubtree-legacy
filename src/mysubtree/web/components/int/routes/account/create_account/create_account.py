@@ -12,7 +12,7 @@ from lib.flood_protection import limit
 from lib.wtforms.validators import StrongPassword, NotEqualTo
 from lib.redirectback import redirect_back, will_redirect_to_route
 from mysubtree.db import db
-from mysubtree.backend.models.user import User, username_max_length, email_max_length
+from mysubtree.backend.models.user import User, username_max_length, email_max_length, nickname_max_length
 from mysubtree.backend.models import user
 from mysubtree.web.app import app
 from mysubtree.web.templating import render_template
@@ -28,30 +28,42 @@ def create_account(lang):
     set_locale(lang)
     name_min_length = 2
     name_max_length = username_max_length
+    nick_min_length = 2
+    nick_max_length = nickname_max_length
     
-    class EmailNotTakenValidator:
+    class NotTakenValidator:
+        def __init__(self, field, already_registered_message, in_process_message):
+            self.field = field
+            self.already_registered_message = already_registered_message
+            self.in_process_message = in_process_message
         def __call__(self, form, field):
-            user = User.query.filter_by(email=field.data).first()
+            user = User.query.filter_by(**{self.field: field.data}).first()
             if user:
                 if user.has_email_verified():
-                    raise ValidationError(_("Such e-mail address is already registered."))
+                    raise ValidationError(self.already_registered_message)
                 elif utcnow() < user.date + timedelta(hours=24):
-                    raise ValidationError(_("Such e-mail address is just in process of being registered."))
+                    raise ValidationError(self.in_process_message)
                 else:
                     db.session.delete(user)
                     db.session.commit()
     
     class CreateAccountForm(Form):
+        nick = fields.TextField(_("Nickname"), [
+            validators.Required(message=_("This field is required.")),
+            validators.Length(min=nick_min_length, message=ngettext("Field must be at least %(num)s character long.", "Field must be at least %(num)s characters long.", nick_min_length)),
+            validators.Length(max=nick_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", nick_max_length)),
+            NotTakenValidator("nick", _("Such nickname is already registered."), _("Such nickname is just in process of being registered.")),
+        ], widget=TextInput(autofocus=True))
         name = fields.TextField(_("Your name"), [
             validators.Required(message=_("This field is required.")),
             validators.Length(min=name_min_length, message=ngettext("Field must be at least %(num)s character long.", "Field must be at least %(num)s characters long.", name_min_length)),
             validators.Length(max=name_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", name_max_length)),
-        ], widget=TextInput(autofocus=True))
+        ])
         email = fields.TextField(_("Your e-mail"), [
             validators.Required(message=_("This field is required.")),
             validators.Length(max=email_max_length, message=ngettext("Field cannot be longer than %(num)s character.", "Field cannot be longer than %(num)s characters.", email_max_length)),
             validators.Email(message=_("Invalid e-mail address.")),
-            EmailNotTakenValidator(),
+            NotTakenValidator("email", _("Such e-mail address is already registered."), _("Such e-mail address is just in process of being registered.")),
         ], widget=TextInput(type="email"))
         password = fields.PasswordField(_("Password"), password_validators.get_password_validators() + [
             NotEqualTo("name", _("Password can't be identical to your name"))

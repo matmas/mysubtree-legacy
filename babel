@@ -1,5 +1,5 @@
 #!/bin/bash
-POEDITOR="poedit"
+POEDITOR="vim"
 
 . $HOME/.venv/bin/activate
 DIR=src/mysubtree/web/translations

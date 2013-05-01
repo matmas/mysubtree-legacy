@@ -5,10 +5,11 @@ class Account(Base):
     def runTest(self):
         email="test@example.com"
         name=u"Testerľ"
+        nick="Tester1"
         password=u"TestersPasswordľ"
         
         # Try register with wrong e-mail:
-        data = dict(email="wrong e-mail", name=name, password=password, password_again=password)
+        data = dict(email="wrong e-mail", name=name, password=password, password_again=password, nick=nick)
         rv = self.client.post("/en/create-account", data=data, follow_redirects=True)
         assert "Invalid e-mail address." in rv.data
         
@@ -18,11 +19,11 @@ class Account(Base):
         assert "Field must be at least 2 characters long." in rv.data
         
         # Create account:
-        rv = self.create_account(email, name, password)
+        rv = self.create_account(email, name, nick, password)
         verification_link = self.get_verification_link(rv.data)
         
         # Try to create account with the same e-mail:
-        rv = self.create_account(email, name, password)
+        rv = self.create_account(email, name, nick, password)
         assert "Such e-mail address is just in process of being registered." in rv.data
         
         # Try to login without verified e-mail:
@@ -93,5 +94,5 @@ class Account(Base):
         assert "You have been logged in." in rv.data
         
         # Try register again with the same e-mail
-        rv = self.create_account(email, name, password)
+        rv = self.create_account(email, name, nick, password)
         assert "Such e-mail address is already registered." in rv.data

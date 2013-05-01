@@ -36,7 +36,7 @@ def autoimport_and_init_db():
         db.create_all()
         _ensure_initial_data()
     except:
-        print e
+        pass
     
 def _ensure_initial_data():
     from mysubtree.backend import backend

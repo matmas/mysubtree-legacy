@@ -39,6 +39,7 @@ def additional_ddl():
 class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, NodeDeleting, NodeRenaming, NodeEditing, NodeMoving, NodeIcon, NodeAccepting, NodeAdding):
 
     id = db.Column(db.Integer(), primary_key=True)
+    alias = db.Column(db.String(255)) # for type == "users" pretty urls
     type = db.Column(db.String(255))
     created = db.Column(db.DateTime())
     user = db.Column(db.Integer())

@@ -47,14 +47,15 @@ class Base(unittest.TestCase):
             url = url_for(endpoint, **kwargs)
         return url
     
-    def create_account(self, email, name, password):
+    def create_account(self, email, name, nick, password):
         # Create account:
         return self.client.post("/en/create-account", data=dict(
             email=email,
             name=name,
+            nick=nick,
             password=password,
             password_again=password,
-            agree="yes"
+            agree="yes",
         ), follow_redirects=True)
     
     def get_verification_link(self, html):
@@ -67,8 +68,8 @@ class Base(unittest.TestCase):
         assert len(verification_link) == len("/en/verify/") + 10
         return verification_link
     
-    def register(self, email, name, password):
-        rv = self.create_account(email, name, password)
+    def register(self, email, name, nick, password):
+        rv = self.create_account(email, name, nick, password)
         verification_link = self.get_verification_link(rv.data)
         rv = self.client.get(verification_link, follow_redirects=True)
     
@@ -82,7 +83,7 @@ class Base(unittest.TestCase):
         return self.client.get('/en/logout', follow_redirects=True)
     
     def register_test_user(self, number):
-        self.register(email="user%s@example.com" % number, name="User%s" % number, password="CommonPassword")
+        self.register(email="user%s@example.com" % number, name="User%s" % number, password="CommonPassword", nick="user%s" % number)
     
     def login_test_user(self, number):
         self.login(email="user%s@example.com" % number, password="CommonPassword")
