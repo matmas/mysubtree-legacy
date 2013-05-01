@@ -9,14 +9,19 @@ class Account(Base):
         password=u"TestersPasswordľ"
         
         # Try register with wrong e-mail:
-        data = dict(email="wrong e-mail", name=name, password=password, password_again=password, nick=nick)
+        data = dict(email="wrong e-mail", name=name, nick=nick, password=password, password_again=password)
         rv = self.client.post("/en/create-account", data=data, follow_redirects=True)
         assert "Invalid e-mail address." in rv.data
         
         # Try register with too short name:
-        data = dict(email=email, name="A", password=password, password_again=password)
+        data = dict(email=email, name="A", nick=nick, password=password, password_again=password)
         rv = self.client.post("/en/create-account", data=data, follow_redirects=True)
         assert "Field must be at least 2 characters long." in rv.data
+        
+        # Try register with forbidden characters in nick:
+        data = dict(email=email, name=name, nick=u"ľščťžýáíé", password=password, password_again=password)
+        rv = self.client.post("/en/create-account", data=data, follow_redirects=True)
+        assert "Nickname must not contain characters other than unaccented letters and numbers." in rv.data
         
         # Create account:
         rv = self.create_account(email, name, nick, password)
@@ -24,7 +29,10 @@ class Account(Base):
         
         # Try to create account with the same e-mail:
         rv = self.create_account(email, name, nick, password)
-        assert "Such e-mail address is just in process of being registered." in rv.data
+        assert "Such e-mail address is just in the process of being registered." in rv.data
+        # Try to create account with the same nickname:
+        rv = self.create_account("different@email.com", name, nick, password)
+        assert "Such nickname is just in the process of being registered." in rv.data
         
         # Try to login without verified e-mail:
         rv = self.login(email, password)
