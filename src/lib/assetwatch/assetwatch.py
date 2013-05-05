@@ -7,7 +7,7 @@ if __name__ == "__main__":
 #===============================================================================
 from flask import url_for
 from lib import process
-from assetobserver import assetobserver
+from assetobserver import assetobserver, get_registers
 
 if __name__ == "__main__":
     assets_dir = sys.argv[1]
@@ -27,6 +27,11 @@ def run(assets_dir, public_dir, http_path, debug=True):
     public_dir += "/%s" % _SUBDIR
     http_path += "/%s" % _SUBDIR
     process.run_in_background([sys.executable, __file__, assets_dir, public_dir, http_path, "development" if debug else "production"])
+
+def run_once(assets_dir, public_dir, http_path, debug=False):
+    public_dir += "/%s" % _SUBDIR
+    http_path += "/%s" % _SUBDIR
+    get_registers(assets_dir, public_dir, http_path, "development" if debug else "production")
 
 from flask import Markup
 

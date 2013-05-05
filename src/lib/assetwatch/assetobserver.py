@@ -33,16 +33,19 @@ class EventHandler(FileSystemEventHandler):
                 if extension(event.dest_path) in register.recognized_extensions():
                     register.new_file_detected(event.dest_path)
 
-def assetobserver(assets_dir, public_dir, http_path, environment):
-    observer = Observer()
+def get_registers(assets_dir, public_dir, http_path, environment):
     imageregister = ImageRegister(assets_dir, public_dir, http_path, environment)
     sassregister = SassRegister(assets_dir, public_dir, http_path, environment, imageregister)
     scriptregister = ScriptRegister(assets_dir, public_dir, http_path, environment)
-    observer.schedule(EventHandler([
+    return [
         imageregister,
         sassregister,
         scriptregister,
-    ]), path=assets_dir, recursive=True)
+    ]
+
+def assetobserver(assets_dir, public_dir, http_path, environment):
+    observer = Observer()
+    observer.schedule(EventHandler(get_registers(assets_dir, public_dir, http_path, environment)), path=assets_dir, recursive=True)
     observer.start()
     try:
         while True:

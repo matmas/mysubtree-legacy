@@ -9,6 +9,7 @@ from lib.logginghandlers import CarefulSMTPHandler
 from mysubtree.web.app import app
 from mysubtree.db import autoimport_and_init_db
 from mysubtree.backend.live.live import enable_live
+from mysubtree.web.assetwatch import run_assetwatch_once
 from mysubtree.decrementer.decrementer import run_decrementer
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/"
@@ -19,6 +20,8 @@ app.config["CACHE_MEMCACHED_SERVERS"] = ["127.0.0.1:11211"]
 app.config["CACHE_DEFAULT_TIMEOUT"] = 3600
 
 autoimport_and_init_db()
+
+run_assetwatch_once()
 
 enable_live()
 
