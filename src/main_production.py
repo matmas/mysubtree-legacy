@@ -21,8 +21,6 @@ app.config["CACHE_DEFAULT_TIMEOUT"] = 3600
 
 autoimport_and_init_db()
 
-run_assetwatch_once()
-
 enable_live()
 
 #run_decrementer()
