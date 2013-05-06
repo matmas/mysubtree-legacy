@@ -114,6 +114,12 @@ cd $OLDPWD
 cd src/mysubtree/web/components/ext/famfamfam
 ./install.sh
 cd $OLDPWD
+
+if [[ $VIRTUAL_ENV ]]; then
+    cd src
+    python main_assetwatch.py
+    cd $OLDPWD
+fi
 ####################################################################
 # Currently not in use:
 
@@ -121,7 +127,6 @@ cd $OLDPWD
 
 
 
-#    salt               `: for deployment`\
 #  gem install compass-rmagick-engine
 #  `: pyinotify    : watchdog dependency`\
 #pip install translitcodec
