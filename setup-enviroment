@@ -54,7 +54,7 @@ function create_postgresql_user_and_db {
 	local me=`whoami`
 	psql -c '\qecho test' >/dev/null 2>&1 || ( confirm "create db" && sudo -i -u postgres createuser -s $me && sudo -i -u postgres createdb $me )
 
-	psql -c '\qecho test' $me-test >/dev/null 2>&1 || ( confirm "create test db" && sudo -i -u postgres createdb $me-test )
+	psql -c '\qecho test' test >/dev/null 2>&1 || ( confirm "create test db" && sudo -i -u postgres createdb test )
 }
 
 

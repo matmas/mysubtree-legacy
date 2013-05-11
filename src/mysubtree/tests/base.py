@@ -9,7 +9,7 @@ from mysubtree.db import db, autoimport_and_init_db
 class Base(unittest.TestCase):
 
     def setUp(self):
-        app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost"
+        app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/test"
         #app.config["SQLALCHEMY_ECHO"] = True
         app.config['TESTING'] = True
         app.config['CSRF_ENABLED'] = False
