@@ -7,6 +7,7 @@ from lib.wtforms.widgets import TextInput
 from lib.time import utcnow
 from lib.error import Error
 from lib.flood_protection import limit
+from lib.remote_addr import remote_addr
 from mysubtree.backend.models.user import User
 from mysubtree.web.app import app
 from mysubtree.web.templating import render_template
@@ -31,10 +32,10 @@ def forgot(lang):
             if not form.validate():
                 raise Error(_("Form did not have all fields filled correctly."))
             
-            #limit(request.remote_addr, num_requests=10, num_seconds=60)
+            #limit(remote_addr(), num_requests=10, num_seconds=60)
             user = User.query.filter_by(email=form.email.data).first()
             if user:
-                #limit(request.remote_addr, num_requests=1, num_seconds=60)
+                #limit(remote_addr(), num_requests=1, num_seconds=60)
                 #limit(user.email, num_requests=1, num_seconds=3600)
                 if user.reset_date and utcnow() < user.reset_date + timedelta(hours=24):
                     raise Error(_("The e-mail has already been sent."))

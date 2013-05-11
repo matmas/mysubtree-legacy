@@ -11,6 +11,7 @@ from lib.wtforms.keepempty import KeepEmpty
 from lib.flood_protection import limit
 from lib.wtforms.validators import StrongPassword, NotEqualTo
 from lib.redirectback import redirect_back, will_redirect_to_route
+from lib.remote_addr import remote_addr
 from mysubtree.db import db
 from mysubtree.backend.models.user import User, username_max_length, email_max_length, nickname_max_length
 from mysubtree.backend.models import user
@@ -101,7 +102,7 @@ def create_account(lang):
                 if not form.validate():
                     raise Error(_("Form did not have all fields filled correctly."))
                 
-                #limit(request.remote_addr, num_requests=1, num_seconds=60)
+                #limit(remote_addr(), num_requests=1, num_seconds=60)
                 user = User()
                 user.email = form.email.data
                 #limit(user.email, num_requests=1, num_seconds=3600)

@@ -5,6 +5,7 @@ from flaskext.babel import gettext as _
 from lib.redirectback import RedirectForm, redirect_back
 from lib.error import Error
 from lib.wtforms.keepempty import KeepEmpty
+from lib.remote_addr import remote_addr
 from mysubtree.backend import backend
 from mysubtree.backend.models.node.node_voting import you_like_it_already, no_like_to_undo
 from mysubtree.db import db
@@ -65,7 +66,7 @@ def vote(nid):
                     "nid": node.nid(),
                     "relative_value": "%+d" % relative_value,
                     "is_votenode_created": is_votenode_created,
-                    "ipaddress": request.remote_addr,
+                    "ipaddress": remote_addr(),
                 }
             }
         

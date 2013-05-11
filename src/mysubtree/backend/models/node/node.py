@@ -6,6 +6,7 @@ from lib.sqlalchemy.datatypes import JSON
 from lib.camelcase import decamelcase
 from lib.base57 import base_encode
 from lib.flaskhelpers.default_url_args import url
+from lib.remote_addr import remote_addr
 from mysubtree.backend import common
 from mysubtree.db import db
 from mysubtree.web.app import app
@@ -95,7 +96,7 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
         self.user = get_user_node()
         self.username = get_user_name()
         try:
-            self.ipaddress = request.remote_addr
+            self.ipaddress = remote_addr()
         except RuntimeError: # working outside of request context
             pass
         self._is_new = True

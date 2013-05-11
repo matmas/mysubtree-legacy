@@ -4,6 +4,7 @@ from flaskext.babel import gettext as _
 from sqlalchemy import desc
 from lib.time import utcnow
 from lib.error import Error
+from lib.remote_addr import remote_addr
 from mysubtree.backend import common
 from mysubtree.backend.models.node.types.all import get_model, get_all_types
 from mysubtree.backend.models.decrement import Decrement
@@ -54,7 +55,7 @@ class NodeVoting:
     def is_likable_by_current_user(self, is_undo=False):
         try:
             self._going_to_vote()
-            last_vote_node = self._get_last_vote_node(request.remote_addr)
+            last_vote_node = self._get_last_vote_node(remote_addr())
             self._going_to_like(last_vote_node, is_undo=is_undo)
         except Error:
             return False
@@ -63,7 +64,7 @@ class NodeVoting:
     def _going_to_vote(self):
         if not self.is_votable():
             raise Error(_("This node cannot be voted for."))
-        if self.get("ipaddress") == request.remote_addr:
+        if self.get("ipaddress") == remote_addr():
             raise Error(_("This node is created by your IP address. The author is not allowed to vote for his node. Wait for the likes from others."))
         if get_user_node() == self.user:
             raise Error(_("This node is created by you. The author is not allowed to vote for his node. Wait for the likes from others."))
@@ -101,7 +102,7 @@ class NodeVoting:
     
     def vote(self, is_undo):
         self._going_to_vote()
-        last_vote_node = self._get_last_vote_node(request.remote_addr)
+        last_vote_node = self._get_last_vote_node(remote_addr())
         relative_value = self._going_to_like(last_vote_node, is_undo=is_undo)
         
         now = utcnow()

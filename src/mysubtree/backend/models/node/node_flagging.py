@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import request
 from flaskext.babel import gettext as _
 from lib.error import Error
+from lib.remote_addr import remote_addr
 from mysubtree.db import db
 from mysubtree.backend.live import live
 from mysubtree.backend.models.flag import Flag
@@ -36,7 +37,7 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
     def is_really_flaggable_by_current_user(self, is_undo=False):
         try:
             self._going_to_flag()
-            is_already_flagged_by_user = Flag.query.filter_by(node=self.id, ip=request.remote_addr).first() != None
+            is_already_flagged_by_user = Flag.query.filter_by(node=self.id, ip=remote_addr()).first() != None
             self._really_going_to_flag(is_already_flagged_by_user, is_undo)
         except Error:
             return False
@@ -69,7 +70,7 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
     
     def flag(self, is_undo):
         self._going_to_flag()
-        is_already_flagged_by_user = Flag.query.filter_by(node=self.id, ip=request.remote_addr).first() != None
+        is_already_flagged_by_user = Flag.query.filter_by(node=self.id, ip=remote_addr()).first() != None
         change = self._really_going_to_flag(is_already_flagged_by_user, is_undo)
         
         if change != 0:
@@ -98,9 +99,9 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
                 self.propagate_problematic(change)
         
         if change == +1:
-            db.session.add(Flag(node=self.id, ip=request.remote_addr))
+            db.session.add(Flag(node=self.id, ip=remote_addr()))
         if change == -1:
-            Flag.query.filter_by(node=self.id, ip=request.remote_addr).delete()
+            Flag.query.filter_by(node=self.id, ip=remote_addr()).delete()
         
         return change
     
