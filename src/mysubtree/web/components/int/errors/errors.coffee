@@ -1,7 +1,7 @@
 $(document).ready( ->
     form = $('form.ajax_validate')
     if form
-        $("input[type=text], input[type=password]", form).on("blur", (event) ->
+        $("input[type=text], input[type=password], input[type=email], input[type=checkbox]", form).on("blur", (event) ->
             if $(this).val() != "" and $()
                 controls = $(this).closest(".controls")
                 control_group = $(this).closest(".control-group")
