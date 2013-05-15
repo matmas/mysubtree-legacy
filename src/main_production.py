@@ -11,7 +11,7 @@ from mysubtree.db import autoimport_and_init_db
 from mysubtree.backend.live.live import enable_live
 from mysubtree.decrementer.decrementer import run_decrementer
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/mysubtree"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mysubtree"
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 3600
 
 app.config["CACHE_TYPE"] = "memcached"
