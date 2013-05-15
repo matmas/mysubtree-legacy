@@ -32,11 +32,8 @@ listen(db.session.__class__, "after_commit", _after_commit)
 def autoimport_and_init_db():
     for module in autoimport_modules(__file__, __package__):
         __import__(module)
-    try:
-        db.create_all()
-        _ensure_initial_data()
-    except:
-        pass
+    db.create_all()
+    _ensure_initial_data()
     
 def _ensure_initial_data():
     from mysubtree.backend import backend
