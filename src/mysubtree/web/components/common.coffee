@@ -9,7 +9,6 @@
 #= require ext/jquery.autoresize/jquery.autoresize
 #= require int/misc/utils/utils
 #= require ext/generated_code
-#= require int/misc/max_content_length/max_content_length
 
 
 # setTimeout( ->
