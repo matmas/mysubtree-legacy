@@ -120,6 +120,7 @@ cd $OLDPWD
 
 if [[ $VIRTUAL_ENV ]]; then
     cd src
+    python main_initdb.py
     python main_assetwatch.py
     cd $OLDPWD
 fi

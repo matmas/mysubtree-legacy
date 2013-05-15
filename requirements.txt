@@ -44,7 +44,7 @@ Flask-DebugToolbar-LineProfilerPanel==0.0.6
 psycopg2==2.4.6
 
 # for caching
-Flask-Cache==0.10.1
+Flask-Cache==0.12
 
 # memcached client
 pylibmc==1.2.3
