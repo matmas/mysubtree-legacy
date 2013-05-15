@@ -35,7 +35,7 @@ if __name__ == "__main__":
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
     
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/mysubtree"
     #app.config["SQLALCHEMY_ECHO"] = True
     
     #from werkzeug.contrib.profiler import ProfilerMiddleware
