@@ -85,7 +85,10 @@ require pg_buildext   ""                                 "sudo aptitude install 
 require memcached     "sudo pacman -S memcached"          "sudo aptitude install memcached" 
 . run-servers
 
-create_postgresql_user_and_db
+if [ "$distro" == "arch" ]; then
+    create_postgresql_user_and_db
+fi
+
 require python-config "sudo pacman -S python"             "sudo aptitude install python-dev"
 require tidy          "sudo pacman -S tidyhtml"           "sudo aptitude install tidy"
 require virtualenv    "sudo pacman -S python-virtualenv"  "sudo aptitude install python-virtualenv"
