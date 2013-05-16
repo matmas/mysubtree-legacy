@@ -1,3 +1,4 @@
+import os
 import re
 import unittest
 from flask import url_for
@@ -9,7 +10,7 @@ from mysubtree.db import db, autoimport_and_init_db
 class Base(unittest.TestCase):
 
     def setUp(self):
-        app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///test"
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI") or "postgresql:///test"
         #app.config["SQLALCHEMY_ECHO"] = True
         app.config['TESTING'] = True
         app.config['CSRF_ENABLED'] = False

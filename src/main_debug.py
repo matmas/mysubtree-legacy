@@ -1,3 +1,4 @@
+import os
 import logging
 import sys
 from flask_debugtoolbar import DebugToolbarExtension
@@ -35,7 +36,7 @@ if __name__ == "__main__":
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
     
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mysubtree"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI") or "postgresql:///mysubtree"
     #app.config["SQLALCHEMY_ECHO"] = True
     
     #from werkzeug.contrib.profiler import ProfilerMiddleware
