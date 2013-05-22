@@ -21,7 +21,6 @@ def verify(lang, code):
         if not user.has_email_verified():
             usernode = get_model("users")(username=user.name)
             db.session.add(usernode)
-            db.session.flush() # for getting the usernode.id
             user.node = usernode.id
             
             db.session.add(user)

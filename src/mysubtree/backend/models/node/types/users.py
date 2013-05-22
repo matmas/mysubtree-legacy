@@ -6,6 +6,7 @@ from mysubtree.db import db
 from mysubtree.web.babel import get_browser_locale
 from ..node import Node
 from .root import Root
+from .responses import Responses
 
 class Users(Node):
     
@@ -20,11 +21,12 @@ class Users(Node):
         self.parent = common.users_parent
         self.username = username
         self.set_parent(None)
-        #self.lang = get_browser_locale()
     
     def after_attach(self):
         Node.after_attach(self)
-        self.user = self.id
+        db.session.flush() # for getting the self.id
+        self.user = self.id # remember the generated user id
+        db.session.add(Responses(self.user)) # create responses node for this user
     
     def is_posting_forbidden(self):
         return True

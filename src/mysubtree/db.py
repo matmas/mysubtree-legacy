@@ -66,7 +66,6 @@ def _ensure_initial_data():
         
         usernode = Users(username=user.name)
         db.session.add(usernode)
-        db.session.flush() # for getting the usernode.id
         user.node = usernode.id
         
         db.session.commit()

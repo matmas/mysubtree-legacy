@@ -84,7 +84,7 @@ class NodeHierarchy(NodeUnread):
     def count(self, type):
         return getattr(self, "count_of_%s" % type)
 
-    def increment_counters(self, amount=1, parent_counter=True, user_counter=True, parent_user_counter=True):
+    def increment_counters(self, amount=1, parent_counter=True, user_counter=True, parent_user_counter=True, responses_counter=True):
         from .node import Node
         
         # increment parent counter
@@ -112,6 +112,19 @@ class NodeHierarchy(NodeUnread):
             on_node_update(self.user)
         
         self.increment_unread_counter(amount)
+        
+        ## increment responses counter
+        #if responses_counter and self.user:
+            #db.session.connection().execute(
+                #"UPDATE node "
+                #"SET \"count_of_%(type)s\" = \"count_of_%(type)s\" + %(amount)s "
+                #"WHERE type = 'reponses' AND user = '%(user)s'" % {
+                    #"type": self.type,
+                    #"amount": amount,
+                    #"user": self.parent_user,
+                #})
+            ##on_node_update(self.user)
+        
         
         # increment parent of parent counter (for reducing the number of sorting tabs)
         if self.parent_of_parent and not self.is_activity_propagation_forbidden():
