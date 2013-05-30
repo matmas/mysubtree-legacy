@@ -17,6 +17,7 @@ def after_request(response):
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
 
     # Make all redirects with relative URLs
-    response.autocorrect_location_header = False	
+    if not app.config['TESTING']: # otherwise flask.testing.FlaskClient will complain about redirects to external targets
+        response.autocorrect_location_header = False	
 
     return response
