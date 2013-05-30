@@ -2,7 +2,7 @@
 Flask==0.9
 
 # wtforms
-Flask-WTF==0.8.2
+Flask-WTF==0.8.3
 
 # for translated interface
 Flask-Babel==0.8
@@ -30,18 +30,18 @@ coverage==3.6
 pyquery==1.2.4
 
 # to speedup JSON generation
-simplejson==3.0.7
-ujson==1.23
+simplejson==3.3.0
+ujson==1.30
 
 # cracklib bindings
 cracklib==2.8.19
 
 # debug toolbar
-Flask-DebugToolbar==0.7.1
+Flask-DebugToolbar==0.8.0
 Flask-DebugToolbar-LineProfilerPanel==0.0.6
 
 # database driver
-psycopg2==2.4.6
+psycopg2==2.5
 
 # for caching
 Flask-Cache==0.12
@@ -50,8 +50,7 @@ Flask-Cache==0.12
 pylibmc==1.2.3
 
 # for testing
-pyflakes==0.6.1
+pyflakes==0.7.2
 
 # for production
-gunicorn==0.17.2
-uWSGI==1.4.5
+gunicorn==0.17.4
