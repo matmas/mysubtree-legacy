@@ -21,17 +21,19 @@ def decrement_if_needed():
     for decrement in Decrement.query.filter(Decrement.at < now):
         db.session.connection().execute(
             "UPDATE node SET "+decrement.counter+" = "+decrement.counter+" - %(amount)s "
-            "WHERE id = %(id)s",
+            "WHERE id = %(id)s AND type = %(type)s",
             {
                 "amount": decrement.amount,
                 "id": decrement.node,
+                "type": decrement.type,
             }
         )
         db.session.connection().execute(
             "DELETE FROM decrement "
-            "WHERE node = %(node)s AND counter = %(counter)s AND at = %(at)s",
+            "WHERE node = %(node)s AND type = %(type)s AND counter = %(counter)s AND at = %(at)s",
             {
                 "node": decrement.node,
+                "type": decrement.type,
                 "counter": decrement.counter,
                 "at": decrement.at,
             }

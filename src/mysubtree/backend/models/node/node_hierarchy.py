@@ -85,17 +85,15 @@ class NodeHierarchy(NodeUnread):
         return getattr(self, "count_of_%s" % type)
 
     def increment_counters(self, amount=1, parent_counter=True, user_counter=True, parent_user_counter=True, responses_counter=True):
-        from .node import Node
-        
         # increment parent counter
         if parent_counter and self.parent:
             db.session.connection().execute(
                 "UPDATE node "
-                "SET \"count_of_%(type)s\" = \"count_of_%(type)s\" + %(amount)s "
-                "WHERE id = '%(id)s'" % {
-                    "type": self.type,
+                "SET \"count_of_"+self.type+"\" = \"count_of_"+self.type+"\" + %(amount)s "
+                "WHERE id = %(id)s AND type = %(type)s", {
                     "amount": amount,
                     "id": self.parent,
+                    "type": self.parent_type,
                 })
             on_node_update(self.parent)
             
@@ -103,9 +101,8 @@ class NodeHierarchy(NodeUnread):
         if user_counter and self.user:
             db.session.connection().execute(
                 "UPDATE node "
-                "SET \"count_of_%(type)s\" = \"count_of_%(type)s\" + %(amount)s "
-                "WHERE id = '%(id)s'" % {
-                    "type": self.type,
+                "SET \"count_of_"+self.type+"\" = \"count_of_"+self.type+"\" + %(amount)s "
+                "WHERE id = %(id)s AND type = 'users'", {
                     "amount": amount,
                     "id": self.user,
                 })
@@ -131,7 +128,7 @@ class NodeHierarchy(NodeUnread):
             db.session.connection().execute(
                 "UPDATE node "
                 "SET count_of_active_grandchildren = count_of_active_grandchildren + %(amount)s "
-                "WHERE id = '%(id)s'" % {
+                "WHERE id = %(id)s", {
                     "amount": amount,
                     "id": self.parent_of_parent,
                 })
@@ -261,14 +258,14 @@ class NodeHierarchy(NodeUnread):
     #===========================================================================
     
     def invalidate_path(self):
-        from .node import Node
+        from mysubtree.backend import backend
         from mysubtree.backend.models.moderator import Moderator
-        Node.query.filter_by(parent=self.id).update({
+        backend.get_children(parent=self.id).update({
             "parent_of_parent": self.parent,
             "path": self._path_for_subnodes(),
             "propagate_path_rebuild": True,
         })
-        for node in Node.query.filter_by(parent=self.id):
+        for node in backend.get_children(parent=self.id):
             node.set_moderators(self._moderators_for_subnodes(node.user))
     
     
@@ -278,15 +275,13 @@ class NodeHierarchy(NodeUnread):
         if self.propagate_path_rebuild:
             # Cycle detector:
             if self.id in [ancestor["id"] for ancestor in self.path]:
-                from mysubtree.backend import backend
                 trash = backend.get_node(get_trash_id(self.lang))
                 self.previous_location = self.parent # remember last location
                 self.move_to(trash)
                 self.log("_(deleted)", user=common.system_user, username=common.system_username); _("deleted")
                 
-            from .node import Node
-            Node.query.filter_by(parent=self.id).update({"propagate_path_rebuild": True, "path": self._path_for_subnodes(), "lang": self.lang})
-            for node in Node.query.filter_by(parent=self.id):
+            backend.get_children(parent=self.id).update({"propagate_path_rebuild": True, "path": self._path_for_subnodes(), "lang": self.lang})
+            for node in backend.get_children(parent=self.id):
                 node.set_moderators(self._moderators_for_subnodes(node.user))
             self.propagate_path_rebuild = False
         
@@ -304,14 +299,12 @@ class NodeHierarchy(NodeUnread):
                 setattr(node, reference["property"], info)
                 #self.invalidate_short_name_and_slug_in_path(target=reference) # NOTE: this is not needed because we don't have references to references
                                                                                # AND because references are not showing in the path
-        from .node import Node
-        Node.query.filter_by(parent=target.get("id")).update({"propagate_slug_and_short_name_rebuild": True, "path": self._path_for_subnodes()})
-        
+        backend.get_children(parent=target.get("id")).update({"propagate_slug_and_short_name_rebuild": True, "path": self._path_for_subnodes()})
     
     def propagate_rename_if_needed(self):
-        from .node import Node
+        from mysubtree.backend import backend
         if self.propagate_slug_and_short_name_rebuild:
-            Node.query.filter_by(parent=self.id).update({"propagate_slug_and_short_name_rebuild": True, "path": self._path_for_subnodes()})
+            backend.get_children(parent=self.id).update({"propagate_slug_and_short_name_rebuild": True, "path": self._path_for_subnodes()})
             self.propagate_slug_and_short_name_rebuild = False
 
 additional_fields()

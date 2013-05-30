@@ -26,26 +26,27 @@ class NodeActivity:
         
         branching_type = self.type
         now = utcnow()
-        def update_activity(id, branching_type):
+        def update_activity(id, type, branching_type):
             activity_type = "activity_%s" % branching_type
             on_node_update(id)
             return db.session.connection().execute(
                 "UPDATE node "
                 "SET \""+activity_type+"\" = %(now_minus_1sec)s, activity = %(now)s "
-                "WHERE id = %(id)s AND (\""+activity_type+"\" < %(now_minus_1sec)s OR \""+activity_type+"\" IS NULL)",
+                "WHERE id = %(id)s AND type = %(type)s AND (\""+activity_type+"\" < %(now_minus_1sec)s OR \""+activity_type+"\" IS NULL)",
                 {
                     "id": id,
+                    "type": type,
                     "now": now,
                     "now_minus_1sec": now - timedelta(seconds=1),
                 }
             )
         
         # user node:
-        update_activity(get_user_node(), branching_type)
+        update_activity(get_user_node(), "users", branching_type)
 
         # parent nodes:
         for ancestor in reversed(self.path):
-            if update_activity(ancestor["id"], branching_type).rowcount == 0: # updating too fast
+            if update_activity(ancestor["id"], ancestor["type"], branching_type).rowcount == 0: # updating too fast
                 break
             branching_type = ancestor["type"]
     

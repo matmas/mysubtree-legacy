@@ -131,9 +131,10 @@ class NodeVoting:
         rowcount = db.session.connection().execute("UPDATE node "
             "SET votes_a = votes_a + %(relative_value)s, "
             "problematic = %(problematic)s "
-            "WHERE id = %(id)s AND votes_a = %(votes_a)s",
+            "WHERE id = %(id)s AND type = %(type)s AND votes_a = %(votes_a)s",
             {
                 "id": self.id,
+                "type": self.type,
                 "relative_value": relative_value,
                 "problematic": self.is_problematic_after_change(votes_change=relative_value),
                 "votes_a": self.votes_a,
@@ -155,8 +156,8 @@ class NodeVoting:
         
         db.session.connection().execute("UPDATE node "
             "SET votes_sum_"+self.type+"_a = votes_sum_"+self.type+"_a + %(relative_value)s "
-            "WHERE id = %(id)s",
-        {"id": self.parent, "relative_value": relative_value})
+            "WHERE id = %(id)s AND type = %(type)s",
+        {"id": self.parent, "type": self.parent_type, "relative_value": relative_value})
         on_node_update(self.parent)
         
         for counter, how in {
@@ -164,10 +165,10 @@ class NodeVoting:
             "votes_w":              {"at": now_plus_1w, "node": self.id, "type": self.type},
             "votes_m":              {"at": now_plus_1m, "node": self.id, "type": self.type},
             "votes_y":              {"at": now_plus_1y, "node": self.id, "type": self.type},
-            "votes_sum_%(type)s_d": {"at": now_plus_1d, "node": self.parent, "type": self.type},
-            "votes_sum_%(type)s_w": {"at": now_plus_1w, "node": self.parent, "type": self.type},
-            "votes_sum_%(type)s_m": {"at": now_plus_1m, "node": self.parent, "type": self.type},
-            "votes_sum_%(type)s_y": {"at": now_plus_1y, "node": self.parent, "type": self.type},
+            "votes_sum_%(type)s_d": {"at": now_plus_1d, "node": self.parent, "type": self.parent_type},
+            "votes_sum_%(type)s_w": {"at": now_plus_1w, "node": self.parent, "type": self.parent_type},
+            "votes_sum_%(type)s_m": {"at": now_plus_1m, "node": self.parent, "type": self.parent_type},
+            "votes_sum_%(type)s_y": {"at": now_plus_1y, "node": self.parent, "type": self.parent_type},
         }.iteritems():
             counter = counter % {"type": self.type}
             params = {
@@ -178,14 +179,14 @@ class NodeVoting:
                 "relative_value": relative_value,
             }
             db.session.connection().execute(
-                "UPDATE node SET \""+counter+"\" = \""+counter+"\" + %(relative_value)s WHERE id = %(node)s", params
+                "UPDATE node SET \""+counter+"\" = \""+counter+"\" + %(relative_value)s WHERE id = %(node)s AND type = %(type)s", params
             )
             rowcount = db.session.connection().execute(
-                "UPDATE decrement SET amount = amount + %(relative_value)s WHERE node = %(node)s AND at = %(at)s AND counter = %(counter)s", params
+                "UPDATE decrement SET amount = amount + %(relative_value)s WHERE node = %(node)s AND type = %(type)s AND at = %(at)s AND counter = %(counter)s", params
             ).rowcount
             if rowcount == 0:
                 db.session.connection().execute(
-                    "INSERT INTO decrement (node, at, amount, counter) VALUES (%(node)s, %(at)s, %(relative_value)s, %(counter)s)", params
+                    "INSERT INTO decrement (node, type, at, amount, counter) VALUES (%(node)s, %(type)s, %(at)s, %(relative_value)s, %(counter)s)", params
                 )
         
         return relative_value, is_votenode_created

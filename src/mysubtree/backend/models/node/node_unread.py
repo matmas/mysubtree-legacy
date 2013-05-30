@@ -27,6 +27,8 @@ class NodeUnread:
 def reading_nodes(nodes, user):
     from mysubtree.backend.models.node.node import Node
     unread_nodes = [node for node in nodes if node.unread and node.parent_user == user]
+    #unread_nodes = sorted(unread_nodes, key=lambda node: node.type)
+    
     unread_nodes_ids = [node.id for node in unread_nodes]
     
     if unread_nodes_ids:

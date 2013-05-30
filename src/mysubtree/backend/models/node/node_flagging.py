@@ -77,11 +77,12 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
             rowcount = db.session.connection().execute(
                 "UPDATE node "
                 "SET flags = flags + %(flags_change)s, problematic = %(problematic)s "
-                "WHERE id = %(id)s AND flags = %(flags)s",
+                "WHERE id = %(id)s AND type = %(type)s AND flags = %(flags)s",
                 {
                     "flags_change": change,
                     "problematic": self.is_problematic_after_change(flags_change=change),
                     "id": self.id,
+                    "type": self.type,
                     "flags": self.flags,
                 }
             ).rowcount
@@ -117,9 +118,10 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
             db.session.connection().execute(
                 "UPDATE node "
                 "SET num_problematic_here_and_below = num_problematic_here_and_below + %(change)s "
-                "WHERE id = %(id)s",
+                "WHERE id = %(id)s AND type = %(type)s",
                 {
                     "id": ancestor.get("id"),
+                    "type": ancestor.get("type"),
                     "change": change,
                 }
             )
