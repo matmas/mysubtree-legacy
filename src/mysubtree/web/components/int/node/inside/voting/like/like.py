@@ -10,7 +10,7 @@ def like(node, sort):
                 html.text(str(node.get_votes(sort)))
             if node.is_votable_by_current_user():
                 with html.a(
-                    href=url_for('vote', nid=node.nid()),
+                    href=node.url_for("vote"),
                     class_=["like", "button"],
                     component=True,
                     **{

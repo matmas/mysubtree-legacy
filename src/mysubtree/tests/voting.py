@@ -17,7 +17,7 @@ class Voting(Base):
                 # item1 (User1)
         
         # Try to vote for it as author:
-        rv = self.vote(item1)
+        rv = self.vote("items", item1)
         assert "This node is created by your IP address. The author is not allowed to vote for his node. Wait for the likes from others." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 0 in rv.data
         
@@ -26,7 +26,7 @@ class Voting(Base):
         self.register_test_user("2")
         
         # Vote for it from different IP address and different user:
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         assert "Voted sucessfully." in rv.data
         
         # root
@@ -41,7 +41,7 @@ class Voting(Base):
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         
         # Try to vote again from the same IP address:
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         assert "You like it already." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         
@@ -50,12 +50,12 @@ class Voting(Base):
         self.register_test_user("3")
         
         # Try to vote again from the same IP address (while being logged off):
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         assert "From your IP address has been voted +1 for it." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         
         # Try to undo vote from the same IP as the previous voter but logged in as different user:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         assert "From your IP address has been voted +1 for it by another user. Undo is not possible." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         
@@ -63,7 +63,7 @@ class Voting(Base):
         #-----------------------------------------------------------------------
         
         # Vote while logged off:
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "Voted sucessfully." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 2 in rv.data
         
@@ -81,14 +81,14 @@ class Voting(Base):
         self.login_test_user("2")
         
         # Try to undo vote when logged in that was cast while logged off:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "From your IP address has been voted +1 for it while being logged off. Log off and try again." in rv.data
         
         self.logout()
         #-----------------------------------------------------------------------
         
         # Undo the vote immediately:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "You sucessfully undid your vote." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         rv = self.get_nodes("items", item1, "votes")
@@ -100,7 +100,7 @@ class Voting(Base):
                     # +1 (User2 (127.0.0.2))
         
         # Vote again:
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "Voted sucessfully." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 2 in rv.data
         
@@ -113,7 +113,7 @@ class Voting(Base):
         time.move_forward(minutes=30)
         
         # Undo the vote after 30 minutes:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "You sucessfully undid your vote." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         rv = self.get_nodes("items", item1, "votes")
@@ -127,11 +127,11 @@ class Voting(Base):
                     # -1 (127.0.0.3)
         
         # Try to undo the vote again:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "No like to undo." in rv.data
         
         # Vote again:
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         assert "Voted sucessfully." in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 2 in rv.data
         
@@ -161,11 +161,11 @@ class Voting(Base):
         self.logout()
         
         # Try to undo nonexistent vote:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.4"})
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.4"})
         assert "No like to undo." in rv.data
         
         # Try to undo nonexistent vote with javascript:
-        rv = self.vote(item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.4"}, headers=[('X-Requested-With', 'XMLHttpRequest')])
+        rv = self.vote("items", item1, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.4"}, headers=[('X-Requested-With', 'XMLHttpRequest')])
         assert "No like to undo." not in rv.data
         assert "error" not in rv.data
         

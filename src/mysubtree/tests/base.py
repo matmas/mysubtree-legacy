@@ -111,23 +111,23 @@ class Base(unittest.TestCase):
         return node_nid
     
     def move_node(self, nid, target_nid):
-        rv = self.client.post("/move/%s" % nid, follow_redirects=True)
+        rv = self.client.post(self.url_for("move", nid=nid), follow_redirects=True)
         assert "You may now paste the node somewhere." in rv.data
-        return self.client.post("/move-to/%s" % target_nid, follow_redirects=True)
+        return self.client.post(self.url_for("move_to", nid=target_nid), follow_redirects=True)
         #return self.client.post("/move/%s" % nid, data=dict(url="/en/nodes/%s" % target_nid), follow_redirects=True)
     
     def rename_node(self, nid, new_name):
-        return self.client.post("/rename/%s" % nid, data=dict(name=new_name), follow_redirects=True)
+        return self.client.post(self.url_for("rename", nid=nid), data=dict(name=new_name), follow_redirects=True)
     
-    def vote(self, nid, undo=False, **kwargs):
+    def vote(self, type, nid, undo=False, **kwargs):
         if not undo:
-            return self.client.post("/vote/%s" % nid, follow_redirects=True, **kwargs)
+            return self.client.post(self.url_for("vote", nid=nid, type=type), follow_redirects=True, **kwargs)
         else:
-            return self.client.post("/vote/%s?undo=true" % nid, follow_redirects=True, **kwargs)
+            return self.client.post(self.url_for("vote", nid=nid, type=type, undo=True), follow_redirects=True, **kwargs)
     
     def delete_node(self, nid):
-        return self.client.post("/delete/%s" % nid, follow_redirects=True)
+        return self.client.post(self.url_for("delete", nid=nid), follow_redirects=True)
     
     def restore_node(self, nid):
-        return  self.client.post("/restore/%s" % nid, follow_redirects=True)
+        return  self.client.post(self.url_for("restore", nid=nid), follow_redirects=True)
     

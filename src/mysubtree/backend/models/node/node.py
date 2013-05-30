@@ -78,6 +78,9 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
         # using url unstead of url_for in case we need to pass arguments such as offset and so on, e.g. for making canonical urls
         return url("node", lang=self.lang or request.view_args["lang"], nodetype=self.type, nid=self.nid(), slug=self.slug(), **kwargs)
     
+    def url_for(self, endpoint, **kwargs):
+        return url_for(endpoint, nid=self.nid(), type=self.type, **kwargs)
+    
     def __init__(self):
         NodeVoting.__init__(self)
         NodeActivity.__init__(self)

@@ -59,7 +59,7 @@ class Decrementer(Base):
         assert self.get_votes(item1, rv.data) == 0
         assert self.get_sorting(rv.data) == ""
         
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         
         self.assertEquals(self.get_stats("en", "items", items, ""),        [1, 0, 0, True])
         self.assertEquals(self.get_stats("en", "items", items, "1day"),    [1, 0, 0, True])
@@ -105,7 +105,7 @@ class Decrementer(Base):
         self.assertEquals(self.get_stats("en", "items", items, "alltime"), [1, 0, 0, True])
         
         
-        rv = self.vote(item2, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item2, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         
         self.assertEquals(self.get_stats("en", "items", items, ""),        [1, 1, 0, True])
         self.assertEquals(self.get_stats("en", "items", items, "1day"),    [0, 1, 0, True])
@@ -123,7 +123,7 @@ class Decrementer(Base):
         self.assertEquals(self.get_stats("en", "items", items, "1year"),   [0, 1, 0, True])
         self.assertEquals(self.get_stats("en", "items", items, "alltime"), [1, 1, 0, True])
         
-        rv = self.vote(item2, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
+        rv = self.vote("items", item2, undo=True, environ_overrides={"REMOTE_ADDR": "127.0.0.3"})
         
         self.assertEquals(self.get_stats("en", "items", items, ""),        [1, 0, 0, True])
         self.assertEquals(self.get_stats("en", "items", items, "1day"),    [0, -1, 0, True])

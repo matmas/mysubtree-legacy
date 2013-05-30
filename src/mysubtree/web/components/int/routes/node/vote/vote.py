@@ -15,10 +15,10 @@ from mysubtree.web.babel import set_locale
 from mysubtree.web.components.int.routes.middleware.ajax_response import ajax_response
 from mysubtree.web.components.int.routes.middleware.refresh_account import refresh_account
 
-@app.route("/vote/<nid>", methods=["GET", "POST"])
+@app.route("/vote/<type>/<nid>", methods=["GET", "POST"])
 @ajax_response
 @refresh_account
-def vote(nid):
+def vote(nid, type):
     node = backend.get_node_from(nid)
     set_locale(node.lang)
     class VoteForm(RedirectForm):

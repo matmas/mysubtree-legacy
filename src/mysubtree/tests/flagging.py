@@ -3,9 +3,9 @@ from .base import Base
 
 class Flagging(Base):
     
-    def vote_as(self, ip_address, nid, undo=False):
+    def vote_as(self, ip_address, type, nid, undo=False):
         self.logout()
-        return self.vote(nid, undo=undo, environ_overrides={"REMOTE_ADDR": ip_address})
+        return self.vote(type, nid, undo=undo, environ_overrides={"REMOTE_ADDR": ip_address})
     
     def flag_as(self, ip_address, nid, undo=False):
         self.logout()
@@ -171,29 +171,29 @@ class Flagging(Base):
         
         # flags 1, votes 0
         
-        self.vote_as("127.0.0.2", spam)
+        self.vote_as("127.0.0.2", "items", spam)
         
         # flags 1, votes 1
         
         assert self.get_num_problematic(test_user="1") == 0
         
-        self.vote_as("127.0.0.2", spam, undo=True)
+        self.vote_as("127.0.0.2", "items", spam, undo=True)
         
         # flags 1, votes 0
         
         assert self.get_num_problematic(test_user="1") == 1
         
-        self.vote_as("127.0.0.2", spam)
+        self.vote_as("127.0.0.2", "items", spam)
         
         # flags 1, votes 1
         
         assert self.get_num_problematic(test_user="1") == 0
         
-        self.vote_as("127.0.0.3", spam)
+        self.vote_as("127.0.0.3", "items", spam)
         
         # flags 1, votes 2
         
-        self.vote_as("127.0.0.4", spam)
+        self.vote_as("127.0.0.4", "items", spam)
         
         # flags 1, votes 3
         

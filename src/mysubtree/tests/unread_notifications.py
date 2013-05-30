@@ -43,7 +43,7 @@ class UnreadNotifications(Base):
         self.logout()
         #-----------------------------------------------------------------------
         
-        rv = self.vote(item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
+        rv = self.vote("items", item1, environ_overrides={"REMOTE_ADDR": "127.0.0.2"})
         assert "Voted sucessfully." in rv.data
         
         #-----------------------------------------------------------------------
