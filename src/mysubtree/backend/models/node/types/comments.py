@@ -65,7 +65,7 @@ class Comments(Node):
         return Markup(self.html)
     
     def slug(self):
-        return utils.slugify(self.body) 
+        return None
     
     def short_name(self):
         return utils.short_name(self.body)

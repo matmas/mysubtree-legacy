@@ -44,16 +44,13 @@ def language_root(lang):
 @app.route("/<lang>/users/<alias>/<type>",                  defaults={"nodetype": "users", "nid": None})
 
 # without the url convertor nid will contain part of the multi-word slug until the last dash
-
 @app.route("/<lang>/items/<alphanum:nid>",                  defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>/<type>",           defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>-<slug>",           defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>-<slug>/<type>",    defaults={"nodetype": "items"})
-@app.route("/<lang>/comments/<alphanum:nid>",               defaults={"nodetype": "comments"})
-@app.route("/<lang>/comments/<alphanum:nid>/<type>",        defaults={"nodetype": "comments"})
-@app.route("/<lang>/comments/<alphanum:nid>-<slug>",        defaults={"nodetype": "comments"})
-@app.route("/<lang>/comments/<alphanum:nid>-<slug>/<type>", defaults={"nodetype": "comments"})
 
+@app.route("/<lang>/comments/<nid>",                        defaults={"nodetype": "comments"})
+@app.route("/<lang>/comments/<nid>/<type>",                 defaults={"nodetype": "comments"})
 @app.route("/<lang>/edit-suggestions/<nid>",                defaults={"nodetype": "edit-suggestions"})
 @app.route("/<lang>/edit-suggestions/<nid>/<type>",         defaults={"nodetype": "edit-suggestions"})
 @app.route("/<lang>/log-entries/<nid>",                     defaults={"nodetype": "log-entries"})
