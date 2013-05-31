@@ -81,13 +81,14 @@ def icon(nid):
                     return jsonify(ajax_response)
             return redirect_back(node.url())
         except Error as error:
-            html = render_template("int/routes/node/action.html", action="icon", action_name=_("set icon"), node=node, lang=node.lang, form=form)
+            def get_html(): # we must render html after calling flash()
+                return render_template("int/routes/node/action.html", action="icon", action_name=_("set icon"), node=node, lang=node.lang, form=form)
             if g.is_iframe:
                 return make_response('<textarea data-type="application/json">%s</textarea>' % json.dumps({
-                    "error": unicode(error), "html": html,
+                    "error": unicode(error), "html": get_html(),
                 }))
             elif request.is_xhr: # AJAX
-                return jsonify(error=unicode(error), html=html)
+                return jsonify(error=unicode(error), html=get_html())
             else:
                 flash(unicode(error), category="error")
-                return html
+                return get_html()

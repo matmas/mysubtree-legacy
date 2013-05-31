@@ -75,8 +75,7 @@ class Items(Comments):
         return True
     
     def is_icon_changeable(self):
-        #return True
-        return False
+        return True
     
     @staticmethod
     def branching():
