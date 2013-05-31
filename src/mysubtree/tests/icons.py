@@ -8,7 +8,7 @@ class Icons(Base):
         
         # Add item1:
         rv = self.post_node(type="items", parent="en", name="item1")
-        item1 = self.get_node_nid(rv.data, slug="item1")
+        item1 = self.get_newest_node_nid(rv.data)
         
         #>>> b64encode(open("accept.png").read())
         accept_16x16_png = (
