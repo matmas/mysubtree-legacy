@@ -19,7 +19,7 @@ def verify(lang, code):
     user = User.query.filter_by(code=code).first()
     if user:
         if not user.has_email_verified():
-            usernode = get_model("users")(username=user.name)
+            usernode = get_model("users")(username=user.name, alias=user.nick)
             db.session.add(usernode)
             user.node = usernode.id
             

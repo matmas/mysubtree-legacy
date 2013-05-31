@@ -10,7 +10,7 @@ from lib.remote_addr import remote_addr
 from mysubtree.backend import common
 from mysubtree.db import db
 from mysubtree.web.app import app
-from mysubtree.web.user import get_user_node, get_user_name
+from mysubtree.web.user import get_user_node, get_user_name, get_nick_name
 from .node_voting import NodeVoting
 from .node_activity import NodeActivity
 from .node_hierarchy import NodeHierarchy
@@ -45,6 +45,7 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
     created = db.Column(db.DateTime())
     user = db.Column(db.Integer())
     username = db.Column(db.String(255))
+    nickname = db.Column(db.String(255))
     ipaddress = db.Column(db.String(255))
     name = db.Column(db.String(255)) # languages, items, ...
     body = db.Column(db.Text()) # comments, items, versions
@@ -75,8 +76,12 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
         return base_encode(self.parent)
     
     def url(self, **kwargs):
+        kwargs = dict(dict(lang=self.lang or request.view_args["lang"], nodetype=self.type, nid=self.nid(), slug=self.slug()), **kwargs)
+        if self.type == "users":
+            del kwargs["nid"]
+            kwargs["alias"] = self.alias
         # using url unstead of url_for in case we need to pass arguments such as offset and so on, e.g. for making canonical urls
-        return url("node", lang=self.lang or request.view_args["lang"], nodetype=self.type, nid=self.nid(), slug=self.slug(), **kwargs)
+        return url("node", **kwargs)
     
     def url_for(self, endpoint, **kwargs):
         return url_for(endpoint, nid=self.nid(), type=self.type, **kwargs)
@@ -98,6 +103,7 @@ class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, Node
         self.created = utcnow()
         self.user = get_user_node()
         self.username = get_user_name()
+        self.nickname = get_nick_name()
         try:
             self.ipaddress = remote_addr()
         except RuntimeError: # working outside of request context

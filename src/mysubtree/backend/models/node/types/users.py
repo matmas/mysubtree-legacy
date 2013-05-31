@@ -1,4 +1,5 @@
 #autoimport
+from flask import Markup
 from flaskext.babel import gettext as _
 from lib import utils
 from mysubtree.backend import common
@@ -16,10 +17,11 @@ class Users(Node):
     def type_name(num):
         return _("users")
     
-    def __init__(self, username=None):
+    def __init__(self, username=None, alias=None):
         Node.__init__(self)
         self.parent = common.users_parent
         self.username = username
+        self.alias = alias
         self.set_parent(None)
     
     def after_attach(self):
@@ -40,16 +42,13 @@ class Users(Node):
         return True
     
     def title(self):
-        if self.username:
-            return self.username
-        else:
-            return self.nid()
+        return self.alias
         
     def body_text(self):
-        return ""
+        return Markup("<p>&nbsp;(%s)</p>" % self.username)
         
     def slug(self):
-        return utils.slugify(self.username) 
+        return None
 
     def short_name(self):
         if self.username:

@@ -47,7 +47,7 @@ def inside(node, nodelist=None, nodelists=None, level=None, view_options=None):
                         if not node.user and node.type == "votes":
                             html.text(node.ipaddress)
                         else:
-                            html.add(user(node.user, node.username, node.lang))
+                            html.add(user(node.user, node.username, node.nickname, node.lang))
                     html.add(permalink(node))
             if not view_options.get("hide_branching"):
                 html.add(branching(node, nodelist, nodelists=nodelists, level=level))

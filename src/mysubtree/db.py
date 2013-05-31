@@ -61,10 +61,11 @@ def _ensure_initial_data():
         user = User()
         user.email = "riesz.martin@gmail.com"
         user.name = "Matmas"
+        user.nick = "matmas"
         user.set_password("CommonPassword")
         db.session.add(user)
         
-        usernode = Users(username=user.name)
+        usernode = Users(username=user.name, alias=user.nick)
         db.session.add(usernode)
         user.node = usernode.id
         

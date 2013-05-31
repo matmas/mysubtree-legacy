@@ -36,7 +36,7 @@ class Voting(Base):
         
         # Check that the IP address is hidden and user name is shown:
         rv = self.get_nodes("items", item1, "votes")
-        assert "User2" in rv.data
+        assert "user2" in rv.data
         assert "127.0.0.2" not in rv.data
         assert "<span class='vote-indicator'>%d</span>" % 1 in rv.data
         

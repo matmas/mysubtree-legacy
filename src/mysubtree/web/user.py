@@ -27,6 +27,9 @@ def get_user_node():
 def get_user_name():
     return get_user().name if get_user() else None
 
+def get_nick_name():
+    return get_user().nick if get_user() else None
+
 
 #@cache.memoize()
 def get_user_from_db(id):

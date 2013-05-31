@@ -16,7 +16,7 @@
 
     {%- if user.get_user() -%}
         <ul class="nav pull-right">
-            <li>{{ user_component(user.get_user_node(), user.get_user_name(), lang=lang)|safe }}</li>
+            <li>{{ user_component(user.get_user_node(), user.get_user_name(), user.get_nick_name(), lang=lang)|safe }}</li>
         </ul>
         
         {%- include "int/routes/account/account/notifications/_notifications.html" -%}

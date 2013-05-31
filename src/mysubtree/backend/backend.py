@@ -16,6 +16,9 @@ def get_node(id):
 def get_node_from(nid):
     return get_node(base_decode(nid))
 
+def get_node_from_alias(alias):
+    return Node.query.filter_by(alias=alias).first()
+
 def get_children(parent):
     return Node.query.filter_by(parent=parent)
 

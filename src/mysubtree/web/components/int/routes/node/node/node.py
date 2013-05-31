@@ -40,10 +40,11 @@ def language_root(lang):
 @app.route("/sk/root",                                      defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
 @app.route("/sk/root/<type>",                               defaults={"nodetype": "root", "nid": "sk", "lang": "sk"})
 
-@app.route("/<lang>/users/<alphanum:nid>",                  defaults={"nodetype": "users"})
-@app.route("/<lang>/users/<alphanum:nid>/<type>",           defaults={"nodetype": "users"})
-@app.route("/<lang>/users/<alphanum:nid>-<slug>",           defaults={"nodetype": "users"})
-@app.route("/<lang>/users/<alphanum:nid>-<slug>/<type>",    defaults={"nodetype": "users"})  # without the url convertor nid will contain part of the multi-word slug until the last dash
+@app.route("/<lang>/users/<alias>",                         defaults={"nodetype": "users", "nid": None})
+@app.route("/<lang>/users/<alias>/<type>",                  defaults={"nodetype": "users", "nid": None})
+
+# without the url convertor nid will contain part of the multi-word slug until the last dash
+
 @app.route("/<lang>/items/<alphanum:nid>",                  defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>/<type>",           defaults={"nodetype": "items"})
 @app.route("/<lang>/items/<alphanum:nid>-<slug>",           defaults={"nodetype": "items"})
@@ -66,16 +67,20 @@ def language_root(lang):
 
 @line_profile
 @cache.cached(timeout=60, unless=should_not_cache)
-def node(lang, nodetype, nid, type=None, slug=None):
-    if not nid:
-        nid = base_encode(get_root_id(lang))
-    node = backend.get_node_from(nid) or abort(404)
+def node(lang, nodetype, nid, type=None, slug=None, alias=None):
+    if nodetype == "users":
+        node = backend.get_node_from_alias(alias) or abort(404)
+    else:
+        if not nid:
+            nid = base_encode(get_root_id(lang))
+        node = backend.get_node_from(nid) or abort(404)
     set_locale(node.lang or lang)
     sort = correct_sort_type(request.args.get("sort"))
-    if not request.is_xhr: # not AJAX
-        if node.slug() != slug or node.lang and node.lang != lang:
-            return redirect(url("node", nodetype=node.type, lang=node.lang, nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=request.args.get("o"))) #, code=301
-    
+    if nodetype != "users":
+        if not request.is_xhr: # not AJAX
+            if node.slug() != slug or node.lang and node.lang != lang:
+                return redirect(url("node", nodetype=node.type, lang=node.lang, nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=request.args.get("o"))) #, code=301
+        
     backend.getting_nodes_below(node)
     if type:
         nodelist = backend.get_nodes(node.id, node.type, type, sort=sort, offset=num(request.args.get("offset", 0)))
