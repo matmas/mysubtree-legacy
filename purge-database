@@ -1,7 +1,9 @@
 #!/bin/bash
+database="mysubtree"
 
+sudo -u postgres dropdb $database && sudo -u postgres createdb $database
 
-psql -c 'BEGIN; DROP SCHEMA public CASCADE; CREATE SCHEMA public; COMMIT;'
+#psql -c 'BEGIN; DROP SCHEMA public CASCADE; CREATE SCHEMA public; COMMIT;'
 
 #project="mysubtree"
 #========================================================================
