@@ -23,6 +23,9 @@ class NodeEditing:
     def is_allowed_empty_body(self):
         return False
     
+    def should_edit_without_history(self):
+        return False
+    
     def is_editable_by_current_user(self):
         try:
             self._going_to_edit()
@@ -64,26 +67,28 @@ class NodeEditing:
             return False
         last_version = self._ensure_last_version()
         self._update_body(new_body, new_version)
-        if edit_suggestion:
-            edit_suggestion.change("type", "versions")
-            version_node = edit_suggestion
-        else:
-            version_node = get_model("versions")()
-            version_node.body = new_body
-            version_node.diff = utils.get_diff(escape(old_body), escape(new_body))
-            version_node.version = new_version
-            version_node.set_parent(self)
-            version_node.add()
-            
-        # move all child edit-suggestions of self to old version node:id
-        from .types.edit_suggestions import EditSuggestions
-        for node in EditSuggestions.query.filter_by(parent=self.id):
-            node.move_to(last_version)
         
-        # move all child edit-suggestions of version_node to parent:
-        for node in EditSuggestions.query.filter_by(parent=version_node.id):
-            node.move_to(self)
-        version_node.log("_(accepted edit)"); _("accepted edit")
+        if not self.should_edit_without_history():
+            if edit_suggestion:
+                edit_suggestion.change("type", "versions")
+                version_node = edit_suggestion
+            else:
+                version_node = get_model("versions")()
+                version_node.body = new_body
+                version_node.diff = utils.get_diff(escape(old_body), escape(new_body))
+                version_node.version = new_version
+                version_node.set_parent(self)
+                version_node.add()
+                
+            # move all child edit-suggestions of self to old version node:id
+            from .types.edit_suggestions import EditSuggestions
+            for node in EditSuggestions.query.filter_by(parent=self.id):
+                node.move_to(last_version)
+            
+            # move all child edit-suggestions of version_node to parent:
+            for node in EditSuggestions.query.filter_by(parent=version_node.id):
+                node.move_to(self)
+            version_node.log("_(accepted edit)"); _("accepted edit")
         return True
     
     
@@ -102,8 +107,8 @@ class NodeEditing:
                 except AttributeError:
                     if not key.startswith("_"):
                         changes[key] = value
-            from .types.comments import Comments
-            rowcount = Comments.query.filter_by(id=node.id, version=new_version - 1).update(dict(changes, version=Comments.version + 1))
+            from .node import Node
+            rowcount = Node.query.filter_by(id=node.id, version=new_version - 1).update(dict(changes, version=Node.version + 1))
             on_node_update(node.id)
             if rowcount == 0:
                 raise Error(_("Meanwhile the content has changed, so the update was not possible."))

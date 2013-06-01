@@ -15,10 +15,10 @@ from mysubtree.db import db
 from mysubtree.web.babel import set_locale
 from mysubtree.web.user import get_user_node
 
-@app.route("/edit/<nid>", methods=["GET", "POST"])
-def edit(nid):
+@app.route("/<lang>/edit/<nid>", methods=["GET", "POST"])
+def edit(lang, nid):
     node = backend.get_node_from(nid)
-    set_locale(node.lang)
+    set_locale(lang)
     class EditForm(RedirectForm):
         #body = fields.TextAreaField("", widget=widgets.WikiareaWidget(
             #preview_position="top" if g.is_ajax else "bottom",
@@ -42,7 +42,7 @@ def edit(nid):
         else:
             action_name = _("suggest edit")
             title = None # default
-        return render_template("int/routes/node/action.html", action="edit", action_name=action_name, title=title, node=node, form=form, lang=node.lang)
+        return render_template("int/routes/node/action.html", action="edit", action_name=action_name, title=title, node=node, form=form, lang=lang)
     else: # POST
         try:
             if not form.validate():

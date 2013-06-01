@@ -4,7 +4,7 @@ from .base import Base
 class Editing(Base):
     
     def edit(self, nid, new_body, version):
-        rv = self.client.post("/edit/%s" % nid, data=dict(body=new_body, version=version))
+        rv = self.client.post(self.url_for("edit", lang="en", nid=nid), data=dict(body=new_body, version=version))
         if rv.location:
             rv = self.follow_redirect(rv.location)
             assert not rv.location # max one redirect

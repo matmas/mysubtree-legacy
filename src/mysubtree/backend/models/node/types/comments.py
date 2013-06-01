@@ -8,9 +8,9 @@ from lib.wtforms import widgets
 from lib import utils
 from lib.markdown import markdown
 from mysubtree.db import db
-from ..node import Node
+from ..editable import Editable
 
-class Comments(Node):
+class Comments(Editable):
     
     __mapper_args__ = {"polymorphic_identity": "comments"}
     
@@ -30,39 +30,8 @@ class Comments(Node):
     def str_attach_type():
         return _("Attach comment")
     
-    @staticmethod
-    def get_form_fields(parent_node):
-        return [
-            ("body", fields.TextAreaField("", [
-                validators.Required(message=_("This field is required.")),
-            #], widget=widgets.WikiareaWidget())),
-            ])),
-        ]
-    
-    def teaser_length(self):
-        return 1024
-    
-    def validate(self):
-        super(Comments, self).validate()
-        
-        self.html = markdown.to_html(self.body)
-        
-        if not self.version:
-            self.version = 1
-        
-        if len(self.html) > self.teaser_length():
-            teaser = utils.short_name(self.html, max_length=self.teaser_length(), append_ellipsis=False)
-            if teaser.endswith("<"):
-                teaser = teaser.rstrip("<")
-            teaser += '<!--more-->'
-            teaser, errors = tidy_document(teaser, options={'numeric-entities': 1, "show-body-only": 1})
-            self.teaser = teaser
-    
     def title(self):
         return ""
-    
-    def body_text(self):
-        return Markup(self.html)
     
     def slug(self):
         return None
@@ -78,9 +47,6 @@ class Comments(Node):
         return True
     
     def is_movable(self):
-        return True
-    
-    def is_editable(self):
         return True
     
     @staticmethod
