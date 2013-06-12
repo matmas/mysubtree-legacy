@@ -62,6 +62,8 @@ class NodeVoting:
         return True
     
     def _going_to_vote(self):
+        #if not get_user():
+            #raise Error(_("You must be logged in to do it."))
         if not self.is_votable():
             raise Error(_("This node cannot be voted for."))
         if self.get("ipaddress") == remote_addr():
