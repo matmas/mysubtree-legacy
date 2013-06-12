@@ -11,7 +11,7 @@
     <form class="form-horizontal ajax_validate" action="{{ url_for('create_account', lang=lang) }}" method="post">
         {{ form_fields_horizontal(form) }}
         
-        <div class="controls">
+        {# <div class="controls">
             <p>
                 {{ _("When you post something that is not welcomed here it may and probably will be removed.") }}
             </p>
@@ -20,7 +20,7 @@
                 {{ _('<a href="http://en.wikipedia.org/wiki/Spam_%%28electronic%%29">Spam</a>, <a href="http://en.wikipedia.org/wiki/Copyright_infringement">copyright violations</a>, <a href="http://en.wikipedia.org/wiki/Pornography">porn</a>.') }}
             </p>
             <p>{{ _('We may have to eventually put some ads to cover our expenses.') }}</p>
-        </div>
+        </div> #}
         
         <div class="controls">
             <button type="submit" class="btn">{{ _('Create account') }}</button>

@@ -1,7 +1,7 @@
 #autoimport
 import logging
 from datetime import timedelta
-from flask import request, redirect, flash, url_for, g, jsonify, abort
+from flask import request, redirect, flash, url_for, g, jsonify, abort, Markup
 from flask_wtf import Form, fields, validators, ValidationError
 from flaskext.babel import gettext as _, ngettext
 from lib.wtforms.widgets import TextInput
@@ -74,7 +74,7 @@ def create_account(lang):
             validators.Required(message=_("This field is required.")),
             validators.EqualTo("password", message=_("Passwords must match")),
         ])
-        agree = fields.BooleanField(_("I agree to anything."), [validators.Required(message=_("This field is required."))])
+        agree = fields.BooleanField(Markup(_('I agree to the {0}Terms of Use{1}.').format('<a href="%s" target="_blank">' % url_for("terms", lang="en"), "</a>")), [validators.Required(message=_("This field is required."))])
         keepempty = KeepEmpty()
         
     
