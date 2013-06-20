@@ -23,4 +23,5 @@ app.config.update(
     SECRET_KEY = 'WO#i3zhmz@hOOf(oYsMhnXEyNN_McjSsM#E58L6S6ee=ST^RmE',
     MAX_CONTENT_LENGTH = 10 * 1024, # in bytes, for file uploads and normal POST submissions
     NUM_NODES_PER_PAGE = 10,
+    TRUSTED_REFERER_NETLOC = "www.mysubtree.org",
 )
