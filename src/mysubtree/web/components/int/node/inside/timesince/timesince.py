@@ -11,7 +11,7 @@ def timesince(node):
             activity_level(node.created),
             "edits-%s" % activity_level(node.created) if node.type == "edit-suggestions" else "",
         ],
-        title="%(created)s %(exactly)s" % {
+        title="%(created)s %(exactly)s UTC" % {
             "created": _("created"),
             "exactly": format_date(node.created)},
     ):
