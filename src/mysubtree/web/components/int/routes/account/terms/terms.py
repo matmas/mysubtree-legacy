@@ -12,8 +12,7 @@ def terms(lang):
     variables = {
         "DOMAIN": "mysubtree.org",
         "COMPANY_NAME": "Matmas",
-        "STATE": "United States",
-        "COUNTRY": "California",
+        "COUNTRY": "Sweden",
         "last_updated": time.strftime("%b %d, %Y", time.gmtime(os.path.getmtime(template_file))),
     }
     return render_template(template, lang=lang, **variables)
