@@ -42,7 +42,11 @@ def forgot(lang):
                 user.reset_code = user.generate_code()
                 user.reset_date = utcnow()
                 
-                reset_url = url_for("reset", lang=lang, code=user.reset_code, _external=True)
+                if app.config['TESTING']:
+                    reset_url = url_for("reset", lang=lang, code=user.reset_code, _external=True)
+                else:
+                    verification_url = app.config["BASE_URL"] + url_for("reset", lang=lang, code=user.reset_code)
+                
                 message = _("Use the following link within 24 hours to reset your password:") + "\n" + reset_url
                 subject = "%s password reset" % app.config["APP_NAME"]
                 send_email(user.email, subject, message)

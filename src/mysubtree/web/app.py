@@ -24,4 +24,5 @@ app.config.update(
     MAX_CONTENT_LENGTH = 10 * 1024, # in bytes, for file uploads and normal POST submissions
     NUM_NODES_PER_PAGE = 10,
     TRUSTED_REFERER_NETLOC = "www.mysubtree.org",
+    BASE_URL = "https://www.mysubtree.org"
 )

@@ -114,7 +114,10 @@ def create_account(lang):
                 db.session.add(user)
                 db.session.commit()
                 
-                verification_url = url_for("verify", lang=lang, code=user.code, _external=True)
+                if app.config['TESTING']:
+                    verification_url = url_for("verify", lang=lang, code=user.code, _external=True)
+                else:
+                    verification_url = app.config["BASE_URL"] + url_for("verify", lang=lang, code=user.code)
                 message = _("Use the following link within 24 hours to complete your account creation:") + "\n" + verification_url
                 subject = "%s e-mail verification" % app.config["APP_NAME"]
                 send_email(user.email, subject, message)
