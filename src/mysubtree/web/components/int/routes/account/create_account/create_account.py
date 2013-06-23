@@ -114,7 +114,7 @@ def create_account(lang):
                 db.session.add(user)
                 db.session.commit()
                 
-                if app.config['TESTING']:
+                if app.config['DEBUG']:
                     verification_url = url_for("verify", lang=lang, code=user.code, _external=True)
                 else:
                     verification_url = app.config["BASE_URL"] + url_for("verify", lang=lang, code=user.code)

@@ -42,7 +42,7 @@ def forgot(lang):
                 user.reset_code = user.generate_code()
                 user.reset_date = utcnow()
                 
-                if app.config['TESTING']:
+                if app.config['DEBUG']:
                     reset_url = url_for("reset", lang=lang, code=user.reset_code, _external=True)
                 else:
                     verification_url = app.config["BASE_URL"] + url_for("reset", lang=lang, code=user.reset_code)
