@@ -30,6 +30,8 @@ def should_not_cache():
         return True
     return False
 
+@app.route("/en", defaults={"lang": "en"})
+@app.route("/sk", defaults={"lang": "sk"})
 @app.route("/languages/<lang>")
 def language_root(lang):
     return redirect(url_for("node", lang=lang, nid=base_encode(get_root_id(lang)), type=Root.branching()[0]))
