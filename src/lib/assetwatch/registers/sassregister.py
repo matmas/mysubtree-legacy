@@ -153,15 +153,10 @@ $sprites-sprites: sprite-map("sprites/*.png", $cleanup: $sprites-clean-up);
         self.ensure_sprites()
         self.ensure_combined_sass()
         output = check_output("compass compile --boring --quiet; exit 0", shell=True, cwd=self.project_dir())
-        #output = check_output(["/usr/bin/env", "compass", "compile",
-                     #"--config", self.compass_config(),
-                ##"--environment", self.environment,
-                #], cwd=self.project_dir(), stderr=subprocess.STDOUT)
         create = re.compile(r"^   create .+$\n", flags=re.MULTILINE)
         remove = re.compile(r"^   remove .+$\n", flags=re.MULTILINE)
         output = create.sub("", output)
         output = remove.sub("", output)
-        #print " * Assetwatch running"
         if len(output) > 0:
             print output
         

@@ -41,7 +41,7 @@ class ScriptRegister(Register):
                     self._files.append(file)
     
     def recognized_extensions(self):
-        return (".js", ".coffee") #, ".jsurl")
+        return (".js", ".coffee")
         
     def new_file_detected(self, file):
         print >> sys.stderr, '[notice] new script was created: %s' % relpath(start=self.assets_dir, path=file)
@@ -66,11 +66,6 @@ class ScriptRegister(Register):
                 compiled = open(file).read()
             elif extension(file) == ".coffee":
                 compiled = coffeescript.convert_to_javascript(file)
-            #elif extension(file) == ".jsurl":
-                #url = open(file).read()
-                #resource = urllib2.urlopen(url)
-                #compiled = resource.read()
-                #resource.close()
             else:
                 raise Exception("Unsupported script extension.")
             self._compiled_files[file] = compiled
@@ -82,8 +77,8 @@ class ScriptRegister(Register):
         if self.environment == "production":
             output_file = self.public_dir + "/combined.js"
             
-            header = "" # "(function () {"
-            footer = "" # "})();"
+            header = "" # TODO: use "(function () {"
+            footer = "" #           "})();"
             
             output = []
             output.append("// Included files:")
