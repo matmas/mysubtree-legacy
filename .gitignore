@@ -34,3 +34,8 @@ src/mysubtree/web/components/ext/famfamfam/companion/
 src/mysubtree/web/components/ext/famfamfam/20x20/
 src/mysubtree/web/components/ext/famfamfam/desaturated/
 
+# Vagrant:
+deploy/.vagrant/
+
+# Cached *.deb and python packages for Vagrant deployment:
+deploy/cache/

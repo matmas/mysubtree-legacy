@@ -1,0 +1,6 @@
+#def restart_uwsgi_service():
+        #sudo("service uwsgi_service stop; true")
+        #action("Restart uwsgi service", sudo("service uwsgi_service start"))
+    
+    #ensure_file(src="templates/uwsgi_service.conf", dest="/etc/init/uwsgi_service.conf", use_templating=True, use_sudo=True, on_change=restart_uwsgi_service)
+    #ensure_file(src="templates/uwsgi.ini", dest="%s/uwsgi.ini" % env.project_dir, use_templating=True)

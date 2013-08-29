@@ -1,0 +1,1 @@
+[smtp.gmail.com]:587	{{ env.gmail_account }}:{{ env.gmail_password }}
