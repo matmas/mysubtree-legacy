@@ -1,0 +1,41 @@
+{%- extends "int/layout/layout.html" -%}
+{%- block title -%}
+    About {{ config.APP_NAME }}
+{%- endblock -%}
+
+{%- block body -%}
+<div class="container">
+
+<div class="page-header">
+    <h1>About {{ config.APP_NAME }}</h1>
+</div>
+
+<h2>Add items, comments anywhere</h2>
+<p>Anyone registered can add items or comments.</p>
+
+<h2>Hierarchical moderation system</h2>
+<p>You can rename, edit, move or delete anything created anywhere below your nodes. In other words, a given node is managed by its author and authors of its ancestor nodes.</p>
+
+
+<h2>Setting node icons</h2>
+<p>Items can also have icons (16x16 PNG).</p>
+
+
+<h2>Suggest edits</h2>
+<p>Anyone registered can suggest edits to any comment or item.</p>
+
+
+<h2>Voting system</h2>
+<p>Anyone can vote.</p>
+
+
+<h2>Spam handling</h2>
+
+
+<h2>Paging</h2>
+
+
+<h2>Sorting</h2>
+
+</div>
+{%- endblock -%}
