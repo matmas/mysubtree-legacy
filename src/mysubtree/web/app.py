@@ -4,14 +4,6 @@ from os.path import dirname
 from flask import Flask
 from mysubtree import config
 
-#class MysubtreeApp(Flask):
-    #def route(self, rule, **options):
-        #def decorator(f):
-            #route_dec = super(MysubtreeApp, self).route(rule, **options)
-            #print rule
-            #return route_dec(f)
-        #return decorator
-
 # create the application object
 app = Flask(__name__)
 
