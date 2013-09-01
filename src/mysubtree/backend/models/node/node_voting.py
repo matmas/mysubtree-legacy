@@ -1,6 +1,6 @@
 from datetime import timedelta
 from flask import request
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from sqlalchemy import desc
 from lib.time import utcnow
 from lib.error import Error

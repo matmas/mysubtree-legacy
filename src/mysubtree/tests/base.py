@@ -13,7 +13,7 @@ class Base(unittest.TestCase):
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI") or "postgresql:///test"
         #app.config["SQLALCHEMY_ECHO"] = True
         app.config['TESTING'] = True
-        app.config['CSRF_ENABLED'] = False
+        app.config['WTF_CSRF_ENABLED'] = False
         app.config['CACHE_TYPE'] = "simple"
         
         #app.wsgi_app = ProfilerMiddleware(app.wsgi_app, open("profiler.log", "w"))

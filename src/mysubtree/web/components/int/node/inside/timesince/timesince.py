@@ -1,4 +1,4 @@
-from flaskext.babel import format_date, gettext as _
+from flask.ext.babel import format_date, gettext as _
 from lib.html import Html
 from mysubtree.backend.models.node.types.all import get_model
 from mysubtree.web.templatefilters import timesince as timesince_filter, activity_level

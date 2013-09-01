@@ -4,7 +4,7 @@ from lib.flaskhelpers.default_url_args import url
 from mysubtree.backend import common
 from mysubtree.backend.node_ordering import correct_sort_type_of_subnodes, get_sort_types
 from mysubtree.web.o import compile_o
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 
 def sorting(node, nodelist, nodelists, level):
     o = compile_o(reversed(nodelists[:level])) if level >= 0 else None

@@ -1,6 +1,7 @@
 from urlparse import urlparse, urljoin
 from flask import request, redirect
-from flask_wtf import Form, HiddenField
+from flask_wtf import Form
+from wtforms.fields import HiddenField
 from mysubtree.web.app import app
 
 def set_trusted_netloc(netloc):

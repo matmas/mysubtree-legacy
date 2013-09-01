@@ -1,6 +1,6 @@
 #autoimport
 from flask import abort, request, Markup, make_response
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.num import num
 from mysubtree.backend import backend
 from mysubtree.web.app import app

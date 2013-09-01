@@ -2,8 +2,7 @@
 import logging
 import re
 from flask import request, redirect, Markup, make_response, abort, url_for, session
-from flaskext.babel import gettext as _
-from flask_debugtoolbar_lineprofilerpanel.profile import line_profile
+from flask.ext.babel import gettext as _
 from lib.flaskhelpers.default_url_args import url
 from lib.base57 import base_encode, base_decode
 from lib.num import num
@@ -64,7 +63,6 @@ def language_root(lang):
 @app.route("/<lang>/votes/<nid>",                           defaults={"nodetype": "votes"})
 @app.route("/<lang>/votes/<nid>/<type>",                    defaults={"nodetype": "votes"})
 
-@line_profile
 @cache.cached(timeout=60, unless=should_not_cache)
 def node(lang, nodetype, nid, type=None, slug=None, alias=None):
     if nodetype == "users":

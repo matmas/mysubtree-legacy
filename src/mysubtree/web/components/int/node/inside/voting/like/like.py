@@ -1,6 +1,6 @@
 from flask import Markup, url_for
 from lib.html import Html
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 
 def like(node, sort):
     html = Html()

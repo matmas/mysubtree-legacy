@@ -1,11 +1,11 @@
 #autoimport
 from flask import request, flash, redirect, jsonify, session, abort
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from flask_wtf import Form
 from lib.redirectback import RedirectForm, redirect_back
 from lib.error import Error
 from lib.base57 import base_decode
-from lib.wtforms.keepempty import KeepEmpty
+from lib.forms.keepempty import KeepEmpty
 from mysubtree.backend import backend
 from mysubtree.web.app import app
 from mysubtree.web.templating import render_template

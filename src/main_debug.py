@@ -31,7 +31,7 @@ if __name__ == "__main__":
         'flask_debugtoolbar.panels.logger.LoggingPanel',
         'flask_debugtoolbar.panels.profiler.ProfilerDebugPanel',
         # Add the line profiling
-        'flask_debugtoolbar_lineprofilerpanel.panels.LineProfilerPanel'
+        #'flask_debugtoolbar_lineprofilerpanel.panels.LineProfilerPanel'
     ]
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)

@@ -1,4 +1,4 @@
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.sqlalchemy.datatypes import JSON
 from mysubtree.backend import common
 from mysubtree.backend.live.live import on_node_move, on_node_update

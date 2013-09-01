@@ -2,14 +2,15 @@
 import logging
 from datetime import timedelta
 from flask import request, redirect, flash, url_for, g, jsonify, abort, Markup
-from flask_wtf import Form, fields, validators, ValidationError
-from flaskext.babel import gettext as _, ngettext
-from lib.wtforms.widgets import TextInput
+from flask_wtf import Form
+from wtforms import fields, validators, ValidationError
+from flask.ext.babel import gettext as _, ngettext
 from lib.time import utcnow
 from lib.error import Error
-from lib.wtforms.keepempty import KeepEmpty
 from lib.flood_protection import limit
-from lib.wtforms.validators import StrongPassword, NotEqualTo
+from lib.forms.widgets import TextInput
+from lib.forms.keepempty import KeepEmpty
+from lib.forms.validators import NotEqualTo
 from lib.redirectback import redirect_back, will_redirect_to_route
 from lib.remote_addr import remote_addr
 from mysubtree.db import db

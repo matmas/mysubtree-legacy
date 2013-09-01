@@ -1,6 +1,6 @@
-from flask_wtf import validators
-from flaskext.babel import gettext as _, ngettext
-from lib.wtforms.validators import StrongPassword
+from wtforms import validators
+from flask.ext.babel import gettext as _, ngettext
+from lib.forms.validators import StrongPassword
 
 def get_password_validators(): # for create account and reset password
     password_min_length = 8

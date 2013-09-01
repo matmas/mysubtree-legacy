@@ -1,6 +1,6 @@
 #autoimport
 from flask import request, flash, redirect, g, jsonify, abort, url_for
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from flask_wtf import Form
 from lib.redirectback import RedirectForm, redirect_back
 from lib.base57 import base_encode

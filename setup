@@ -57,6 +57,20 @@ function create_postgresql_user_and_db {
 	psql -c '\qecho test' test      >/dev/null 2>&1 || ( confirm "create db test"      && sudo -i -u postgres createdb test )
 }
 
+function pip_install {
+        local necessary_packages="$@"
+        to_install=""
+        for package in $necessary_packages; do
+                if [ -z "$(pip freeze | grep ^$package=)" ]; then
+                        to_install="$to_install $package"
+                fi
+        done
+        if [ "$to_install" ]; then
+                for package in $to_install; do
+                        pip install $to_install
+                done
+        fi
+}
 
 if [ -f /etc/arch-release ]; then
         distro="arch"
@@ -105,11 +119,6 @@ require compass       ""                                  "sudo gem install comp
 require coffee        "sudo npm install -g coffee-script" "sudo npm install -g coffee-script" # live server
 require uglifyjs      "sudo npm install -g uglify-js"     "sudo npm install -g uglify-js"
 
-
-# if [ ! -d "$HOME/.venv" ]; then
-#     virtualenv --python=python2.7 $HOME/.venv || virtualenv --python=python2.6 $HOME/.venv || exit 1
-# fi
-
 cd src/mysubtree/backend/live/live_server
 npm install
 cd $OLDPWD
@@ -124,6 +133,66 @@ if [[ $VIRTUAL_ENV ]]; then
     cd $OLDPWD
 fi
 ####################################################################
+
+
+# web framework
+pip_install Flask
+
+# wtforms
+pip_install Flask-WTF
+
+# for translated interface
+pip_install Flask-Babel
+
+# ORM
+pip_install Flask-SQLAlchemy
+
+# to determine image size
+pip_install PIL
+
+# to determine mimetype of images
+pip_install python-magic
+
+# to close HTML tags in teaser
+pip_install pytidylib
+
+# for making diffs
+pip_install diff-match-patch
+
+# for assetwatch
+pip_install watchdog
+
+# for tests
+pip_install coverage
+pip_install pyquery
+
+# to speedup JSON generation
+pip_install simplejson
+pip_install ujson
+
+# cracklib bindings
+pip_install cracklib
+
+# debug toolbar
+pip_install Flask-DebugToolbar
+pip_install Flask-DebugToolbar-LineProfilerPanel
+
+# database driver
+pip_install psycopg2
+
+# for caching
+pip_install Flask-Cache
+
+# memcached client
+pip_install pylibmc
+
+# for testing
+pip_install pyflakes
+
+# for production
+pip_install gunicorn
+
+
 # Currently not in use:
 
 

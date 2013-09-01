@@ -1,5 +1,5 @@
 #autoimport
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from mysubtree.db import db
 from ..node import Node
 

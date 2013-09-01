@@ -1,5 +1,5 @@
 from flask import Markup
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 
 class MarkdownEditorWidget():
     def __init__(self, preview_position="bottom", top_html="", bottom_html=""):

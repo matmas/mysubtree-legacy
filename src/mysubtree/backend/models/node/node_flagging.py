@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import request
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.error import Error
 from lib.remote_addr import remote_addr
 from mysubtree.db import db

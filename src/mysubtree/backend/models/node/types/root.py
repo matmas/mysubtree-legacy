@@ -1,5 +1,5 @@
 #autoimport
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.base57 import base_decode
 from mysubtree.backend import common
 from mysubtree.db import db

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import request, Markup
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.base57 import base_encode
 from lib.html import Html
 from lib.flaskhelpers.default_url_args import url

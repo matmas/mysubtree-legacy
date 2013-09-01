@@ -1,4 +1,4 @@
-from flask_wtf import widgets
+from wtforms import widgets
 from flask import Markup
 
 #class EmptyWidget():

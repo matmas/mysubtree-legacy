@@ -2,10 +2,10 @@
 from datetime import datetime
 from flask import request, flash, redirect, jsonify, json, make_response, g, abort
 from flask_wtf import Form
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib import utils
 from lib.error import Error
-from lib.wtforms.keepempty import KeepEmpty
+from lib.forms.keepempty import KeepEmpty
 from mysubtree.web.app import app
 from mysubtree.web.templating import render_template
 from mysubtree.backend import backend, common

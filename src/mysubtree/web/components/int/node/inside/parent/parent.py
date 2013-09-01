@@ -1,7 +1,7 @@
 from lib.html import Html
 from lib.base57 import base_encode
 from flask import Markup, url_for
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from mysubtree.web.templatefilters import content_gettext as __
 
 def parent(node, indicate_parent=False):

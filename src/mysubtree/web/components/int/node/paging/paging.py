@@ -1,5 +1,5 @@
 from flask import Markup, request
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.html import Html
 from lib.flaskhelpers.default_url_args import url
 from mysubtree.backend import common

@@ -2,7 +2,7 @@
 import logging
 from datetime import datetime, timedelta
 from flask import redirect, flash, url_for
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from mysubtree.web.app import app
 from mysubtree.db import db
 from mysubtree.backend.models.node.node import Node

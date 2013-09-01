@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from flaskext.babel import gettext as _, ngettext
+from flask.ext.babel import gettext as _, ngettext
 from lib.time import utcnow
 from lib.error import Error
 

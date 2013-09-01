@@ -1,9 +1,9 @@
 #autoimport
 from flask import Markup, escape, g
 from flask_wtf import fields, validators
-from flaskext.babel import gettext as _, ngettext
+from flask.ext.babel import gettext as _, ngettext
 from lib import utils
-from lib.wtforms import widgets
+from lib.forms import widgets
 from lib.error import Error
 from lib.markdown import markdown
 from ..node import Node

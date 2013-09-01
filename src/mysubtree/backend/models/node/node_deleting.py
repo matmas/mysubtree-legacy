@@ -1,4 +1,4 @@
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.error import Error
 from lib.time import utcnow
 from mysubtree.web.user import get_user, get_user_node

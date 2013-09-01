@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from ..node import Node
 from flask import Markup, url_for, g
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.base57 import base_encode
 from mysubtree.db import db
 from mysubtree.web.templatefilters import content_gettext as __

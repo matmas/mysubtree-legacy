@@ -1,10 +1,10 @@
 #autoimport
 from flask import request, flash
 from flask_wtf import Form
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.redirectback import RedirectForm, redirect_back
 from lib.error import Error
-from lib.wtforms.keepempty import KeepEmpty
+from lib.forms.keepempty import KeepEmpty
 from lib.remote_addr import remote_addr
 from mysubtree.backend import backend
 from mysubtree.backend.models.node.node_voting import you_like_it_already, no_like_to_undo

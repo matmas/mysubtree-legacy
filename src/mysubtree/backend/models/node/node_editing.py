@@ -1,6 +1,6 @@
 from copy import copy
 from flask import escape
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.time import utcnow
 from lib import utils
 from lib.error import Error

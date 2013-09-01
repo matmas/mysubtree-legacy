@@ -2,7 +2,7 @@
 from flask import g, request
 from .app import app
 
-from flaskext.babel import Babel
+from flask.ext.babel import Babel
 babel = Babel(app)
 
 def set_locale(locale):

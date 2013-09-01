@@ -1,6 +1,6 @@
 from urlparse import urlparse
 from flask import url_for, Markup
-from flaskext.babel import format_datetime, gettext as _
+from flask.ext.babel import format_datetime, gettext as _
 from lib.html import Html
 from mysubtree.web.templatefilters import activity_level, timesince
 from mysubtree.backend.models.node.types.all import get_model

@@ -1,4 +1,4 @@
-from flaskext.babel import format_datetime, gettext as _
+from flask.ext.babel import format_datetime, gettext as _
 from lib.html import Html
 
 def permalink(node):

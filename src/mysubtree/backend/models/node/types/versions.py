@@ -1,8 +1,8 @@
 #autoimport
 from flask import Markup
 from flask_wtf import fields, validators
-from flaskext.babel import gettext as _, ngettext
-from lib.wtforms import widgets
+from flask.ext.babel import gettext as _, ngettext
+from lib.forms import widgets
 from lib import utils
 from lib.markdown import markdown
 from mysubtree.db import db

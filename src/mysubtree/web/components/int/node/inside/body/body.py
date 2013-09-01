@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Markup, url_for, g
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.html import Html
 from .edit.edit import edit
 from .accept.accept import accept

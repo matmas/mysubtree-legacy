@@ -1,6 +1,6 @@
 #autoimport
 # -*- coding: utf-8 -*-
-from flaskext.babel import gettext as _, ngettext
+from flask.ext.babel import gettext as _, ngettext
 from lib.time import utcnow
 from mysubtree.web.app import app
 

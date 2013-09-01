@@ -1,5 +1,5 @@
 from datetime import datetime
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.error import Error
 from mysubtree.db import db
 from mysubtree.backend.live.live import on_node_insert

@@ -2,13 +2,14 @@
 from base64 import b64encode
 import magic
 from flask import request, flash, redirect, jsonify, make_response, g, abort
-from flaskext.babel import gettext as _
-from flask_wtf import Form, fields, validators
+from flask.ext.babel import gettext as _
+from flask_wtf import Form
+from wtforms import fields, validators
 from lib.json import json
 from lib.redirectback import RedirectForm, redirect_back
-from lib.wtforms.validators import FileRequired, ImageSize, FileExtension
 from lib.error import Error
-from lib.wtforms.keepempty import KeepEmpty
+from lib.forms.validators import FileRequired, ImageSize, FileExtension
+from lib.forms.keepempty import KeepEmpty
 from mysubtree.web.app import app
 from mysubtree.web.templating import render_template
 from mysubtree.backend import backend

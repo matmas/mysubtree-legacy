@@ -1,10 +1,10 @@
 #autoimport
 from flask import request, flash, redirect, g, jsonify, abort
 from flask_wtf import Form
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.redirectback import RedirectForm, redirect_back
 from lib.error import Error
-from lib.wtforms.keepempty import KeepEmpty
+from lib.forms.keepempty import KeepEmpty
 from mysubtree.backend import backend
 from mysubtree.backend.models.node.node_flagging import you_already_sent_the_feedback, you_already_undid_your_feedback
 from mysubtree.web.app import app

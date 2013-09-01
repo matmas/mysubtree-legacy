@@ -1,5 +1,5 @@
 from flask import Markup, url_for
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from mysubtree.backend import common
 from mysubtree.backend.models.node.types.all import get_model
 from lib.html import Html

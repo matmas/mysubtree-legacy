@@ -1,9 +1,10 @@
 #autoimport
 from datetime import timedelta
 from flask import request, redirect, flash, url_for
-from flaskext.babel import gettext as _
-from flask_wtf import Form, fields, validators
-from lib.wtforms.widgets import TextInput
+from flask.ext.babel import gettext as _
+from flask_wtf import Form
+from wtforms import fields, validators
+from lib.forms.widgets import TextInput
 from lib.time import utcnow
 from lib.error import Error
 from lib.flood_protection import limit

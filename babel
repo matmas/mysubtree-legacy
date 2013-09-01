@@ -1,7 +1,6 @@
 #!/bin/bash
 POEDITOR="vim"
 
-. $HOME/.venv/bin/activate
 DIR=src/mysubtree/web/translations
 pybabel extract -F $DIR/babel.cfg -o $DIR/messages.pot src/ \
   && pybabel update -i $DIR/messages.pot -d $DIR \

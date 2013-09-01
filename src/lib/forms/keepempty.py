@@ -1,6 +1,6 @@
-from flask_wtf import fields, validators
+from wtforms import fields, validators
 from flask import Markup
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 
 def KeepEmpty():
     return fields.HiddenField(_("Keep empty"), [_must_be_empty_validator], widget=_keep_empty_widget)

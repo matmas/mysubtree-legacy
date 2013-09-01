@@ -1,9 +1,9 @@
 #autoimport
 import logging
 from flask import request, flash, url_for, g, Markup, jsonify
-from flask_wtf import fields, validators
-from flaskext.babel import gettext as _
-from lib.wtforms.widgets import TextInput
+from flask.ext.babel import gettext as _
+from wtforms import fields, validators
+from lib.forms.widgets import TextInput
 from lib.redirectback import RedirectForm, redirect_back
 from lib.error import Error
 from mysubtree.backend.models.user import User

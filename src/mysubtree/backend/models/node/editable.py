@@ -1,10 +1,10 @@
 #autoimport
 from flask import Markup
-from flask_wtf import fields, validators
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
+from wtforms import fields, validators
 from tidylib import tidy_document
-#from lib.wtforms.widgets import TextArea
-from lib.wtforms import widgets
+#from lib.forms.widgets import TextArea
+from lib.forms import widgets
 from lib import utils
 from lib.markdown import markdown
 from .node import Node

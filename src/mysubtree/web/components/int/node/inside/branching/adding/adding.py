@@ -1,5 +1,5 @@
 from flask import Markup, url_for, session
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib.html import Html
 from lib.base57 import base_decode
 from lib.flaskhelpers.default_url_args import url

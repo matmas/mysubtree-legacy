@@ -1,6 +1,6 @@
 #autoimport
 from flask import Markup
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from lib import utils
 from mysubtree.backend import common
 from mysubtree.db import db

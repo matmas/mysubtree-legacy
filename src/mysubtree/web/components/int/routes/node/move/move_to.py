@@ -2,7 +2,7 @@
 import urllib2
 from urlparse import urlparse
 from flask import request, redirect, url_for, flash, abort, session, jsonify
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from flask_wtf import Form, fields
 from lib.redirectback import RedirectForm, redirect_back
 from lib.base57 import base_decode

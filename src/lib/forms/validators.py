@@ -1,6 +1,6 @@
 from flask import request
-from flask_wtf import validators
-from flaskext.babel import gettext as _
+from wtforms import validators
+from flask.ext.babel import gettext as _
 from PIL import Image
 
 #class RequiredWithoutAsterisk:

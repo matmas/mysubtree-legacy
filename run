@@ -17,7 +17,7 @@ PATH="$PATH:$HOME/.gem/ruby/$ruby_version/bin/"
 . run-servers
 
 if [[ -z $VIRTUAL_ENV ]]; then
-    VIRTUAL_ENV="$HOME/.venv"
+    VIRTUAL_ENV="venv"
 fi
 
 $VIRTUAL_ENV/bin/python src/main_debug.py 127.0.0.1
