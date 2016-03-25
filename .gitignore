@@ -39,3 +39,6 @@ deploy/.vagrant/
 
 # Cached *.deb and python packages for Vagrant deployment:
 deploy/cache/
+
+# Track virtualenv name in a file:
+.env
