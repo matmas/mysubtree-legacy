@@ -42,3 +42,6 @@ deploy/cache/
 
 # Track virtualenv name in a file:
 .env
+
+# PyCharm project files:
+.idea
