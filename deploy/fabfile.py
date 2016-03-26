@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import fabric
 from fabric.api import task, run, env, sudo, parallel, put, cd, local, prefix, execute, require
@@ -78,8 +79,12 @@ fabric.state.output.update({"stdout": False, "running": False}) # disable verbos
 
 @task
 def staging():
-    env.hosts = ["vagrant@127.0.0.1:2222"]
-    env.key_filename = "~/.vagrant.d/insecure_private_key"
+    result = local('vagrant ssh-config', capture=True)
+    hostname = re.findall(r'HostName\s+([^\n]+)', result)[0]
+    port = re.findall(r'Port\s+([^\n]+)', result)[0]
+    env.hosts = ['%s:%s' % (hostname, port)]
+    env.user = re.findall(r'User\s+([^\n]+)', result)[0]
+    env.key_filename = re.findall(r'IdentityFile\s+([^\n]+)', result)[0]
     env.pip_download_cache = "/vagrant/cache/pip"
     
 @task
