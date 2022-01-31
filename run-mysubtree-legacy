@@ -1,0 +1,2 @@
+#!/bin/bash
+PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin/" python src/main_debug.py 127.0.0.1

@@ -52,7 +52,7 @@ if __name__ == "__main__":
     
     #enable_codegenerator()
     
-    enable_live()
+    #enable_live()
     
     run_assetwatch()
     
