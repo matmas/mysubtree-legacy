@@ -2,6 +2,7 @@
 from urlparse import urlparse, urlunparse
 from .app import app
 
+
 @app.after_request
 def after_request(response):
     

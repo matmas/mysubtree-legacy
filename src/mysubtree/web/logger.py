@@ -2,6 +2,7 @@ import logging
 from flask import request
 from lib.remote_addr import remote_addr
 
+
 class VisitorLoggingFilter(logging.Filter):
     def filter(self, record):
         record.remote_addr = remote_addr()

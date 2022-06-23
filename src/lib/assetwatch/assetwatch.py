@@ -1,11 +1,13 @@
 import os
-from os.path import dirname, abspath, relpath
+from os.path import dirname, abspath
 import sys
 if __name__ == "__main__":
     src_dir = dirname(dirname(dirname(abspath(__file__))))
     sys.path.append(src_dir)
+
 #===============================================================================
-from flask import url_for
+
+from flask import url_for, Markup
 from lib import process
 from assetobserver import assetobserver, get_registers
 
@@ -23,21 +25,23 @@ if __name__ == "__main__":
 
 _SUBDIR = "generated"
 
+
 def run(assets_dir, public_dir, http_path, debug=True):
     public_dir += "/%s" % _SUBDIR
     http_path += "/%s" % _SUBDIR
     process.run_in_background([sys.executable, __file__, assets_dir, public_dir, http_path, "development" if debug else "production"])
+
 
 def run_once(assets_dir, public_dir, http_path, debug=False):
     public_dir += "/%s" % _SUBDIR
     http_path += "/%s" % _SUBDIR
     get_registers(assets_dir, public_dir, http_path, "development" if debug else "production")
 
-from flask import Markup
 
 def stylesheet_tag(debug=False, public_dir=None):
     stylesheet_url = url_for("static", filename="%s/output_css/combined_screen.css" % _SUBDIR)
     return Markup('<link type="text/css" rel="stylesheet" href="%s" />' % stylesheet_url)
+
 
 def javascript_tag(debug=False, public_dir=None):
     tags = []

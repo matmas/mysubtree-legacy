@@ -31,13 +31,4 @@ app.logger.addHandler(mail_handler)
 
 app.config["EMAIL_ADDRESS"] = "noreply@mysubtree.org"
 
-application = app # must be named application because of WSGI
-
-if __name__ == "__main__":
-    from tornado.wsgi import WSGIContainer
-    from tornado.httpserver import HTTPServer
-    from tornado.ioloop import IOLoop
-    
-    http_server = HTTPServer(WSGIContainer(app))
-    http_server.listen(5000)
-    IOLoop.instance().start()
+application = app  # must be named application because of WSGI

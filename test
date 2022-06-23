@@ -1,10 +1,4 @@
 #!/bin/bash
-. run-servers
-
-if [[ -z $VIRTUAL_ENV ]]; then
-    VIRTUAL_ENV="venv"
-fi
-
-$VIRTUAL_ENV/bin/python src/main_testing.py $@
-#$VIRTUAL_ENV/bin/coverage run --source=src/mysubtree src/main_testing.py $@
-#$VIRTUAL_ENV/bin/coverage html
+python src/main_testing.py $@
+#coverage run --source=src/mysubtree src/main_testing.py $@
+#coverage html

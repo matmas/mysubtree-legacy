@@ -1,6 +1,7 @@
 import doctest
 from pyquery import PyQuery as pq
 
+
 def preprocess(html):
     """
     >>> html = 'Hello world, <span id="visitor" class="part">visitor</span> <span id="logout" class="part">logout</span>'
@@ -29,6 +30,7 @@ def preprocess(html):
     end = pq(part).end
     
     return metadata
-    
+
+
 if __name__ == "__main__":
     doctest.testmod()

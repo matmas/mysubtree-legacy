@@ -9,6 +9,7 @@ from fabric.colors import green, yellow, blue
 import cuisine
 from contextlib import contextmanager
 
+
 def action(name, result=None):
     print "[%s]" % env.host_string,
     
@@ -29,10 +30,12 @@ def action(name, result=None):
 # Directories:
 #-------------------------------------------------------------------------------
 
+
 def ensure_dir(path, **kwargs):
     is_changed = _ensure_dir(path, **kwargs)
     action("Create directory %s" % blue(path), is_changed)
-    
+
+
 def _ensure_dir(path, owner=None, mode=None, use_sudo=False):
     run_or_sudo = sudo if use_sudo else run
     is_changed = False
@@ -54,9 +57,11 @@ def _ensure_dir(path, owner=None, mode=None, use_sudo=False):
     
     return is_changed
 
+
 #-------------------------------------------------------------------------------
 # Files:
 #-------------------------------------------------------------------------------
+
 
 def ensure_files(files, src_dir, dest_dir, **kwargs):
     for file in files:
@@ -66,12 +71,14 @@ def ensure_files(files, src_dir, dest_dir, **kwargs):
             **kwargs
         )
 
+
 def ensure_file(src, dest, on_change=None, **kwargs):
     is_changed = _ensure_file(src, dest, **kwargs)
     action("Put file %s" % blue(dest), is_changed)
     
     if is_changed and on_change:
         on_change()
+
 
 def _ensure_file(src, dest, owner=None, group=None, mode=None, use_templating=False, use_sudo=False, **kwargs):
     run_or_sudo = sudo if use_sudo else run

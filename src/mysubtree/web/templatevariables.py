@@ -10,9 +10,9 @@ from mysubtree.web.components.int.user.user import user as user_component
 
 app.jinja_env.globals["enumerate"] = enumerate
 app.jinja_env.globals["common"] = common
-app.jinja_env.globals["user"] = user # breadcrumb, account
-app.jinja_env.globals["user_component"] = user_component # account
-app.jinja_env.globals["base_encode"] = base_encode # e.g. in breadcrumb
+app.jinja_env.globals["user"] = user  # breadcrumb, account
+app.jinja_env.globals["user_component"] = user_component  # account
+app.jinja_env.globals["base_encode"] = base_encode  # e.g. in breadcrumb
 app.jinja_env.globals["get_model"] = get_model
 app.jinja_env.globals["Form"] = Form
 app.jinja_env.globals["get_back_url"] = get_back_url

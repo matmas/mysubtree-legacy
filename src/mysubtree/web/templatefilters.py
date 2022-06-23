@@ -4,6 +4,7 @@ from flask.ext.babel import gettext as _, ngettext
 from lib.time import utcnow
 from mysubtree.web.app import app
 
+
 @app.template_filter()
 def timesince(dt, default=None, coarse=False, prefix=""):
     """
@@ -78,6 +79,7 @@ def activity_level(dt):
         if period:
             return level
     return periods[-1][-1] # now
+
 
 @app.template_filter("__")
 def content_gettext(input):

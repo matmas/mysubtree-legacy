@@ -15,14 +15,10 @@ Prerequisites: ::
 
 """
 
-import os
-import random
-import sys
-
-import Image
-import ImageDraw
+from PIL import Image, ImageDraw
 
 T = TRANSPARENT = -1
+
 
 class Visicon(object):
     """
@@ -41,6 +37,7 @@ class Visicon(object):
     """
     resize = 0
     min_size = 24
+
     def __init__(self, hash, size=24, background=0xffffff):
         """
         Visicon.__init__(self, hash, size=24) -> Visicon

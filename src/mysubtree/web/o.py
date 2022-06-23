@@ -15,6 +15,7 @@ ABBR_TO_SORT = {
 
 SORT_TO_ABBR = dict((v, k) for k, v in ABBR_TO_SORT.iteritems())
 
+
 def parse_o(string, max_length=MAX_LENGTH):
     """
     >>> parse_o("")

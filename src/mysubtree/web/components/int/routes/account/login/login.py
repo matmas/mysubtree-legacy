@@ -43,8 +43,7 @@ def login(lang):
                     if user.has_email_verified():
                         logger.info("login ok")
                     else:
-                        pass
-                        #raise Error(_("The e-mail address is not yet verified."))
+                        raise Error(_("The e-mail address is not yet verified."))
                 else:
                     raise Error(_("The password you provided is incorrect."))
             else:

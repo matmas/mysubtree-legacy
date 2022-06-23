@@ -30,8 +30,6 @@ if __name__ == "__main__":
         'flask_debugtoolbar.panels.sqlalchemy.SQLAlchemyDebugPanel',
         'flask_debugtoolbar.panels.logger.LoggingPanel',
         'flask_debugtoolbar.panels.profiler.ProfilerDebugPanel',
-        # Add the line profiling
-        #'flask_debugtoolbar_lineprofilerpanel.panels.LineProfilerPanel'
     ]
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
@@ -62,5 +60,5 @@ if __name__ == "__main__":
     except IndexError:
         host = "127.0.0.1"
     app.run(host=host, debug=True,
-        extra_files=get_files_recursively(directory=".", suffix=".html") # restart server on .html files changes to ensure all templates referencing each other are found
+        extra_files=get_files_recursively(directory=".", suffix=".html")  # restart server on .html files changes to ensure all templates referencing each other are found
     )

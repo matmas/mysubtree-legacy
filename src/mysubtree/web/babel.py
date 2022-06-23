@@ -5,16 +5,19 @@ from .app import app
 from flask.ext.babel import Babel
 babel = Babel(app)
 
+
 def set_locale(locale):
     if getattr(g, "_get_locale_called", None):
         raise Exception("set_locale must be called before any use of gettext functions or never")
     g.locale = locale
 
+
 def get_browser_locale():
     locale = request.accept_languages.best_match(["sk", "sk-sk", "en"])
-    if locale == "sk-sk": # iPhone sends sk-sk
+    if locale == "sk-sk":  # iPhone sends sk-sk
         locale = "sk"
     return locale 
+
 
 @babel.localeselector
 def _get_locale():
@@ -23,6 +26,7 @@ def _get_locale():
     if not locale:
         locale = request.args.get("lang")
     return locale
+
 
 #TODO:
 #@babel.timezoneselector

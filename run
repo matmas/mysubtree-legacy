@@ -1,23 +1,4 @@
 #!/bin/bash
-if [ -f /etc/arch-release ]; then 
-    distro="arch" 
-elif [ -f /etc/lsb-release ]; then 
-    distro="ubuntu" 
-else 
-    echo "Unexpected distro"; exit 1 
-fi
+PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin/"
 
-if [ "$distro" == "arch" ]; then
-    ruby_version="2.0.0"
-elif [ "$distro" == "ubuntu" ]; then
-    ruby_version="1.8"
-fi
-PATH="$PATH:$HOME/.gem/ruby/$ruby_version/bin/"
-
-. run-servers
-
-if [[ -z $VIRTUAL_ENV ]]; then
-    VIRTUAL_ENV="venv"
-fi
-
-$VIRTUAL_ENV/bin/python src/main_debug.py 127.0.0.1
+python src/main_debug.py 127.0.0.1

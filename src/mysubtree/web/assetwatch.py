@@ -10,6 +10,7 @@ http_path = "/static"
 app.jinja_env.globals["stylesheet_tag"] = lambda: assetwatch.stylesheet_tag()
 app.jinja_env.globals["javascript_tag"] = lambda: assetwatch.javascript_tag()
 
+
 def run_assetwatch():
     app.jinja_env.globals["stylesheet_tag"] = lambda: assetwatch.stylesheet_tag(debug=True, public_dir=public_dir)
     app.jinja_env.globals["javascript_tag"] = lambda: assetwatch.javascript_tag(debug=True, public_dir=public_dir)

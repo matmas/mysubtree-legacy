@@ -22,6 +22,7 @@ http://code.activestate.com/recipes/577016-path-entire-split-commonprefix/
 """
 import os.path
 
+
 def isplit(path):
     "Generator splitting a path"
     dirname, basename = os.path.split(path)
@@ -36,6 +37,7 @@ def isplit(path):
         # return tail
         yield basename
 
+
 def join(iterable):
     """Join iterable's items as a path string
 
@@ -46,7 +48,8 @@ def join(iterable):
     if not items:
         return ''
     return os.path.join(*items)
-    
+
+
 def split(path):
     """Return the folder list of the given path
 
@@ -54,6 +57,7 @@ def split(path):
     ('a', 'b')
     """
     return tuple(isplit(path))
+
 
 def commonprefix(*paths):
     """Return the common prefix path of the given paths
@@ -69,6 +73,7 @@ def commonprefix(*paths):
         if c != p2[i]:
             return join(p1[:i])
     return join(p1)
+
 
 if __name__ == '__main__':
     import doctest

@@ -5,7 +5,7 @@ from mysubtree.tests.longbreadcrumb import LongBreadcrumb
 from mysubtree.tests.adding import Adding
 from mysubtree.tests.renaming import Renaming
 from mysubtree.tests.unread_notifications import UnreadNotifications
-from mysubtree.tests.moving import Moving #TODO: test log entries
+from mysubtree.tests.moving import Moving  #TODO: test log entries
 from mysubtree.tests.cycles import Cycles
 from mysubtree.tests.decrementer import Decrementer
 from mysubtree.tests.voting import Voting
@@ -23,5 +23,6 @@ from mysubtree.tests.flagging import Flagging
 #TODO: test sorting
 
 import unittest
+
 if __name__ == '__main__':
     unittest.main()

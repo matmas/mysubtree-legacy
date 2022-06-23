@@ -1,6 +1,7 @@
 virtualenv = "/home/matmas/.venv"
 debug = True
 
+
 def activate_enviroment():
     activate_this = virtualenv + "/bin/activate_this.py"
     execfile(activate_this, dict(__file__=activate_this))
@@ -12,4 +13,4 @@ def activate_enviroment():
     class DummyStdin():
         def close(self):
             pass
-    sys.stdin = DummyStdin() # multiprocessing wants to close it what mod_wsgi does not allow
+    sys.stdin = DummyStdin()  # multiprocessing wants to close it and mod_wsgi does not allow that

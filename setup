@@ -15,24 +15,6 @@ function confirm {
 	fi
 }
 
-function require_python_packages {
-        local necessary_packages="$@"
-	pipfreeze=$(pip freeze)
-        to_install=""
-        for package in $necessary_packages; do
-                if [ -z "`echo \"$pipfreeze\" | grep ^$package=`" ]; then
-                        to_install="$to_install $package"
-                fi
-        done
-        if [ "$to_install" ]; then
-		for package in $to_install; do
-			install_command="pip install $package"
-			confirm "$install_command"
-			$install_command || exit 1
-		done
-        fi
-}
-
 function require {
 	local command="$1"
 	local arch="$2"
@@ -56,153 +38,36 @@ function create_postgresql_user_and_db {
 	psql -c '\qecho test' mysubtree >/dev/null 2>&1 || ( confirm "create db mysubtree" && sudo -i -u postgres createdb mysubtree )
 	psql -c '\qecho test' test      >/dev/null 2>&1 || ( confirm "create db test"      && sudo -i -u postgres createdb test )
 }
-
-function pip_install {
-        local necessary_packages="$@"
-        to_install=""
-        for package in $necessary_packages; do
-                if [ -z "$(pip freeze | grep ^$package=)" ]; then
-                        to_install="$to_install $package"
-                fi
-        done
-        if [ "$to_install" ]; then
-                for package in $to_install; do
-                        pip install $to_install
-                done
-        fi
-}
-
-if [ -f /etc/arch-release ]; then
-        distro="arch"
-elif [ -f /etc/lsb-release ]; then
-        distro="ubuntu"
-else
-        echo "Unexpected distro"; exit 1
-fi
-####################################################################
-####################################################################
 ####################################################################
 
-if [ "$distro" == "arch" ]; then
-	ruby_version="2.0.0"
-elif [ "$distro" == "ubuntu" ]; then
-	ruby_version="1.8"
-fi
-RUBY_PATH="$HOME/.gem/ruby/$ruby_version/bin"
+RUBY_PATH="$HOME/.local/share/gem/ruby/3.0.0/bin"
 PATH="$PATH:$RUBY_PATH"
 
-# Arch Linux
-# Ubuntu Server  10.04 Lucid
-require pg_config     "sudo pacman -S postgresql"        "sudo aptitude install postgresql"
-require pg_buildext   ""                                 "sudo aptitude install postgresql-server-dev-all"
+require pg_config     "sudo pacman -S postgresql"
+require memcached     "sudo pacman -S memcached"
 
-require memcached     "sudo pacman -S memcached"          "sudo aptitude install memcached" 
-. run-servers
+create_postgresql_user_and_db
 
-if [ "$distro" == "arch" ]; then
-    create_postgresql_user_and_db
-fi
+require python-config "sudo pacman -S python"
+require tidy          "sudo pacman -S tidyhtml"
+require virtualenv    "sudo pacman -S python-virtualenv"
+require npm           "sudo pacman -S nodejs"
+require gem           "sudo pacman -S rubygems"
+require /usr/include/libmemcached/memcached.h "sudo pacman -S libmemcached"
+require $RUBY_PATH/compass "gem install compass"
+require coffee        "sudo npm install -g coffee-script"
+require uglifyjs      "sudo npm install -g uglify-js"
 
-require python-config "sudo pacman -S python"             "sudo aptitude install python-dev"
-require tidy          "sudo pacman -S tidyhtml"           "sudo aptitude install tidy"
-require virtualenv    "sudo pacman -S python-virtualenv"  "sudo aptitude install python-virtualenv"
-require npm           "sudo pacman -S nodejs"             "sudo aptitude install nodejs npm"
-require gem           "sudo pacman -S ruby"               "sudo aptitude install rubygems" 
-require /usr/include/libmemcached/memcached.h "sudo pacman -S libmemcached" "sudo aptitude install libmemcached-dev" 
-
-require xml2-config   ""                                  "sudo aptitude install libxml2-dev" # pyquery dependency
-require xslt-config   ""                                  "sudo aptitude install libxslt1-dev" # pyquery dependency
-
-require nginx         ""                                  "sudo aptitude install nginx"
-require $RUBY_PATH/compass "gem install compass"          ""
-require compass       ""                                  "sudo gem install compass --no-ri --no-rdoc"
-require coffee        "sudo npm install -g coffee-script" "sudo npm install -g coffee-script" # live server
-require uglifyjs      "sudo npm install -g uglify-js"     "sudo npm install -g uglify-js"
-
-cd src/mysubtree/backend/live/live_server
+pushd src/mysubtree/backend/live/live_server
 npm install
-cd $OLDPWD
+popd
 
-cd src/mysubtree/web/components/ext/famfamfam
+pushd src/mysubtree/web/components/ext/famfamfam
 ./install.sh
-cd $OLDPWD
+popd
 
 if [[ $VIRTUAL_ENV ]]; then
-    cd src
+    pushd src
     python main_assetwatch.py
-    cd $OLDPWD
+    popd
 fi
-####################################################################
-
-
-# web framework
-pip_install Flask
-
-# wtforms
-pip_install Flask-WTF
-
-# for translated interface
-pip_install Flask-Babel
-
-# ORM
-pip_install Flask-SQLAlchemy
-
-# to determine image size
-pip_install PIL
-
-# to determine mimetype of images
-pip_install python-magic
-
-# to close HTML tags in teaser
-pip_install pytidylib
-
-# for making diffs
-pip_install diff-match-patch
-
-# for assetwatch
-pip_install watchdog
-
-# for tests
-pip_install coverage
-pip_install pyquery
-
-# to speedup JSON generation
-pip_install simplejson
-pip_install ujson
-
-# cracklib bindings
-pip_install cracklib
-
-# debug toolbar
-pip_install Flask-DebugToolbar
-pip_install Flask-DebugToolbar-LineProfilerPanel
-
-# database driver
-pip_install psycopg2
-
-# for caching
-pip_install Flask-Cache
-
-# memcached client
-pip_install pylibmc
-
-# for testing
-pip_install pyflakes
-
-# for production
-pip_install gunicorn
-
-
-# Currently not in use:
-
-
-
-
-
-#  gem install compass-rmagick-engine
-#  `: pyinotify    : watchdog dependency`\
-#pip install translitcodec
-#pip install pyprof2calltree
-#pip install profilestats
-#gem install rb-inotify
-#gem install oily_png

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-#httperf...
-#ab -c 10 -n 100 http://127.0.0.1:5000/sk/root/items
-ab -c 10 -n 100 http://127.0.0.1:5000/sk/branches/56E-56F/gwegwe/comments?o=nnn#56F
