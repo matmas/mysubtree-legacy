@@ -2,6 +2,7 @@ import re
 import sys
 from os.path import exists, dirname, relpath, isfile, basename
 
+
 class DependencyResolver:
     
     def __init__(self, assets_dir, public_dir, environment, possible_extensions):

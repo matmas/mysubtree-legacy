@@ -7,6 +7,7 @@ from lib.base57 import base_encode
 from mysubtree.db import db
 from mysubtree.web.templatefilters import content_gettext as __
 
+
 class LogEntries(Node):
 
     __mapper_args__ = {"polymorphic_identity": "log-entries"}

@@ -1,5 +1,6 @@
 import re
 
+
 def dash_to_camelcase(value, lower=False):
     def camelcase(str):
         yield str.lower if lower else str.capitalize # first word
@@ -7,6 +8,7 @@ def dash_to_camelcase(value, lower=False):
             yield str.capitalize
     c = camelcase(type(value))
     return "".join(c.next()(x) if x else '-' for x in value.split("-"))
+
 
 #http://stackoverflow.com/a/1176023
 first_cap_re = re.compile('(.)([A-Z][a-z]+)')

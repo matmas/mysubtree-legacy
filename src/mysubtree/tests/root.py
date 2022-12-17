@@ -1,5 +1,6 @@
 from .base import Base
 
+
 class Root(Base):
     def runTest(self):
         rv = self.client.get("/languages/en", follow_redirects=True)

@@ -14,8 +14,10 @@ def enable_live():
     _live_enabled = True
     _ensure_server_running_and_connect_to_it(_client)
 
+
 def _run_server():
     process.run_in_background(["/usr/bin/env", "coffee", "%s/live_server/live_server.coffee" % os.path.dirname(__file__)])
+
 
 def _ensure_server_running_and_connect_to_it(client):
     _run_server()
@@ -25,6 +27,7 @@ def _ensure_server_running_and_connect_to_it(client):
         time.sleep(0.1) # 100ms
     if not client.connected:
         raise Exception("Could not start live server")
+
 
 def send(text):
     if not _client.connected:
@@ -36,6 +39,7 @@ def send(text):
         _client.send(text)
 
 #===============================================================================
+
 
 from mysubtree.web.app import app
 
@@ -59,6 +63,7 @@ def after_request(response):
     return response
 
 #===============================================================================
+
 
 def on_node_insert(node):
     record = {
@@ -84,14 +89,18 @@ def on_notifications(user):
     if user not in g.notifications:
         g.notifications.append(base_encode(user))
 
+
 def on_new_response(user):
     on_notifications(user)
+
 
 def on_seeing_response(user):
     on_notifications(user)
     
+
 def on_problematic_num_change(user_or_moderator):
     on_notifications(user_or_moderator)
+
 
 def on_node_move(node):
     nid = node.nid()

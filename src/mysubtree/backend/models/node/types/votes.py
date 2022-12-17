@@ -3,6 +3,7 @@ from flask.ext.babel import gettext as _
 from mysubtree.db import db
 from ..node import Node
 
+
 class Votes(Node):
     
     __mapper_args__ = {"polymorphic_identity": "votes"}

@@ -1,5 +1,6 @@
 from lib.camelcase import dash_to_camelcase
 
+
 class ComponentNode():
     def __init__(self, element):
         self.parent = None

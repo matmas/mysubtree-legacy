@@ -2,6 +2,7 @@
 from mysubtree.db import db
 from mysubtree.backend.models.node.node import Node
 
+
 class Moderator(db.Model):
     nodes = db.relationship(Node, backref=db.backref("moderators", cascade="all, delete-orphan"))
     node_id = db.Column(db.Integer(), db.ForeignKey('node.id'), primary_key=True, autoincrement=False)

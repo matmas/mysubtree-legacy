@@ -6,10 +6,12 @@ from mysubtree.db import db, get_trash_id
 from .types.all import get_all_types
 from .node_unread import NodeUnread
 
+
 def additional_fields():
     possible_branching_types = get_all_types()
     for type in possible_branching_types:
         setattr(NodeHierarchy, "count_of_%s" % type, db.Column(db.Integer(), default=0))
+
 
 class NodeHierarchy(NodeUnread):
     
@@ -267,8 +269,7 @@ class NodeHierarchy(NodeUnread):
         })
         for node in backend.get_children(parent=self.id):
             node.set_moderators(self._moderators_for_subnodes(node.user))
-    
-    
+
     def propagate_path_rebuild_if_needed(self):
         from mysubtree.backend.models.moderator import Moderator
         from mysubtree.backend import backend
@@ -284,8 +285,7 @@ class NodeHierarchy(NodeUnread):
             for node in backend.get_children(parent=self.id):
                 node.set_moderators(self._moderators_for_subnodes(node.user))
             self.propagate_path_rebuild = False
-        
-    
+
     def invalidate_short_name_and_slug_in_path(self, target=None):
         from mysubtree.backend import backend
         if not target:
@@ -306,5 +306,6 @@ class NodeHierarchy(NodeUnread):
         if self.propagate_slug_and_short_name_rebuild:
             backend.get_children(parent=self.id).update({"propagate_slug_and_short_name_rebuild": True, "path": self._path_for_subnodes()})
             self.propagate_slug_and_short_name_rebuild = False
+
 
 additional_fields()

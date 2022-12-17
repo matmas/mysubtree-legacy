@@ -1,6 +1,7 @@
 from sqlalchemy.types import TypeDecorator, TEXT
 from lib.json import json
 
+
 class JSON(TypeDecorator):
     """Represents an immutable structure as a json-encoded string.
 

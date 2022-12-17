@@ -9,6 +9,7 @@ from mysubtree.web.components.int.node.node import node_list
 from mysubtree.web.babel import set_locale
 from mysubtree.web.user import get_user_node
 
+
 @app.route("/<lang>/problematic")
 def problematic(lang):
     set_locale(lang)
@@ -17,7 +18,7 @@ def problematic(lang):
         "indicate_parent": _("under"),
         "hide_branching": True
     })
-    if request.is_xhr: # AJAX
+    if request.is_xhr:  # AJAX
         return make_response(unicode(nodes_html))
     nodes_html = Markup(nodes_html)
     return render_template("int/routes/node/nodelist/nodelist.html", lang=lang, name=_("problematic"), nodes_html=nodes_html)

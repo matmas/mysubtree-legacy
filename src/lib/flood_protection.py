@@ -6,6 +6,7 @@ from lib.error import Error
 _request_times = {}
 _request_counts = {}
 
+
 def limit(what, num_requests=1, num_seconds=60):
     """Raises Error when called more than num_requests times in num_seconds seconds.
     what -- typically IP address
@@ -21,6 +22,7 @@ def limit(what, num_requests=1, num_seconds=60):
     else:
         _request_times[what] = utcnow()
         _request_counts[what] = 1
+
 
 def _cleanup():
     for what, time in _request_times.items():

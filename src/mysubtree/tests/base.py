@@ -7,6 +7,7 @@ from pyquery import PyQuery as pq
 from mysubtree.web.app import app
 from mysubtree.db import db, autoimport_and_init_db
 
+
 class Base(unittest.TestCase):
 
     def setUp(self):

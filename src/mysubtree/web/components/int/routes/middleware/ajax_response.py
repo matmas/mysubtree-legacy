@@ -1,10 +1,12 @@
 from flask import request, g, jsonify, make_response, json
 from mysubtree.web.app import app
 
+
 @app.before_request
 def before_request():
     g.is_iframe = request.form.get("X-Requested-With") == "IFrame"
     g.is_ajax = request.is_xhr or g.is_iframe
+
 
 def ajax_response(route):
     def wrapper(**kwargs):

@@ -7,6 +7,7 @@ from registers.sassregister import SassRegister
 from registers.imageregister import ImageRegister
 from registers.scriptregister import ScriptRegister
 
+
 class EventHandler(FileSystemEventHandler):
     def __init__(self, registers):
         FileSystemEventHandler.__init__(self)
@@ -33,6 +34,7 @@ class EventHandler(FileSystemEventHandler):
                 if extension(event.dest_path) in register.recognized_extensions():
                     register.new_file_detected(event.dest_path)
 
+
 def get_registers(assets_dir, public_dir, http_path, environment):
     imageregister = ImageRegister(assets_dir, public_dir, http_path, environment)
     sassregister = SassRegister(assets_dir, public_dir, http_path, environment, imageregister)
@@ -42,6 +44,7 @@ def get_registers(assets_dir, public_dir, http_path, environment):
         sassregister,
         scriptregister,
     ]
+
 
 def assetobserver(assets_dir, public_dir, http_path, environment):
     observer = Observer()

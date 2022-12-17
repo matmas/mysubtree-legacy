@@ -14,10 +14,12 @@ def _after_attach(session, instance):
     if callable(after_attach_hook):
         after_attach_hook()
 listen(db.session.__class__, "after_attach", _after_attach)
+
 #=== <model>.before_commit() ====================================================
 def _before_commit(session):
     session._commited_instances = session.dirty
 listen(db.session.__class__, "before_commit", _before_commit)
+
 #=== <model>.after_commit() ====================================================
 def _after_commit(session):
     for instance in session._commited_instances:
@@ -29,12 +31,14 @@ listen(db.session.__class__, "after_commit", _after_commit)
 
 #===============================================================================
 
+
 def autoimport_and_init_db():
     for module in autoimport_modules(__file__, __package__):
         __import__(module)
     db.create_all()
     _ensure_initial_data()
-    
+
+
 def _ensure_initial_data():
     from mysubtree.backend import backend
     from mysubtree.backend.models.node.types.all import get_model
@@ -71,6 +75,7 @@ def _ensure_initial_data():
         
         db.session.commit()
 
+
 _en_root_id = base_decode("en")
 _sk_root_id = base_decode("sk")
 
@@ -84,12 +89,15 @@ _basic_nodes = [
 #def get_lang():
     #return app.config["LANGUAGES"][request.host.split(":")[0]]
 
+
 def get_root_id(lang):
     return base_decode(lang)
     #return [node for node in _basic_nodes if node["lang"] == lang and node["type"] == "root"][0]["id"]
 
+
 def get_trash_id(lang):
     return [node for node in _basic_nodes if node["lang"] == lang and node["type"] == "trash"][0]["id"]
+
 
 #def _get_languages():
     #return [node["lang"] for node in _basic_nodes if node["type"] == "root"]

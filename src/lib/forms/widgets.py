@@ -5,16 +5,18 @@ from flask import Markup
     #def __call__(self, field):
         #return ""
 
+
 class TextInput(widgets.TextInput):
     def __init__(self, type="text", **kwargs):
         super(TextInput, self).__init__()
         self.kwargs = kwargs
-        self.input_type = type # https://groups.google.com/d/msg/wtforms/8xt6dI5jd48/22GMCbt8wjYJ
+        self.input_type = type  # https://groups.google.com/d/msg/wtforms/8xt6dI5jd48/22GMCbt8wjYJ
     
     def __call__(self, field, **kwargs):
         kwargs.update(self.kwargs)
         return super(TextInput, self).__call__(field, **kwargs)
-    
+
+
 class TextArea(widgets.TextArea):
     def __init__(self, **kwargs):
         super(TextArea, self).__init__()
@@ -23,6 +25,7 @@ class TextArea(widgets.TextArea):
     def __call__(self, field, **kwargs):
         kwargs.update(self.kwargs)
         return super(TextArea, self).__call__(field, **kwargs)
+
 
 class WikiareaWidget():
     def __init__(self, preview_position="bottom", top_html="", bottom_html=""):
@@ -62,6 +65,7 @@ class WikiareaWidget():
         </script>
         """ % {"top": top, "bottom": bottom, "name": field.name, "id": field.name, "data": field.data})
 
+
 class TagAutocompleteWidget():
     def __call__(self, field):
         return Markup("""
@@ -73,6 +77,7 @@ class TagAutocompleteWidget():
             });
         </script>
         """ % {"name": field.name, "id": field.name})
+
 
 class SelectWidget():
     def __call__(self, field, ul_class='', **kwargs):

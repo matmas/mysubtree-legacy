@@ -4,6 +4,7 @@ from lib.time import utcnow
 from mysubtree.web.user import get_user, get_user_node
 from mysubtree.db import db, get_trash_id
 
+
 class NodeDeleting:
     
     previous_location = db.Column(db.Integer())

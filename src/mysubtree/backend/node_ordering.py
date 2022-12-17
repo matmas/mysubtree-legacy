@@ -3,8 +3,9 @@ from flask import request
 from mysubtree.backend import common
 from mysubtree.backend.models.node.types.all import get_model
 
-all_sort_types = ["newest", "1day", "1week", "1month", "1year", "alltime"] #, "activity"] # disabled activity for now until there is a non-confusing way to present it to the users
+all_sort_types = ["newest", "1day", "1week", "1month", "1year", "alltime"]  #, "activity"] # disabled activity for now until there is a non-confusing way to present it to the users
 default_sort_type = "newest"
+
 
 def get_sort_types(node, branching_type):
     node_count = node.count(branching_type)
@@ -29,11 +30,13 @@ def get_sort_types(node, branching_type):
         #sort_types.remove("activity")
     
     return sort_types
-    
+
+
 def correct_sort_type_of_subnodes(sort, node, branching_type):
     if sort not in get_sort_types(node, branching_type):
         return default_sort_type
     return sort
+
 
 def correct_sort_type(sort):
     if sort not in all_sort_types:

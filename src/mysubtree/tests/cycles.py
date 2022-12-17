@@ -1,5 +1,6 @@
 from .base import Base
 
+
 class Cycles(Base):
     def runTest(self):
         self.register_test_user("1")

@@ -2,6 +2,7 @@ from pyquery import PyQuery as pq
 from lib import time
 from .base import Base
 
+
 class Decrementer(Base):
     
     def get_stats(self, nid, type, nids, sort_type):

@@ -12,6 +12,7 @@ from mysubtree.web.babel import set_locale
 from mysubtree.backend import backend
 from mysubtree.web.user import get_user_node
 
+
 @app.route("/delete/<nid>", methods=["GET", "POST"])
 def delete(nid):
     node = backend.get_node_from(nid)

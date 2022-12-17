@@ -3,6 +3,7 @@ from lib.error import Error
 from mysubtree.web.user import get_user, get_user_node
 from mysubtree.db import db
 
+
 class NodeIcon:
     
     icon = db.Column(db.String(65536))

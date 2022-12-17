@@ -11,6 +11,7 @@ from mysubtree.web.templating import render_template
 from mysubtree.db import db
 from mysubtree.web.babel import set_locale
 
+
 @app.route("/accept/<nid>", methods=["GET", "POST"])
 def accept(nid):
     node = backend.get_node_from(nid)

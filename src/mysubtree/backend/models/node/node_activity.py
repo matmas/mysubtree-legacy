@@ -6,9 +6,11 @@ from mysubtree.web.user import get_user_node
 from mysubtree.backend.live.live import on_node_update
 from mysubtree.backend.models.node.types.all import get_all_types
 
+
 def additional_fields():
     for type in get_all_types():
         setattr(NodeActivity, "activity_%s" % type, db.Column(db.DateTime()))
+
 
 class NodeActivity:
     
@@ -26,6 +28,7 @@ class NodeActivity:
         
         branching_type = self.type
         now = utcnow()
+
         def update_activity(id, type, branching_type):
             activity_type = "activity_%s" % branching_type
             on_node_update(id)
@@ -52,5 +55,6 @@ class NodeActivity:
     
     def get_activity(self, branching_type):
         return self.get("activity_%s" % branching_type)
+
 
 additional_fields()

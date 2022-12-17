@@ -10,6 +10,7 @@ from dependencies.dependencies import DependencyResolver
 from script import coffeescript
 from script.uglifyjs import uglifyjs
 
+
 def sizeof_fmt(num):
     #http://stackoverflow.com/questions/1094841/reusable-library-to-get-human-readable-version-of-file-size
     for x in ['bytes','KB','MB','GB']:
@@ -77,8 +78,8 @@ class ScriptRegister(Register):
         if self.environment == "production":
             output_file = self.public_dir + "/combined.js"
             
-            header = "" # TODO: use "(function () {"
-            footer = "" #           "})();"
+            header = ""  # TODO: use "(function () {"
+            footer = ""  #           "})();"
             
             output = []
             output.append("// Included files:")

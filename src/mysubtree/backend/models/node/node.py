@@ -23,6 +23,7 @@ from .node_icon import NodeIcon
 from .node_accepting import NodeAccepting
 from .node_adding import NodeAdding
 
+
 def additional_ddl():
     if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgresql"):
         ddl = DDL("ALTER SEQUENCE %(table)s_id_seq MINVALUE 10001 START 10001 RESTART 10001;")
@@ -36,6 +37,7 @@ def additional_ddl():
         #db.session.add(node)
         #db.session.flush()
         #db.session.delete(node)
+
 
 class Node(db.Model, NodeVoting, NodeActivity, NodeHierarchy, NodeFlagging, NodeDeleting, NodeRenaming, NodeEditing, NodeMoving, NodeIcon, NodeAccepting, NodeAdding):
 

@@ -9,6 +9,7 @@ from lib import utils
 from lib.markdown import markdown
 from .node import Node
 
+
 class Editable(Node):
     
     @staticmethod

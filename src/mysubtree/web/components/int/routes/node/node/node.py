@@ -76,7 +76,7 @@ def node(lang, nodetype, nid, type=None, slug=None, alias=None):
     if nodetype != "users":
         if not request.is_xhr: # not AJAX
             if node.slug() != slug or node.lang and node.lang != lang:
-                return redirect(url("node", nodetype=node.type, lang=node.lang, nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=request.args.get("o"))) #, code=301
+                return redirect(url("node", nodetype=node.type, lang=node.lang, nid=node.nid(), slug=node.slug(), type=type, sort=sort, o=request.args.get("o")))  #, code=301
         
     backend.getting_nodes_below(node)
     if type:

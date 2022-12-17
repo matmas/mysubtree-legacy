@@ -5,8 +5,10 @@ import unicodedata
 from flask import flash
 from mysubtree.web.app import app
 
+
 def ascii(string):
     return unicodedata.normalize('NFKD', string).encode('ascii', 'ignore')
+
 
 def send_email(email, subject, body):
     #body = ascii(body)

@@ -5,6 +5,7 @@ from mysubtree.backend import common
 from mysubtree.db import db
 from ..node import Node
 
+
 class Root(Node):
 
     __mapper_args__ = {"polymorphic_identity": "root"}

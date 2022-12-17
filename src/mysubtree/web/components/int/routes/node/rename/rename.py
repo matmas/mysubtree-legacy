@@ -13,10 +13,12 @@ from mysubtree.web.templating import render_template
 from mysubtree.web.babel import set_locale
 from mysubtree.backend import backend
 
+
 @app.route("/rename/<nid>", methods=["GET", "POST"])
 def rename(nid):
     node = backend.get_node_from(nid)
     set_locale(node.lang)
+
     class RenameForm(RedirectForm):
         name = fields.TextField("", [
             validators.Required(message=_("This field is required.")),
@@ -28,21 +30,21 @@ def rename(nid):
     if request.method == "GET":
         form["name"].data = node.name # prefill form default value:
         return render_template("int/routes/node/action.html", action="rename", action_name=_("rename"), node=node, lang=node.lang, form=form)
-    else: # POST
+    else:  # POST
         try:
             if not form.validate():
                 raise Error(_("Form did not have all fields filled correctly."))
             if node.rename(form.name.data):
                 db.session.commit()
-                if request.is_xhr: # AJAX
+                if request.is_xhr:  # AJAX
                     return jsonify({"refresh": {"nid": node.nid(), "highlight": True}})
                 flash(_("Renamed successfully."), category="info")
             else:
-                if request.is_xhr: # AJAX
+                if request.is_xhr:  # AJAX
                     return jsonify({"refresh": {"nid": node.nid()}})
             return redirect_back(node.url())
         except Error as error:
-            if request.is_xhr: # AJAX
+            if request.is_xhr:  # AJAX
                 return jsonify(error=unicode(error))
             else:
                 flash(unicode(error), category="error")

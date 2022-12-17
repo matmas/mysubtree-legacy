@@ -4,6 +4,7 @@ from flask.ext.babel import gettext as _
 from mysubtree.backend import common
 from ..node import Node
 
+
 class Trash(Node):
 
     __mapper_args__ = {"polymorphic_identity": "trash"}

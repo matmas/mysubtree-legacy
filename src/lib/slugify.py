@@ -1,6 +1,7 @@
 import unicodedata
 import re
 
+
 # From tipfy & slightly modified for speed
 def slugify(value, max_length=40, default=None):
     """Converts a string to slug format (all lowercase, words separated by
@@ -22,7 +23,7 @@ def slugify(value, max_length=40, default=None):
         value = value.decode('utf8')
 
     s = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').lower()
-    #s = value.encode('translit/long') #TODO: change to this
+    #s = value.encode('translit/long')  #TODO: change to this
     s = re.sub('-+', '-', re.sub('[^a-zA-Z0-9-]+', '-', s)).strip('-')
     if not s:
         return default

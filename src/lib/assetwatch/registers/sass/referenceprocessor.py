@@ -1,5 +1,6 @@
 from os.path import dirname, exists, isfile
 
+
 class ReferenceProcessor:
     def __init__(self, assets_dir, public_dir, http_path, environment, imageregister):
         self.assets_dir = assets_dir
@@ -10,7 +11,7 @@ class ReferenceProcessor:
         self.file_references = {}
 
     def match_to_filename(self, match):
-        return match.group(1) # may be overriden
+        return match.group(1)  # may be overridden
         
     def process(self, filedata, file):
         previous_references = self.file_references.get(file, [])
@@ -36,7 +37,7 @@ class ReferenceProcessor:
         for removed_reference in (reference for reference in previous_references if reference not in added_references):
             self.imageregister.remove_referenced_file(removed_reference)
         self.file_references[file] = added_references
-        if added_references: # nonempty
+        if added_references:  # nonempty
             some_replacements_made = True
         else:
             some_replacements_made = False

@@ -25,6 +25,7 @@ from .. import password_validators
 
 logger = logging.getLogger("web")
 
+
 @app.route("/<lang>/create-account", methods=["GET", "POST"])
 def create_account(lang):
     set_locale(lang)

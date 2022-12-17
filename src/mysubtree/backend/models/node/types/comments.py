@@ -10,6 +10,7 @@ from lib.markdown import markdown
 from mysubtree.db import db
 from ..editable import Editable
 
+
 class Comments(Editable):
     
     __mapper_args__ = {"polymorphic_identity": "comments"}
@@ -52,4 +53,3 @@ class Comments(Editable):
     @staticmethod
     def branching():
         return ["comments", "edit-suggestions", "versions", "log-entries", "votes"]
-    

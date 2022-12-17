@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from .base import Base
 
+
 class Flagging(Base):
     
     def vote_as(self, ip_address, type, nid, undo=False):

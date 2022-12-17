@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from .base import Base
 
+
 class UnreadNotifications(Base):
     def get_num_unread(self, html):
         try:

@@ -1,5 +1,6 @@
 import os
 
+
 def get_files_recursively(directory=".", suffix=""):
     all_files = []
     for dirname, dirs, files in os.walk(directory):

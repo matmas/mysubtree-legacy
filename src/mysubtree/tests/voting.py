@@ -3,6 +3,7 @@ from pyquery import PyQuery as pq
 from lib import time
 from .base import Base
 
+
 class Voting(Base):
     def runTest(self):
         #--- User 1 ------------------------------------------------------------

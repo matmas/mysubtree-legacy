@@ -9,6 +9,7 @@ from lib.markdown import markdown
 from ..node import Node
 from mysubtree.backend import backend
 
+
 class EditSuggestions(Node):
 
     __mapper_args__ = {"polymorphic_identity": "edit-suggestions"}

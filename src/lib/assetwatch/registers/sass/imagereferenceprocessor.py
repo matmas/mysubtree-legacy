@@ -3,6 +3,7 @@ from os.path import relpath
 from referenceprocessor import ReferenceProcessor
 from ..imageregister import image_extensions
 
+
 class ImageReferenceProcessor(ReferenceProcessor):
     """
     url(relative/path/image.png); -> url(/public/path/image.png);

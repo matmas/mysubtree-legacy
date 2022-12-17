@@ -3,6 +3,7 @@ from mysubtree.db import db
 from mysubtree.backend.live.live import on_new_response, on_seeing_response
 from mysubtree.backend.models.user import User
 
+
 class NodeUnread:
     
     unread = db.Column(db.Boolean())
@@ -23,6 +24,7 @@ class NodeUnread:
 
     def is_just_being_read(self):
         return getattr(self, "_is_just_being_read", False)
+
 
 def reading_nodes(nodes, user):
     from mysubtree.backend.models.node.node import Node

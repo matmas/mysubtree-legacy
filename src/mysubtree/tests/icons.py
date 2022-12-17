@@ -2,6 +2,7 @@ from StringIO import StringIO
 from base64 import b64decode
 from .base import Base
 
+
 class Icons(Base):
     def runTest(self):
         self.register_test_user("1")

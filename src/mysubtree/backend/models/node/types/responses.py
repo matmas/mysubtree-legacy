@@ -1,5 +1,6 @@
 from ..node import Node
 
+
 class Responses(Node):
     
     __mapper_args__ = {"polymorphic_identity": "responses"}

@@ -9,11 +9,14 @@ from mysubtree.backend.models.flag import Flag
 from mysubtree.backend.models.user import User
 from mysubtree.web.user import get_user_node
 
+
 def you_already_sent_the_feedback():
     return _("You already sent the feedback.")
 
+
 def you_already_undid_your_feedback():
     return _("You already undid your feedback.")
+
 
 class NodeFlagging: # NOTE: tightly coupled with NodeVoting
     
@@ -130,4 +133,3 @@ class NodeFlagging: # NOTE: tightly coupled with NodeVoting
                 User.query.filter_by(node=moderator).update({User.num_problematic: User.num_problematic + change})
                 propagated_moderators.add(moderator)
                 live.on_problematic_num_change(moderator)
-    

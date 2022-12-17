@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from .base import Base
 
+
 class Editing(Base):
     
     def edit(self, nid, new_body, version):

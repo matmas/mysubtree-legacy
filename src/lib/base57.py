@@ -2,6 +2,7 @@
 BASE_LIST = "23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ" # no 1lI0O because they may look identical when printed
 BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
 
+
 def base_decode(string, reverse_base=BASE_DICT):
     if string is None:
         return None
@@ -12,6 +13,7 @@ def base_decode(string, reverse_base=BASE_DICT):
         ret += (length ** i) * reverse_base[c]
 
     return ret
+
 
 def base_encode(integer, base=BASE_LIST):
     if integer is None:

@@ -18,7 +18,7 @@ class NodeEditing:
         pass
     
     def is_editable(self):
-        return False # may be overriden
+        return False  # may be overridden
     
     def is_allowed_empty_body(self):
         return False
@@ -90,8 +90,7 @@ class NodeEditing:
                 node.move_to(self)
             version_node.log("_(accepted edit)"); _("accepted edit")
         return True
-    
-    
+
     def _update_body(self, new_body, new_version):
         def update_body(node):
             old_node = copy(node)
@@ -114,7 +113,6 @@ class NodeEditing:
                 raise Error(_("Meanwhile the content has changed, so the update was not possible."))
         
         self.change("body", new_body, custom_update_function=update_body)
-    
     
     def _ensure_last_version(self):
         from .types.versions import Versions

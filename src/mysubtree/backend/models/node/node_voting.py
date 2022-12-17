@@ -12,11 +12,14 @@ from mysubtree.backend.live.live import on_node_update
 from mysubtree.db import db
 from mysubtree.web.user import get_user, get_user_node
 
+
 def you_like_it_already():
     return _("You like it already.")
 
+
 def no_like_to_undo():
     return _("No like to undo.")
+
 
 def additional_fields():
     for type in get_all_types():
@@ -25,6 +28,7 @@ def additional_fields():
         setattr(NodeVoting, "votes_sum_%s_m" % type, db.Column(db.Integer(), default=0))
         setattr(NodeVoting, "votes_sum_%s_y" % type, db.Column(db.Integer(), default=0))
         setattr(NodeVoting, "votes_sum_%s_a" % type, db.Column(db.Integer(), default=0))
+
 
 class NodeVoting:
     
@@ -196,5 +200,6 @@ class NodeVoting:
     def _get_last_vote_node(self, ipaddress):
         from .types.votes import Votes
         return Votes.query.filter_by(parent=self.id, ipaddress=ipaddress).order_by(desc("created")).first()
+
 
 additional_fields()

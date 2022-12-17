@@ -2,6 +2,7 @@ from lib.check_output import check_output
 from subprocess import CalledProcessError
 import subprocess
 
+
 def convert_to_javascript(filename):
     coffee_with_args = ["coffee", "--print", "--compile", "--bare", filename]
     try:

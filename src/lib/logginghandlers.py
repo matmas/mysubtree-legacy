@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from logging import LogRecord, CRITICAL
 from lib.time import utcnow
 
+
 class CarefulSMTPHandler(SMTPHandler):
     def __init__(self, *args, **kwargs):
         SMTPHandler.__init__(self, *args, **kwargs)

@@ -6,6 +6,7 @@ from lib.base57 import base_encode
 from mysubtree.backend import common
 from mysubtree.backend.models.node.types.all import get_model
 
+
 def user(user_, username, nick, lang):
     html = Html()
     if user_:

@@ -9,6 +9,7 @@ from mysubtree.db import db
 from mysubtree.backend.models.node.types.all import get_model
 from ..node import Node
 
+
 class Versions(Node):
     
     __mapper_args__ = {"polymorphic_identity": "versions"}
@@ -40,4 +41,3 @@ class Versions(Node):
     @staticmethod
     def is_auxiliary():
         return True
-    

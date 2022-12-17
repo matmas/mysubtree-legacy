@@ -4,6 +4,7 @@ import sys
 
 image_extensions = (".png", ".gif", ".jpg")
 
+
 class ImageRegister(CloneRegister):
 
     def recognized_extensions(self):
@@ -52,4 +53,3 @@ class ImageRegister(CloneRegister):
 
     def file_not_found(self, file):
         print >> sys.stderr, '[warn] image not found: %s' % relpath(start=self.assets_dir, path=file)
-

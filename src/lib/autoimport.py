@@ -1,5 +1,6 @@
 import os
 
+
 def autoimport_modules(current_file, current_package, first_line_trigger="#autoimport"):
     """
     Example:

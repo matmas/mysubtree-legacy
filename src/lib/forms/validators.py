@@ -3,11 +3,13 @@ from wtforms import validators
 from flask.ext.babel import gettext as _
 from PIL import Image
 
+
 #class RequiredWithoutAsterisk:
     #def __init__(self, message):
         #self.message = message
     #def __call__(self, form, field):
         #return validators.Required(message=self.message)(form, field)
+
 
 class FileRequired:
     def __call__(self, form, field):
@@ -16,6 +18,7 @@ class FileRequired:
                 raise validators.StopValidation(message=_("This field is required."))
         else:
             return validators.Required(message=_("This field is required."))(form, field)
+
 
 class ImageSize:
     def __init__(self, width, height):
@@ -31,6 +34,7 @@ class ImageSize:
             except IOError:
                 raise validators.StopValidation(_("Error occured while examining image file."))
 
+
 class FileExtension:
     def __init__(self, extension):
         self.extension = extension
@@ -42,6 +46,7 @@ class FileExtension:
             extension = filename.rsplit('.', 1)[1]
             if extension != self.extension:
                 raise validators.StopValidation(_("File extension %(e1)s is not allowed. Allowed extension is %(e2)s.", e1=extension, e2=self.extension))
+
 
 class StrongPassword:
     def __call__(self, form, field):
@@ -73,6 +78,7 @@ class StrongPassword:
         except ImportError:
             pass
         
+
 class NotEqualTo:
     def __init__(self, fieldname, message):
         self.fieldname = fieldname

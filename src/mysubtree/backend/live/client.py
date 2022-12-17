@@ -3,6 +3,7 @@ import socket
 import sys
 import re
 
+
 class Client():
     def __init__(self, host, port):
         self.host = host
@@ -16,7 +17,7 @@ class Client():
             self.sock.connect((self.host, self.port))
             self.connected = True
         except socket.error, error:
-            if error.errno == 111: # Connection refused, server not running
+            if error.errno == 111:  # Connection refused, server not running
                 self.connected = False
             else:
                 raise error
@@ -26,7 +27,7 @@ class Client():
         self.sock.sendall("%d\n%s" % (len(input), input.encode('utf-8')))
         buffer_len = 40960
         buffer = self.sock.recv(buffer_len)
-        if len(buffer) == 0: # connection to server lost
+        if len(buffer) == 0:  # connection to server lost
             self.connected = False
             raise ConnectionLostException()
 
@@ -41,6 +42,7 @@ class Client():
     
     def close(self):
         self.sock.close()
+
 
 class ConnectionLostException(Exception):
     pass

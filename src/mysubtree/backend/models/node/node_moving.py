@@ -2,6 +2,7 @@ from flask.ext.babel import gettext as _
 from lib.error import Error
 from mysubtree.web.user import get_user, get_user_node
 
+
 class NodeMoving:
     def __init__(self):
         pass

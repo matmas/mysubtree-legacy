@@ -9,6 +9,7 @@ from ..editable import Editable
 from .root import Root
 from .responses import Responses
 
+
 class Users(Editable):
     
     __mapper_args__ = {"polymorphic_identity": "users"}

@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from .base import Base
 
+
 class Deleting(Base):
     def runTest(self):
         self.register_test_user("1")

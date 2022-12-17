@@ -6,6 +6,7 @@ from diff_match_patch import diff_match_patch
 from .shortname import short_name
 from .slugify import slugify
 
+
 def random_word(length):
     """
     Returns random alphanumeric string of length word_length.
@@ -70,7 +71,7 @@ def get_html_diff(old_text, new_text):
     'version1<ins> version1</ins>'
     """
     old = old_text.split(" ")
-    new =  new_text.split(" ")
+    new = new_text.split(" ")
     s = SequenceMatcher(lambda whitespace: whitespace in " \t\r\n", old, new)
     diff = ""
     for tag, o1, o2, n1, n2 in s.get_opcodes():
@@ -83,6 +84,7 @@ def get_html_diff(old_text, new_text):
         if tag == "replace":
             diff = diff + '<del>%s</del><ins>%s</ins> ' % (" ".join(old[o1:o2]), " ".join(new[n1:n2]))
     return diff[:-1]
+
 
 if __name__ == "__main__":
     import doctest

@@ -30,6 +30,7 @@ class Error(Exception):
     def __eq__(self, other):
         return self.value == other.value
 
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()

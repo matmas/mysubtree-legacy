@@ -9,6 +9,7 @@ from dependencies.dependencies import DependencyResolver
 import subprocess
 from sass.sassprocessor import SassProcessor
 
+
 class SassRegister(CloneRegister):
 
     def recognized_extensions(self):

@@ -1,5 +1,6 @@
 from .base import Base
 
+
 class LongBreadcrumb(Base):
     def runTest(self):
         self.register_test_user("1")

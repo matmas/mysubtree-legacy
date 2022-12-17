@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from .base import Base
 
+
 class O(Base):
     
     def runTest(self):

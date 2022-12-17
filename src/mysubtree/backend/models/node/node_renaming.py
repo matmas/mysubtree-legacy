@@ -5,6 +5,7 @@ from mysubtree.web.user import get_user, get_user_node
 
 _("renamed")
 
+
 class NodeRenaming:
     def __init__(self):
         pass
@@ -34,4 +35,3 @@ class NodeRenaming:
             self.log("_(renamed)", from_name=old_name, to_name=self.name)
             return True
         return False
-    

@@ -4,8 +4,6 @@ from flask_wtf import Form
 from wtforms.fields import HiddenField
 from mysubtree.web.app import app
 
-def set_trusted_netloc(netloc):
-    g.trusted_netloc = netloc
 
 def _is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -19,6 +17,7 @@ def get_back_url():
         if target and _is_safe_url(target):
             return target
 
+
 class RedirectForm(Form):
     next = HiddenField()
     
@@ -26,6 +25,7 @@ class RedirectForm(Form):
         Form.__init__(self, *args, **kwargs)
         if not self.next.data:
             self.next.data = get_back_url() or ''
+
 
 def redirect_back(target):
     back_url = get_back_url()

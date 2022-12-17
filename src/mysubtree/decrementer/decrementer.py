@@ -39,6 +39,7 @@ def decrement_if_needed():
             }
         ) # db.session.delete(decrement) does not work for some reason
 
+
 def start_decrementing():
     process.exit_if_another_instance("mysubtree_decrementer")
     print("Decrementer running...")
@@ -50,9 +51,11 @@ def start_decrementing():
     except KeyboardInterrupt:
         sys.exit()
 
+
 if __name__ == "__main__":
     app.config["SQLALCHEMY_DATABASE_URI"] = sys.argv[1]
     start_decrementing()
+
 
 def run_decrementer():
     process.run_in_background([sys.executable, __file__, app.config["SQLALCHEMY_DATABASE_URI"]])

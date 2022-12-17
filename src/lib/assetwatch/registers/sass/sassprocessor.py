@@ -1,6 +1,7 @@
 from imagereferenceprocessor import ImageReferenceProcessor
 from spritereferenceprocessor import SpriteReferenceProcessor
 
+
 class SassProcessor:
 
     def __init__(self, assets_dir, public_dir, http_path, environment, imageregister):
